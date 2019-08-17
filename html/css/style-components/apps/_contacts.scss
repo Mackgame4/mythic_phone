@@ -1,0 +1,190 @@
+// Color
+@import "../../components/color-variables";
+
+#contacts-container {
+    background: #ffffff;
+
+    .inner-app {
+        .add-contact {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background: color("materialize-red", "darken-4");
+            color: #ffffff;
+            font-weight: bold;
+
+            i {
+                margin-left: 10px;
+            }
+
+            &:hover {
+                transition: all ease-in 0.15s;
+                background: color("materialize-red", "darken-2");
+            }
+        }
+
+        .contacts-list {
+            height: 86.4%;
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            .contact {
+                border-bottom: 1px solid #3f3f3f;
+                min-height: 50px;
+                display: block;
+
+                .contact-avatar {
+                    font-size: 20px;
+                    float: left;
+                    line-height: 35px;
+                    margin-left: 10px;
+                    margin-right: 10px;
+                    margin-top: 10px;
+                    height: 35px;
+                    width: 35px;
+                    -moz-border-radius: 70px;
+                    -webkit-border-radius: 70px;
+                    border-radius: 70px;
+                    text-align: center;
+                    color: #ffffff;
+                    position: relative;
+                    top: 15%;
+                    transform: translate(0%, 0%);
+
+                    &.a {
+                        background: color("materialize-red", "darken-1");
+                    }
+                    &.b {
+                        background: color("materialize-red", "darken-2");
+                    }
+                    &.c {
+                        background: color("materialize-red", "darken-3");
+                    }
+                    &.d {
+                        background: color("materialize-red", "darken-4");
+                    }
+                    &.e {
+                        background: color("pink", "darken-1");
+                    }
+                    &.f {
+                        background: color("pink", "darken-2");
+                    }
+                    &.g {
+                        background: color("pink", "darken-3");
+                    }
+                    &.h {
+                        background: color("pink", "darken-4");
+                    }
+                    &.i {
+                        background: color("purple", "darken-1");
+                    }
+                    &.j {
+                        background: color("purple", "darken-2");
+                    }
+                    &.k {
+                        background: color("purple", "darken-3");
+                    }
+                    &.l {
+                        background: color("purple", "darken-4");
+                    }
+                    &.m {
+                        background: color("deep-purple", "darken-1");
+                    }
+                    &.n {
+                        background: color("deep-purple", "darken-2");
+                    }
+                    &.o {
+                        background: color("deep-purple", "darken-3");
+                    }
+                    &.p {
+                        background: color("deep-purple", "darken-4");
+                    }
+                    &.q {
+                        background: color("indigo", "darken-1");
+                    }
+                    &.r {
+                        background: color("indigo", "darken-2");
+                    }
+                    &.s {
+                        background: color("indigo", "darken-3");
+                    }
+                    &.t {
+                        background: color("indigo", "darken-4");
+                    }
+                    &.u {
+                        background: color("blue", "darken-1");
+                    }
+                    &.v {
+                        background: color("blue", "darken-2");
+                    }
+                    &.w {
+                        background: color("blue", "darken-3");
+                    }
+                    &.x {
+                        background: color("blue", "darken-4");
+                    }
+                    &.y {
+                        background: color("yellow", "darken-1");
+                    }
+                    &.z {
+                        background: color("yellow", "darken-2");
+                    }
+                }
+
+                .contact-name {
+                    line-height: 50px;
+
+                    .number {
+                        color: #1a1a1a;
+                        font-weight: bold;
+                        float: right;
+                        padding-right: 20px;
+                    }
+                }
+
+                &:hover {
+                    transition: all ease-in 0.15s;
+                    background: #e9e9e9;
+                }
+
+                .contact-actions {
+                    z-index: 998;
+                    padding: 10px;
+                    background: #ffffff;
+                    border: 1px solid #e9e9e9;
+                    display: none;
+
+                    i {
+                        width: 32.3%;
+                        text-align: center;
+                        font-size: 25px;
+                    
+                        &:hover {
+                            transition: all ease-in 0.15s;
+                            color: color("materialize-red", "darken-4");
+                        }
+
+                        &.action-disabled {
+                            color: #3f3f3f !important;
+    
+                            &:hover {
+                                color: #3f3f3f !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .search-contact {
+            border-top: 1px solid #6f6f6f;
+
+            input {
+                height: 5%;
+                width: 100%;
+                padding: 10px;
+                margin: 0;
+            }
+        }
+    }
+}

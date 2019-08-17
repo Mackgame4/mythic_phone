@@ -1,0 +1,194 @@
+// Color
+@import "../components/color-variables";
+
+.wrapper {
+    height: 100vh;
+    width: 100vw;
+    //display: none;
+
+    .phone-wrapper {
+        position: absolute;
+        bottom: 0vh;
+        right: 0vh;
+        width: 500px;
+        height: 1000px;
+        background-size: cover;
+
+        .phone-img {
+            background-image: url(../imgs/s8.png);
+            position: absolute;
+            z-index: 999;
+            width: 500px;
+            height: 1000px;
+            pointer-events: none;
+        }
+
+        .phone-alerts {
+            z-index: 1000;
+            width: 100%;
+            position: absolute;
+            margin-top: 24%;
+
+            .phone-alert {
+                padding: 10px;
+                background: #000000;
+                color: #ffffff;
+                width: 75%;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 5px;
+            }
+        }
+
+        .phone {
+            overflow: hidden;
+            position: absolute;
+            background-color: white;
+            bottom: 98px;
+            left: 50px;
+            right: 49px;
+            top: 100px;
+            display: flex;
+
+            .phone-header {
+                height: 24px;
+                font-size: 12px;
+                line-height: 24px;
+                padding: 0px 20px 0px 24px;
+                width: 100%;
+                color: white;
+                background-color: rgba(0, 0, 0, 1);
+                position: absolute;
+                z-index: 99;
+
+                hr {
+                    position: absolute;
+                    display: inline-block;
+                }
+
+                .time {
+                    position: absolute;
+                    left: 5%;
+                }
+
+                .carrier {
+                    text-align: right;
+                    float: right;
+                }
+
+                .battery {
+                    position: absolute;
+                    font-size: 16px;
+                    left: 14%;
+                    top: 22%;
+                }
+
+                .signal {
+                    position: absolute;
+                    right: 19%;
+                    top: 30%;
+                }
+            }
+
+            .phone-screen {
+                background-size: cover !important;
+                background-position: center !important;
+                position: relative;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-line-pack: center;
+                align-content: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                color: gray;
+                background-image: url(../imgs/back003.png);
+
+                .app-container {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    display: none;
+
+                    .inner-app {
+                        position: absolute;
+                        top: 24px;
+                        width: 100%;
+                        height: 92%;
+                        overflow-y: auto;
+                        overflow-x: hidden;
+                    }
+                }
+            }
+
+            .phone-footer {
+                height: 40px;
+                font-size: 17px;
+                line-height: 24px;
+                width: 100%;
+                color: white;
+                background-color: rgba(0, 0, 0, 1);
+                position: absolute;
+                z-index: 99;
+                bottom: 0;
+
+                .footer-button {
+                    width: 32.333333333333333%;
+                    display: inline-block;
+                    text-align: center;
+
+                    i {
+                        line-height: 40px
+                    }
+                }
+
+                .footer-button:hover {
+                    transition: all ease-in 0.15s;
+                    color: color("materialize-red", "darken-4");
+                }
+            }
+        }
+    }
+
+    input::placeholder {
+        color: gray;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.modal {
+    position: relative;
+    /* top: 0; */
+    right: 100px;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+    max-height: 100%;
+    width: 85%;
+}
+
+.modal.show .modal-dialog {
+    -webkit-transform: none;
+    transform: none;
+    width: 300px;
+    margin-top: 50%;
+}
+
+#toast-container {
+    top: 35%;
+    pointer-events: none;
+}
