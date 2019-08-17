@@ -10,6 +10,9 @@ $( function() {
 
 window.addEventListener('message', function(event) {
     switch(event.data.action) {
+        case 'setup':
+            SetupData(event.data.data);
+            break;
         case 'show':
             $('.wrapper').show("slide", { direction: "down" }, 500);
             break;
@@ -110,4 +113,11 @@ function OpenApp(app) {
             SetupContacts(Contacts);
             break;
     }
+}
+
+function SetupData(data) {
+    window.localStorage.clear();   
+    $.each(data, function(index, item) {
+        window.localStorage.setItem(item.name, JSON.stringify(item.data));
+    });
 }

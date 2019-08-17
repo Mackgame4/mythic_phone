@@ -1,9 +1,14 @@
 # Mythic Phone | WIP
 This is a custom phone written for Mythic RP. It is replacing an existing port of GCPhone after having loads of issues with trying to successfully port. This is very much a Work In Progress and you should not even look into using this unless you're prepared to do a shitload of work.
 
+#### Home
 ![Mythic Phone](https://i.imgur.com/btWKl8b.png)
+
+#### Contacts
 ![Mythic Phone](https://i.imgur.com/X8XJShL.png)
 ![Mythic Phone](https://i.imgur.com/4JX8L9Q.png)
+![Mythic Phone](https://i.imgur.com/kNQOc14.gifv)
+![Mythic Phone](https://i.imgur.com/ItGpCwf.gifv)
 
 ## Dependencies
 * Mythic Base | Not Released

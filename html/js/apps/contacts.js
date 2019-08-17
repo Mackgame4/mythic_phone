@@ -70,19 +70,30 @@ $('#contacts-add-contact').on('submit', function(e) {
     
     let data = $(this).serializeArray();
 
+    let name = data[0].value;
+    let number = data[1].value;
+
     $.post('http://mythic_phone2/CreateContact', JSON.stringify({
-        name: data[0],
-        number: data[1]
+        name: name,
+        number: number
     }), function(status) {
         if (status) {
             var modal = M.Modal.getInstance($('#add-contact-modal'));
             modal.close();
+        
+            $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name">' + name + ' <span class="number">( ' + number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
+            $('.contacts-list .contact:last-child').data('contact', { name: name, number: number });
+        
+            $('.contacts-list').animate({
+                scrollTop: $(".contacts-list .contact:last-child").offset().top
+            }, 2000);
+            
+            $('.contacts-list .contact:last-child').find('.contact-name').trigger('click');
             M.toast({html: 'Contact Added'});
         } else {
             M.toast({html: 'Error Adding Contact'});
         }
-    })
-
+    });
 });
 
 $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
