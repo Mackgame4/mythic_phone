@@ -7,8 +7,8 @@ This is a custom phone written for Mythic RP. It is replacing an existing port o
 #### Contacts
 ![Mythic Phone](https://i.imgur.com/X8XJShL.png)
 ![Mythic Phone](https://i.imgur.com/4JX8L9Q.png)
-![Mythic Phone](https://i.imgur.com/kNQOc14.gifv)
-![Mythic Phone](https://i.imgur.com/ItGpCwf.gifv)
+![Mythic Phone](https://i.imgur.com/kNQOc14.gif)
+![Mythic Phone](https://i.imgur.com/ItGpCwf.gif)
 
 ## Dependencies
 * Mythic Base | Not Released
