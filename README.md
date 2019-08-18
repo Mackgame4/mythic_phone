@@ -1,16 +1,8 @@
 # Mythic Phone | WIP
 This is a custom phone written for Mythic RP. It is replacing an existing port of GCPhone after having loads of issues with trying to successfully port. This is very much a Work In Progress and you should not even look into using this unless you're prepared to do a shitload of work.
 
-#### Home
-![Mythic Phone](https://i.imgur.com/btWKl8b.png)
-
-#### Contacts
-![Mythic Phone](https://i.imgur.com/X8XJShL.png)
-![Mythic Phone](https://i.imgur.com/4JX8L9Q.png)
-![Mythic Phone](https://i.imgur.com/kNQOc14.gif)
-![Mythic Phone](https://i.imgur.com/ItGpCwf.gif)
-
 ## Dependencies
+* [GHMattiMySQL](https://github.com/GHMatti/ghmattimysql)
 * Mythic Base | Not Released
 * Mythic Inventory | Not Released
 * ???
@@ -25,8 +17,26 @@ To get the source to fully work, you'll need a SASS compiler as I am using the S
 * [jQuery UI](https://jqueryui.com/)
 * [jQuery Inputmask](https://github.com/RobinHerbots/Inputmask/tree/2.x/js)
 * [Materialize](https://materializecss.com/)
+* [Moment.js](https://momentjs.com/)
 * [FontAwesome](https://fontawesome.com/)
+
 ------
 
 # Issues
 FOR THE FINAL TIME, THIS IS A WIP RESOURCE THAT IS NOT INTENDED FOR ANYONE TO ACTUALLY USE. If you decide to ignore the numerous warnings and make issues asking why shit doesn't work it'll just end up deleted. You'll also be blocked which applies [these](https://help.github.com/en/articles/blocking-a-user-from-your-organization) effects. So let's not, yeah?
+
+------
+
+# Screenshots
+
+### Home
+![Home Screen](https://i.imgur.com/btWKl8b.png)
+
+### Contacts
+![Contacts App](https://i.imgur.com/X8XJShL.png)
+![Contacts App](https://i.imgur.com/4JX8L9Q.png)
+![Contacts App](https://i.imgur.com/kNQOc14.gif)
+![Contacts App](https://i.imgur.com/ItGpCwf.gif)
+
+### Messages
+![Messages App](https://i.imgur.com/AkhjJmu.png)

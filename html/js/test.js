@@ -4,183 +4,329 @@ var Contacts = [
         "number": "555-555-5555"
     },
     {
-        "name": "Test",
-        "number": "555-555-5555"
+        "name": "Test2",
+        "number": "555-555-5556"
+    },
+]
+
+var DefContacts = [
+    {
+        'name': 'Police',
+        'number': 'police'
     },
     {
-        "name": "Test",
-        "number": "555-555-5555"
+        'name': 'EMS',
+        'number': 'ems'
     },
     {
-        "name": "Test",
-        "number": "555-555-5555"
+        'name': 'Lawyer',
+        'number': 'lawyer'
     },
     {
-        "name": "Test",
-        "number": "555-555-5555"
+        'name': 'Real Estate Agent',
+        'number': 'realestate'
     },
     {
-        "name": "Test",
-        "number": "555-555-5555"
+        'name': 'Mechanic',
+        'number': 'mechanic'
     },
     {
-        "name": "Test",
-        "number": "555-555-5555"
+        'name': 'Tow Truck',
+        'number': 'towtruck'
     },
     {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
-    },
-    {
-        "name": "Test",
-        "number": "555-555-5555"
+        'name': 'Taxi',
+        'number': 'taxi'
     }
+]
+
+var Messages = [
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: '2019-06-09 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5555',
+        reciever: '555-555-5555',
+        message: 'whyyyyyyyyyyyyyyy',
+        sent_time: '2019-08-16 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
+    {
+        id: 1,
+        sender: '555-555-5565',
+        reciever: '555-555-5555',
+        message: 'whyyyyyyyyyyyyyyy',
+        sent_time: '2019-08-16 03:31:30',
+        isRead: 0,
+        owner: 0
+    },
 ]

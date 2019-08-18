@@ -1,37 +1,6 @@
-var defaultContacts = [
-    {
-        'name': 'Police',
-        'number': 'police'
-    },
-    {
-        'name': 'EMS',
-        'number': 'ems'
-    },
-    {
-        'name': 'Lawyer',
-        'number': 'lawyer'
-    },
-    {
-        'name': 'Real Estate Agent',
-        'number': 'realestate'
-    },
-    {
-        'name': 'Mechanic',
-        'number': 'mechanic'
-    },
-    {
-        'name': 'Tow Truck',
-        'number': 'towtruck'
-    },
-    {
-        'name': 'Taxi',
-        'number': 'taxi'
-    }
-]
+var editingContact = null;
 
 $('.contacts-list').on('click', '.contact-avatar, .contact-name', function(event) {
-    console.log($(this).parent().data('contact'));
-
     if ($(this).parent().find('.contact-actions').is(":visible")) {
         $(this).parent().find('.contact-actions').slideUp();
     } else {
@@ -75,14 +44,24 @@ $('#contacts-add-contact').on('submit', function(e) {
 
     $.post('http://mythic_phone2/CreateContact', JSON.stringify({
         name: name,
-        number: number
+        number: number,
     }), function(status) {
+        console.log(status)
         if (status) {
             var modal = M.Modal.getInstance($('#add-contact-modal'));
             modal.close();
+
+            let contacts = JSON.parse(window.localStorage.getItem('contacts'));
+
+            if (contacts == null) {
+                contacts = new Array();
+            }
+
+            contacts.push({ name: name, number: number, index: contacts.length });
+            window.localStorage.setItem('contacts', JSON.stringify(contacts));
         
-            $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name">' + name + ' <span class="number">( ' + number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
-            $('.contacts-list .contact:last-child').data('contact', { name: name, number: number });
+            $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name">' + name + ' <span class="number">( ' + number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
+            $('.contacts-list .contact:last-child').data('contact', { name: name, number: number, id: status, index: contacts.length - 1 });
         
             $('.contacts-list').animate({
                 scrollTop: $(".contacts-list .contact:last-child").offset().top
@@ -90,36 +69,99 @@ $('#contacts-add-contact').on('submit', function(e) {
             
             $('.contacts-list .contact:last-child').find('.contact-name').trigger('click');
             M.toast({html: 'Contact Added'});
+
+            $('#contact-add-name').val('');
+            $('#contact-add-name').next().removeClass('active');
+            $('#contact-add-number').val('');
+            $('#contact-add-number').next().removeClass('active');
+
         } else {
             M.toast({html: 'Error Adding Contact'});
         }
     });
 });
 
-$('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
-    let data = $(this).parent().parent().data('contact');
-    console.log(data);
-    $.post('http://mythic_phone2/DeleteContact', JSON.stringify({
-        number: data.number
+$('#contacts-edit-contact').on('submit', function(e) {
+    e.preventDefault();
+    
+    let data = $(this).serializeArray();
+    let editingData = $(editingContact).data('contact')
+
+    let name = data[0].value;
+    let number = data[1].value;
+
+    $.post('http://mythic_phone2/EditContact', JSON.stringify({
+        name: name,
+        number: number,
+        id: editingData.id
     }), function(status) {
         if (status) {
-            $(this).parent().parent().remove();
+            var modal = M.Modal.getInstance($('#edit-contact-modal'));
+            modal.close();
+
+            let contacts = JSON.parse(window.localStorage.getItem('contacts'));
+            contacts[oData.index] = { name: name, number: number, id: editingData.id, index: editingData.index };
+            window.localStorage.setItem('contacts', JSON.stringify(contacts));
+
+            $(editingContact).html('<div class="contact-avatar ava-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name">' + name + ' <span class="number">( ' + number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div>')
+            $(editingContact).data('contact', { name: name, number: number, id: editingData.id, index: editingData.index })
+            
+            $(editingContact).find('.contact-name').trigger('click');
+            M.toast({html: 'Contact Updated'});
+
+            $('#contact-edit-name').val('');
+            $('#contact-edit-name').next().removeClass('active');
+            $('#contact-edit-number').val('');
+            $('#contact-edit-number').next().removeClass('active');
+        } else {
+            M.toast({html: 'Error Updating Contact'});
+        }
+    });
+});
+
+$('.contacts-list').on('click', '.contact-actions .action-edit', function(e) {
+    let data = $(this).parent().parent().data('contact');
+
+    editingContact = $(this).parent().parent()
+    $('#contact-edit-name').val(data.name);
+    $('#contact-edit-number').val(data.number);
+});
+
+$('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
+    let $elem = $(this)
+    let data = $elem.parent().parent().data('contact');
+    $.post('http://mythic_phone2/DeleteContact', JSON.stringify({
+        id: data.id
+    }), function(status) {
+        console.log(status);
+        if (status) {
+            $elem.parent().parent().fadeOut('normal', function() {
+                $elem.parent().parent().remove();
+            })
             M.toast({html: 'Contact Deleted'});
+
+            let contacts = JSON.parse(window.localStorage.getItem('contacts'));
+            contacts.splice(data.index, 1);
+            window.localStorage.setItem('contacts', JSON.stringify(contacts));
         } else {
             M.toast({html: 'Error Deleting Contact'});
         }
     });
 });
 
-function SetupContacts(contacts) {
+function SetupContacts() {
+    let defaultContacts = JSON.parse(window.localStorage.getItem('defaultContacts'));
+    let contacts = JSON.parse(window.localStorage.getItem('contacts'));
+
     $('.contacts-list').html('');
     $.each(defaultContacts, function(index, contact) {
-        $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="contact-name">' + contact.name + ' <span class="number">( ' + contact.number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-trash-alt action-disabled"></i></div></div>');
+        $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="contact-name">' + contact.name + ' <span class="number">( ' + contact.number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-disabled"></i><i class="fas fa-trash-alt action-disabled"></i></div></div>');
         $('.contacts-list .contact:last-child').data('contact', contact);
     });
 
     $.each(contacts, function(index, contact) {
-        $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="contact-name">' + contact.name + ' <span class="number">( ' + contact.number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
+        $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="contact-name">' + contact.name + ' <span class="number">( ' + contact.number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms"></i><i class="fas fa-user-edit action-edit  modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
+        contact.index = index;
         $('.contacts-list .contact:last-child').data('contact', contact);
     });
 }

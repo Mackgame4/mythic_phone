@@ -1,11 +1,29 @@
-var appTrail = {}
+var documentWidth = document.documentElement.clientWidth;
+var documentHeight = document.documentElement.clientHeight;
+var cursorX = documentWidth / 2;
+var cursorY = documentHeight / 2;
 
-var currentApp = 'home';
+var currentApp = null;
 
 $( function() {
-    SetupApps()
+    OpenApp('home');
+});
 
-    $('#home-container').show();
+function UpdateCursorPos() {
+    $('#cursor').css('left', cursorX + 2);
+    $('#cursor').css('top', cursorY + 2);
+}
+
+function triggerClick(x, y) {
+    var element = $(document.elementFromPoint(x, y)); 
+    element.focus().click();
+    return true;
+}
+
+$(document).mousemove(function(event) {
+    cursorX = event.pageX;
+    cursorY = event.pageY;
+    UpdateCursorPos();
 });
 
 window.addEventListener('message', function(event) {
@@ -15,9 +33,12 @@ window.addEventListener('message', function(event) {
             break;
         case 'show':
             $('.wrapper').show("slide", { direction: "down" }, 500);
+            $('#cursor').show();
+            OpenApp('home');
             break;
         case 'hide':
             ClosePhone();
+            currentApp = null;
             break;
     }
 });
@@ -31,12 +52,9 @@ $( function() {
 });
 
 $('#back-button').click(function(event) {
+    console.log($('.active-container').data('back'));
     if (currentApp !== 'home') {
-        $('.active-container').fadeOut('normal', function() {
-            $('#home-container').fadeIn('fast', function() {
-                $('.active-container').removeClass('active-container');
-            })
-        });
+        OpenApp($('.active-container').data('back'))
     }
 });
 
@@ -51,6 +69,9 @@ $('#home-container').on('click', '.app-button', function(event) {
 });
 
 function ClosePhone() {
+    $('#toast-container').remove();
+    $('.material-tooltip').remove();
+    $('#cursor').hide();
     $('.wrapper').hide("slide", { direction: "down" }, 500);
     $.post('http://mythic_phone2/ClosePhone', JSON.stringify({}));
 }
@@ -91,8 +112,12 @@ function ToggleApp(name, status) {
 
 function OpenApp(app) {
     if (currentApp !== app) {
-        $('#' + app + '-container').fadeIn('fast', function() {
-            $('#' + currentApp + '-container').hide();
+        $('#' + app + '-container').fadeIn('normal', function() {
+            $('#' + currentApp + '-container').fadeOut();
+
+            $('.active-container').removeClass('active-container');
+            $('#' + app + '-container').addClass('active-container');
+
             currentApp = app;
 
             let pApp = Apps.filter(abc => abc.container === app)[0];
@@ -110,7 +135,11 @@ function OpenApp(app) {
             SetupApps()
             break;
         case 'contacts':
-            SetupContacts(Contacts);
+            SetupContacts();
+            break;
+        case 'message':
+            SetupData( [ { name: 'defaultContacts', data: DefContacts }, { name: 'contacts', data: Contacts } ] );
+            SetupMessages();
             break;
     }
 }

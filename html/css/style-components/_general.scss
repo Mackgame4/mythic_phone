@@ -1,6 +1,12 @@
 // Color
 @import "../components/color-variables";
 
+#cursor {
+    position: absolute;
+    z-index: 9999999999;
+    display: none;
+}
+
 .wrapper {
     height: 100vh;
     width: 100vw;

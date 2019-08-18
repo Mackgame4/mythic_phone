@@ -18,12 +18,14 @@ files {
     'html/js/test.js',
 
     'html/js/apps/contacts.js',
+    'html/js/apps/messages.js',
     
     'html/libs/all.min.css',
     'html/libs/jquery.min.js',
     'html/libs/jquery-ui.min.js',
     'html/libs/jquery.inputmask.bundle.min.js',
     'html/libs/materialize.min.js',
+    'html/libs/moment.min.js',
 
     'html/webfonts/fa-brands-400.eot',
     'html/webfonts/fa-brands-400.svg',
@@ -41,6 +43,7 @@ files {
     'html/webfonts/fa-solid-900.woff',
     'html/webfonts/fa-solid-900.woff2',
 
+    'html/imgs/cursor.png',
     'html/imgs/back001.png',
     'html/imgs/back002.png',
     'html/imgs/back003.png',
@@ -49,14 +52,31 @@ files {
 }
 
 client_script {
-	"client/main.lua",
+	'@salty_tokenizer/init.lua',
+    'config/config.lua',
+    'config/apps.lua',
+    'config/contacts.lua',
+
+    "client/main.lua",
+    
+	"client/apps/contacts.lua",
+	"client/apps/messages.lua",
 }
 
 server_script {
-	"server/main.lua",
+	'@salty_tokenizer/init.lua',
+    'config/config.lua',
+    'config/apps.lua',
+    'config/contacts.lua',
+
+    "server/main.lua",
+    
+	"server/apps/contacts.lua",
+	"server/apps/messages.lua",
 }
 
 dependencies {
+    'salty_tokenizer',
     'mythic_base',
     'mythic_inventory',
 }
