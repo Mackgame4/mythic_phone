@@ -1,12 +1,14 @@
 #message-container {
-    background: #ffffff;
+    background: #eaeaea;
 
     .inner-app {
         .messages-list {
             .message {
-                border-bottom: 1px solid #3f3f3f;
+                border-bottom: 1px solid #1e1e1e;
                 height: 65px;
                 display: block;
+                background: #ffffff;
+                color: #1e1e1e;
     
                 .text-avatar {
                     font-size: 20px;
@@ -19,12 +21,12 @@
                     width: 35px;
                     border-radius: 70px;
                     text-align: center;
-                    color: #ffffff;
                     position: relative;
                     top: 15%;
                     -webkit-transform: translate(0%, 0%);
                     transform: translate(0%, 0%);
-                    background: #212121;
+                    background: #1e1e1e;
+                    color: #ffffff;
     
                     &.ava-0 {
                         background: color("yellow", "darken-3");
@@ -161,7 +163,7 @@
     
                 &:hover {
                     transition: all ease-in 0.15s;
-                    background: #e9e9e9;
+                    background: #c4c4c4;
                 }
             }
         }
@@ -175,7 +177,7 @@
 }
 
 #message-convo-container {
-    background: #ffffff;
+    background: #eaeaea;
     z-index: 5;
 
     .inner-app {
@@ -184,7 +186,7 @@
             font-size: 15px;
             color: #ffffff;
             font-weight: bold;
-            background: #212121;
+            background: #1e1e1e;
 
             .convo-top-number {
                 display: inline-block;
@@ -209,7 +211,7 @@
         }
 
         .convo-texts-list {
-            height: 81%;
+            height: 86.4%;
             overflow-y: auto;
             overflow-x: hidden;
 
@@ -225,6 +227,7 @@
                     display: inline-block;
                     padding: 10px 20px 10px 20px;
                     border-radius: 10px;
+                    background: #1e1e1e;
                 }
 
                 p {
@@ -232,13 +235,21 @@
                     margin: 0;
                     color: #1e1e1e;
                     font-size: 10px;
+                    opacity: 0;
+                }
+
+                &:hover {
+                    p {
+                        transition: all ease-in 0.15s;
+                        opacity: 100;
+                    }
                 }
 
                 &.me-sender {
                     margin-left: auto;
 
                     span {
-                        background: #383838;
+                        background: color("materialize-red", "darken-4");
                     }
 
                     p {
@@ -257,9 +268,8 @@
         }
 
         .convo-text-input {
-            height: 11%;
-            padding: 15px 10px 10px 10px;
-            border-top: 1px solid #9e9e9e;
+            height: 5%;
+            border-top: 1px solid #1e1e1e;
 
             #convo-new-text {
                 -webkit-margin-after: 0;
@@ -271,15 +281,26 @@
                     width: 85%;
 
                     #convo-input {
-                        margin: 0; 
+                        padding: 10px;
+                        margin: 0;
+                        height: 65%; 
+                    }
+
+                    .character-counter {
+                        float: right;
+                        font-size: 12px;
+                        height: 1px;
+                        position: absolute;
+                        bottom: 0%;
+                        right: 1%;
                     }
                 }
 
                 i {
                     font-size: 29px;
                     position: absolute;
-                    bottom: 4%;
-                    right: 5%; 
+                    bottom: 0;
+                    right: 3%;
                     
                     &:hover {
                         transition: all ease-in 0.15s;
@@ -290,113 +311,113 @@
         }
 
         .other-0 {
-            background: color("yellow", "darken-3");
+            background: color("yellow", "darken-3") !important;
         }
         .other-1 {
-            background: color("yellow", "darken-4");
+            background: color("yellow", "darken-4") !important;
         }
         .other-2 {
-            background: color("green", "darken-1");
+            background: color("green", "darken-1") !important;
         }
         .other-3 {
-            background: color("green", "darken-2");
+            background: color("green", "darken-2") !important;
         }
         .other-4 {
-            background: color("green", "darken-3");
+            background: color("green", "darken-3") !important;
         }
         .other-5 {
-            background: color("green", "darken-4");
+            background: color("green", "darken-4") !important;
         }
         .other-6 {
-            background: color("deep-orange", "darken-1");
+            background: color("deep-orange", "darken-1") !important;
         }
         .other-7 {
-            background: color("deep-orange", "darken-2");
+            background: color("deep-orange", "darken-2") !important;
         }
         .other-8 {
-            background: color("deep-orange", "darken-3");
+            background: color("deep-orange", "darken-3") !important;
         }
         .other-9 {
-            background: color("deep-orange", "darken-4");
+            background: color("deep-orange", "darken-4") !important;
         }
 
         .other-a {
-            background: color("materialize-red", "darken-1");
+            background: color("materialize-red", "darken-1") !important;
         }
         .other-b {
-            background: color("materialize-red", "darken-2");
+            background: color("materialize-red", "darken-2") !important;
         }
         .other-c {
-            background: color("materialize-red", "darken-3");
+            background: color("materialize-red", "darken-3") !important;
         }
         .other-d {
-            background: color("materialize-red", "darken-4");
+            background: color("materialize-red", "darken-4") !important;
         }
         .other-e {
-            background: color("pink", "darken-1");
+            background: color("pink", "darken-1") !important;
         }
         .other-f {
-            background: color("pink", "darken-2");
+            background: color("pink", "darken-2") !important;
         }
         .other-g {
-            background: color("pink", "darken-3");
+            background: color("pink", "darken-3") !important;
         }
         .other-h {
-            background: color("pink", "darken-4");
+            background: color("pink", "darken-4") !important;
         }
         .other-i {
-            background: color("purple", "darken-1");
+            background: color("purple", "darken-1") !important;
         }
         .other-j {
-            background: color("purple", "darken-2");
+            background: color("purple", "darken-2") !important;
         }
         .other-k {
-            background: color("purple", "darken-3");
+            background: color("purple", "darken-3") !important;
         }
         .other-l {
-            background: color("purple", "darken-4");
+            background: color("purple", "darken-4") !important;
         }
         .other-m {
-            background: color("deep-purple", "darken-1");
+            background: color("deep-purple", "darken-1") !important;
         }
         .other-n {
-            background: color("deep-purple", "darken-2");
+            background: color("deep-purple", "darken-2") !important;
         }
         .other-o {
-            background: color("deep-purple", "darken-3");
+            background: color("deep-purple", "darken-3") !important;
         }
         .other-p {
-            background: color("deep-purple", "darken-4");
+            background: color("deep-purple", "darken-4") !important;
         }
         .other-q {
-            background: color("indigo", "darken-1");
+            background: color("indigo", "darken-1") !important;
         }
         .other-r {
-            background: color("indigo", "darken-2");
+            background: color("indigo", "darken-2") !important;
         }
         .other-s {
-            background: color("indigo", "darken-3");
+            background: color("indigo", "darken-3") !important;
         }
         .other-t {
-            background: color("indigo", "darken-4");
+            background: color("indigo", "darken-4") !important;
         }
         .other-u {
-            background: color("blue", "darken-1");
+            background: color("blue", "darken-1") !important;
         }
         .other-v {
-            background: color("blue", "darken-2");
+            background: color("blue", "darken-2") !important;
         }
         .other-w {
-            background: color("blue", "darken-3");
+            background: color("blue", "darken-3") !important;
         }
         .other-x {
-            background: color("blue", "darken-4");
+            background: color("blue", "darken-4") !important;
         }
         .other-y {
-            background: color("yellow", "darken-1");
+            background: color("yellow", "darken-1") !important;
         }
         .other-z {
-            background: color("yellow", "darken-2");
+            background: color("yellow", "darken-2") !important;
         }
     }
 }

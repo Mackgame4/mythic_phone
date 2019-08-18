@@ -60,7 +60,7 @@ $('#contacts-add-contact').on('submit', function(e) {
             contacts.push({ name: name, number: number, index: contacts.length });
             window.localStorage.setItem('contacts', JSON.stringify(contacts));
         
-            $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name">' + name + ' <span class="number">( ' + number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
+            $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name">' + name + ' <span class="number">( ' + number + ' )</span></div><div class="contact-actions waves-effect"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
             $('.contacts-list .contact:last-child').data('contact', { name: name, number: number, id: status, index: contacts.length - 1 });
         
             $('.contacts-list').animate({
@@ -133,6 +133,7 @@ $('.contacts-list').on('click', '.contact-actions .action-edit', function(e) {
     editingContact = $(this).parent().parent()
     $('#contact-edit-name').val(data.name);
     $('#contact-edit-number').val(data.number);
+    M.updateTextFields();
 });
 
 $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
@@ -158,20 +159,18 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
 });
 
 function SetupContacts() {
-    let defaultContacts = JSON.parse(window.localStorage.getItem('defaultContacts'));
     let contacts = JSON.parse(window.localStorage.getItem('contacts'));
 
     $('.contacts-list').html('');
-    $.each(defaultContacts, function(index, contact) {
-        $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="contact-name">' + contact.name + ' <span class="number">( ' + contact.number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-disabled"></i><i class="fas fa-trash-alt action-disabled"></i></div></div>');
-        $('.contacts-list .contact:last-child').data('contact', contact);
-    });
-
     $.each(contacts, function(index, contact) {
         $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="contact-name">' + contact.name + ' <span class="number">( ' + contact.number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit  modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
         contact.index = index;
         $('.contacts-list .contact:last-child').data('contact', contact);
     });
+}
+
+function CloseContacts() {
+
 }
 
 $(document).ready(function(){

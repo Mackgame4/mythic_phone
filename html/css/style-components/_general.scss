@@ -29,32 +29,16 @@
             pointer-events: none;
         }
 
-        .phone-alerts {
-            z-index: 1000;
-            width: 100%;
-            position: absolute;
-            margin-top: 24%;
-
-            .phone-alert {
-                padding: 10px;
-                background: #000000;
-                color: #ffffff;
-                width: 75%;
-                margin-left: auto;
-                margin-right: auto;
-                margin-bottom: 5px;
-            }
-        }
-
         .phone {
             overflow: hidden;
             position: absolute;
-            background-color: white;
             bottom: 98px;
             left: 50px;
             right: 49px;
             top: 100px;
             display: flex;
+            color: #1e1e1e;
+            background: #eaeaea;
 
             .phone-header {
                 height: 24px;
@@ -128,6 +112,15 @@
                         height: 92%;
                         overflow-y: auto;
                         overflow-x: hidden;
+
+                        .btn-flat {
+                            color: #1e1e1e;
+                        }
+
+                        input {
+                            color: #1e1e1e;
+                            font-weight: bold;
+                        }
                     }
                 }
             }
@@ -162,7 +155,7 @@
     }
 
     input::placeholder {
-        color: gray;
+        color: #c4c4c4;
     }
 }
 

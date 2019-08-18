@@ -16,22 +16,18 @@ $('#convo-new-text').on('submit', function(e) {
 function SetupConvo(data) {
     $('#message-convo-container').data('data', data);
 
-    let defaultContacts = JSON.parse(window.localStorage.getItem('defaultContacts'));
     let contacts = JSON.parse(window.localStorage.getItem('contacts'));
     let myNumber = JSON.parse(window.localStorage.getItem('myNumber'));
 
     let texts = Messages.filter(c => c.sender == data.number || c.receiver == data.number);
-    let contact = defaultContacts.filter(c => c.number == data.number)[0];
-    if (contact == null) {
-        contact = contacts.filter(c => c.number == data.number)[0];
-    }
+    let contact = contacts.filter(c => c.number == data.number)[0];
 
     if (contact != null) {
         $('.convo-top-number').html(contact.name);
         $('.convo-top-bar').attr('class', 'convo-top-bar other-' + contact.name[0]);
     } else {
         $('.convo-top-number').html(data.number);
-        $('.convo-top-bar').attr('class', 'convo-top-bar other-' + data.number[0]);
+        $('.convo-top-bar').attr('class', 'convo-top-bar');
     }
 
     
@@ -46,7 +42,7 @@ function SetupConvo(data) {
             if (contact != null) {
                 $('.convo-texts-list').append('<div class="text other-sender"><span class=" other-' + contact.name[0] + '">' + text.message + '</span><p>' + moment(d).fromNow() + '</p></div>')
             } else {
-                $('.convo-texts-list').append('<div class="text other-sender"><span class=" other-' + data.number[0] + '">' + text.message + '</span><p>' + moment(d).fromNow() + '</p></div>')
+                $('.convo-texts-list').append('<div class="text other-sender"><span>' + text.message + '</span><p>' + moment(d).fromNow() + '</p></div>')
             }
             
         }
@@ -54,7 +50,6 @@ function SetupConvo(data) {
 }
 
 function SetupMessages() {
-    let defaultContacts = JSON.parse(window.localStorage.getItem('defaultContacts'));
     let contacts = JSON.parse(window.localStorage.getItem('contacts'));
     let myNumber = JSON.parse(window.localStorage.getItem('myNumber'));
 
@@ -99,11 +94,7 @@ function SetupMessages() {
 
     $('#message-container .inner-app .messages-list').html('');
     $.each(convos, function(index, message) {
-        let contact = defaultContacts.filter(c => c.number == message.number)[0];
-
-        if (contact == null) {
-            contact = contacts.filter(c => c.number == message.number)[0];
-        }
+        let contact = contacts.filter(c => c.number == message.number)[0];
 
         // Not A Contact
         if (contact == null) {

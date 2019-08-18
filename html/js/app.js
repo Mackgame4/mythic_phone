@@ -63,50 +63,12 @@ $('#home-button').click(function(event) {
     }
 });
 
-$('#home-container').on('click', '.app-button', function(event) {
-    OpenApp($(this).data('container'));
-});
-
 function ClosePhone() {
     $('#toast-container').remove();
     $('.material-tooltip').remove();
     $('#cursor').hide();
     $('.wrapper').hide("slide", { direction: "down" }, 500);
     $.post('http://mythic_phone2/ClosePhone', JSON.stringify({}));
-}
-
-function SetupApps() {
-    $('#home-container .inner-app').html('');
-    $.each(Apps, function(index, app) {
-        if (app.enabled) {
-            if (app.unread > 0) {
-                $('#home-container .inner-app').append('<div class="app-button" data-tooltip="' + app.name + '"><div class="app-icon" id="' + app.container + '-app" style="background-color: ' + app.color + '"> ' + app.icon + '<div class="badge pulse">' + app.unread + '</div></div></div>')
-            } else {
-                $('#home-container .inner-app').append('<div class="app-button" data-tooltip="' + app.name + '"><div class="app-icon" id="' + app.container + '-app" style="background-color: ' + app.color + '"> ' + app.icon + '</div></div>')
-            }
-            let $app = $('#home-container .app-button:last-child');
-
-            $app.tooltip( {
-                enterDelay: 0,
-                exitDelay: 0,
-                inDuration: 0,
-            } );
-    
-            $app.data('container', app.container);
-        }
-    });
-}
-
-function ToggleApp(name, status) {
-    let pApp = Apps.filter(app => app.container === name)[0];
-
-    if (!status) {
-        $('#' + pApp.container + '-app').parent().fadeOut();
-        pApp.enabled = false;
-    } else {
-        pApp.enabled = true;
-        SetupApps()
-    }
 }
 
 function OpenApp(app, data) {
@@ -118,30 +80,40 @@ function OpenApp(app, data) {
             $('#' + app + '-container').addClass('active-container');
 
             currentApp = app;
-
-            let pApp = Apps.filter(abc => abc.container === app)[0];
-            if (pApp !== undefined) {
-                if (pApp.unread > 0) {
-                    pApp.unread = 0;
-                }
-            }
         });
     }
 
     $('.material-tooltip').remove();
     switch(app) {
         case 'home':
-            SetupApps(data)
+            SetupHome(data)
             break;
         case 'contacts':
             SetupContacts(data);
             break;
         case 'message':
-            SetupData( [ { name: 'defaultContacts', data: DefContacts }, { name: 'contacts', data: Contacts }, { name: 'myNumber', data: '111-111-1111' } ] );
+            SetupData( [ { name: 'contacts', data: Contacts }, { name: 'myNumber', data: '111-111-1111' } ] );
             SetupMessages(data);
             break;
         case 'message-convo':
             SetupConvo(data);
+            break;
+    }
+}
+
+function CloseApp(app) {
+    switch(app) {
+        case 'home':
+            CloseHome();
+            break;
+        case 'contacts':
+            CloseContacts();
+            break;
+        case 'messages':
+            CloseMessages()
+            break;
+        case 'message-convo':
+            CloseConvo();
             break;
     }
 }
