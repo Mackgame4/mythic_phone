@@ -60,7 +60,7 @@ $('#contacts-add-contact').on('submit', function(e) {
             contacts.push({ name: name, number: number, index: contacts.length });
             window.localStorage.setItem('contacts', JSON.stringify(contacts));
         
-            $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name">' + name + ' <span class="number">( ' + number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
+            $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name">' + name + ' <span class="number">( ' + number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
             $('.contacts-list .contact:last-child').data('contact', { name: name, number: number, id: status, index: contacts.length - 1 });
         
             $('.contacts-list').animate({
@@ -103,7 +103,7 @@ $('#contacts-edit-contact').on('submit', function(e) {
             contacts[oData.index] = { name: name, number: number, id: editingData.id, index: editingData.index };
             window.localStorage.setItem('contacts', JSON.stringify(contacts));
 
-            $(editingContact).html('<div class="contact-avatar ava-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name">' + name + ' <span class="number">( ' + number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div>')
+            $(editingContact).html('<div class="contact-avatar ava-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name">' + name + ' <span class="number">( ' + number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div>')
             $(editingContact).data('contact', { name: name, number: number, id: editingData.id, index: editingData.index })
             
             $(editingContact).find('.contact-name').trigger('click');
@@ -117,6 +117,14 @@ $('#contacts-edit-contact').on('submit', function(e) {
             M.toast({html: 'Error Updating Contact'});
         }
     });
+});
+
+$('.contacts-list').on('click', '.contact-actions .action-text', function(e) {
+    let data = $(this).parent().parent().data('contact');
+
+    console.log(data);
+
+    OpenApp('message-convo', { number: data.number });
 });
 
 $('.contacts-list').on('click', '.contact-actions .action-edit', function(e) {
@@ -160,7 +168,7 @@ function SetupContacts() {
     });
 
     $.each(contacts, function(index, contact) {
-        $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="contact-name">' + contact.name + ' <span class="number">( ' + contact.number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms"></i><i class="fas fa-user-edit action-edit  modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
+        $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar ava-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="contact-name">' + contact.name + ' <span class="number">( ' + contact.number + ' )</span></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit  modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
         contact.index = index;
         $('.contacts-list .contact:last-child').data('contact', contact);
     });
@@ -168,6 +176,7 @@ function SetupContacts() {
 
 $(document).ready(function(){
     $('.modal').modal();
+    $('#convo-input').characterCounter();
 });
 
 function formatPhoneNumber(phoneNumberString) {

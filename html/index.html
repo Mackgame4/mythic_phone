@@ -111,7 +111,7 @@
                                 </div>
                         </div>
 
-                        <div class="app-container" id="phone-container">
+                        <div class="app-container" id="phone-container" data-back="home">
                             <div class="inner-app">
                                 
                             </div>
@@ -128,7 +128,27 @@
 
                         <div class="app-container" id="message-convo-container" data-back="message">
                             <div class="inner-app">
-                                
+                                <div class="convo-top-bar">
+                                    <div class="convo-top-number">
+                                        555-555-5555
+                                    </div>
+                                    <div class="convo-top-actions">
+                                        <i class="fas fa-phone convo-action-call"></i>
+                                        <i class="fas fa-ellipsis-v convo-action-drop"></i>
+                                    </div>
+                                </div>
+                                <div class="convo-texts-list">
+
+                                </div>
+                                <div class="convo-text-input">
+                                    <form id="convo-new-text">
+                                        <div class="input-field col s12">
+                                            <input id="convo-input" name="convo-input" type="text" data-length="255" maxlength="255" required>
+                                            <label for="convo-input">Text message</label>
+                                        </div>
+                                        <button class="btn-flat convo-action-send"><i class="fas fa-paper-plane"></i></button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
 

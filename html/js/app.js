@@ -52,7 +52,6 @@ $( function() {
 });
 
 $('#back-button').click(function(event) {
-    console.log($('.active-container').data('back'));
     if (currentApp !== 'home') {
         OpenApp($('.active-container').data('back'))
     }
@@ -110,7 +109,7 @@ function ToggleApp(name, status) {
     }
 }
 
-function OpenApp(app) {
+function OpenApp(app, data) {
     if (currentApp !== app) {
         $('#' + app + '-container').fadeIn('normal', function() {
             $('#' + currentApp + '-container').fadeOut();
@@ -132,14 +131,17 @@ function OpenApp(app) {
     $('.material-tooltip').remove();
     switch(app) {
         case 'home':
-            SetupApps()
+            SetupApps(data)
             break;
         case 'contacts':
-            SetupContacts();
+            SetupContacts(data);
             break;
         case 'message':
-            SetupData( [ { name: 'defaultContacts', data: DefContacts }, { name: 'contacts', data: Contacts } ] );
-            SetupMessages();
+            SetupData( [ { name: 'defaultContacts', data: DefContacts }, { name: 'contacts', data: Contacts }, { name: 'myNumber', data: '111-111-1111' } ] );
+            SetupMessages(data);
+            break;
+        case 'message-convo':
+            SetupConvo(data);
             break;
     }
 }

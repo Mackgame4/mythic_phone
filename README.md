@@ -2,9 +2,10 @@
 This is a custom phone written for Mythic RP. It is replacing an existing port of GCPhone after having loads of issues with trying to successfully port. This is very much a Work In Progress and you should not even look into using this unless you're prepared to do a shitload of work.
 
 ## Dependencies
-* [GHMattiMySQL](https://github.com/GHMatti/ghmattimysql)
 * Mythic Base | Not Released
 * Mythic Inventory | Not Released
+* [GHMattiMySQL](https://github.com/GHMatti/ghmattimysql)
+* [Salty Tokenizer](https://forum.fivem.net/t/release-dev-server-event-security-tokens-anticheat/139189)
 * ???
 
 > This is a WIP resource so this dependency list is very likely to expand as features are added.
@@ -40,3 +41,4 @@ FOR THE FINAL TIME, THIS IS A WIP RESOURCE THAT IS NOT INTENDED FOR ANYONE TO AC
 
 ### Messages
 ![Messages App](https://i.imgur.com/AkhjJmu.png)
+![Messages App](https://i.imgur.com/jPkCe5t.png)

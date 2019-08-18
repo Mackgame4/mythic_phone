@@ -173,3 +173,230 @@
         }
     }
 }
+
+#message-convo-container {
+    background: #ffffff;
+    z-index: 5;
+
+    .inner-app {
+        .convo-top-bar {
+            padding: 10px;
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: bold;
+            background: #212121;
+
+            .convo-top-number {
+                display: inline-block;
+                width: 49%;
+                font-size: 20px;
+            }
+
+            .convo-top-actions {
+                display: inline-block;
+                width: 49%;
+                text-align: right;
+
+                i {
+                    padding: 10px;
+
+                    &:hover {
+                        transition: all ease-in 0.15s;
+                        filter: brightness(85%);
+                    }
+                }
+            }
+        }
+
+        .convo-texts-list {
+            height: 81%;
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            .text {
+                width: fit-content;
+                display: block;
+                padding: 10px 20px 10px 20px;
+                color: #ffffff;
+                margin-bottom: 10px;
+
+                span {
+                    width: fit-content;
+                    display: inline-block;
+                    padding: 10px 20px 10px 20px;
+                    border-radius: 10px;
+                }
+
+                p {
+                    padding: 0;
+                    margin: 0;
+                    color: #1e1e1e;
+                    font-size: 10px;
+                }
+
+                &.me-sender {
+                    margin-left: auto;
+
+                    span {
+                        background: #383838;
+                    }
+
+                    p {
+                        text-align: right;
+                    }
+                }
+
+                &.other-sender {
+                    margin-right: auto;
+
+                    p {
+                        text-align: left;
+                    }
+                }
+            }
+        }
+
+        .convo-text-input {
+            height: 11%;
+            padding: 15px 10px 10px 10px;
+            border-top: 1px solid #9e9e9e;
+
+            #convo-new-text {
+                -webkit-margin-after: 0;
+                margin-block-end: 0;
+
+                .input-field {
+                    margin: 0;
+                    display: inline-block;
+                    width: 85%;
+
+                    #convo-input {
+                        margin: 0; 
+                    }
+                }
+
+                i {
+                    font-size: 29px;
+                    position: absolute;
+                    bottom: 4%;
+                    right: 5%; 
+                    
+                    &:hover {
+                        transition: all ease-in 0.15s;
+                        color: color("materialize-red", "darken-4");
+                    }
+                }
+            }
+        }
+
+        .other-0 {
+            background: color("yellow", "darken-3");
+        }
+        .other-1 {
+            background: color("yellow", "darken-4");
+        }
+        .other-2 {
+            background: color("green", "darken-1");
+        }
+        .other-3 {
+            background: color("green", "darken-2");
+        }
+        .other-4 {
+            background: color("green", "darken-3");
+        }
+        .other-5 {
+            background: color("green", "darken-4");
+        }
+        .other-6 {
+            background: color("deep-orange", "darken-1");
+        }
+        .other-7 {
+            background: color("deep-orange", "darken-2");
+        }
+        .other-8 {
+            background: color("deep-orange", "darken-3");
+        }
+        .other-9 {
+            background: color("deep-orange", "darken-4");
+        }
+
+        .other-a {
+            background: color("materialize-red", "darken-1");
+        }
+        .other-b {
+            background: color("materialize-red", "darken-2");
+        }
+        .other-c {
+            background: color("materialize-red", "darken-3");
+        }
+        .other-d {
+            background: color("materialize-red", "darken-4");
+        }
+        .other-e {
+            background: color("pink", "darken-1");
+        }
+        .other-f {
+            background: color("pink", "darken-2");
+        }
+        .other-g {
+            background: color("pink", "darken-3");
+        }
+        .other-h {
+            background: color("pink", "darken-4");
+        }
+        .other-i {
+            background: color("purple", "darken-1");
+        }
+        .other-j {
+            background: color("purple", "darken-2");
+        }
+        .other-k {
+            background: color("purple", "darken-3");
+        }
+        .other-l {
+            background: color("purple", "darken-4");
+        }
+        .other-m {
+            background: color("deep-purple", "darken-1");
+        }
+        .other-n {
+            background: color("deep-purple", "darken-2");
+        }
+        .other-o {
+            background: color("deep-purple", "darken-3");
+        }
+        .other-p {
+            background: color("deep-purple", "darken-4");
+        }
+        .other-q {
+            background: color("indigo", "darken-1");
+        }
+        .other-r {
+            background: color("indigo", "darken-2");
+        }
+        .other-s {
+            background: color("indigo", "darken-3");
+        }
+        .other-t {
+            background: color("indigo", "darken-4");
+        }
+        .other-u {
+            background: color("blue", "darken-1");
+        }
+        .other-v {
+            background: color("blue", "darken-2");
+        }
+        .other-w {
+            background: color("blue", "darken-3");
+        }
+        .other-x {
+            background: color("blue", "darken-4");
+        }
+        .other-y {
+            background: color("yellow", "darken-1");
+        }
+        .other-z {
+            background: color("yellow", "darken-2");
+        }
+    }
+}
