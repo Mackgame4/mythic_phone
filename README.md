@@ -31,15 +31,17 @@ FOR THE FINAL TIME, THIS IS A WIP RESOURCE THAT IS NOT INTENDED FOR ANYONE TO AC
 # Screenshots
 
 ### Home
-![Home Screen](https://i.imgur.com/btWKl8b.png)
+![Home Screen](https://i.imgur.com/oQBKg8X.png)
 
 ### Contacts
-![Contacts App](https://i.imgur.com/X8XJShL.png)
-![Contacts App](https://i.imgur.com/4JX8L9Q.png)
+![Contacts App](https://i.imgur.com/1FcOcJc.png)
+![Contacts App](https://i.imgur.com/xL9I0xq.png)
+![Contacts App](https://i.imgur.com/3tyUB7p.png)
 ![Contacts App](https://i.imgur.com/kNQOc14.gif)
 ![Contacts App](https://i.imgur.com/ItGpCwf.gif)
 
 ### Messages
-![Messages App](https://i.imgur.com/AkhjJmu.png)
-![Messages App](https://i.imgur.com/jPkCe5t.png)
+![Messages App](https://i.imgur.com/H2lae7o.png)
+![Messages App](https://i.imgur.com/FSVIusg.png)
+![Messages App](https://i.imgur.com/t3CSGm2.png)
 ![Messages App](https://i.imgur.com/8OaYbbY.gif)
