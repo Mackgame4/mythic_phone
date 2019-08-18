@@ -32,6 +32,7 @@ FOR THE FINAL TIME, THIS IS A WIP RESOURCE THAT IS NOT INTENDED FOR ANYONE TO AC
 
 ### Home
 ![Home Screen](https://i.imgur.com/oQBKg8X.png)
+![Home Screen](https://i.imgur.com/7xH1BkE.gif)
 
 ### Contacts
 ![Contacts App](https://i.imgur.com/1FcOcJc.png)
@@ -39,6 +40,7 @@ FOR THE FINAL TIME, THIS IS A WIP RESOURCE THAT IS NOT INTENDED FOR ANYONE TO AC
 ![Contacts App](https://i.imgur.com/3tyUB7p.png)
 ![Contacts App](https://i.imgur.com/kNQOc14.gif)
 ![Contacts App](https://i.imgur.com/ItGpCwf.gif)
+![Contacts App](https://i.imgur.com/2sBWhZY.gif)
 
 ### Messages
 ![Messages App](https://i.imgur.com/H2lae7o.png)

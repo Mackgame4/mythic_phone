@@ -32,6 +32,11 @@ $('#convo-new-text').on('submit', function(e) {
     $('.convo-texts-list').append('<div class="text me-sender"><span>' + data[0].value + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>');
 
     $('#convo-input').val('');
+
+    
+    $('.convo-texts-list').animate({
+        scrollTop: $(".convo-texts-list .text:last-child").offset().top
+    }, 25);
 })
 
 function SetupConvo(data) {

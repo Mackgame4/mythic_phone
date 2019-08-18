@@ -3,13 +3,16 @@ var documentHeight = document.documentElement.clientHeight;
 var cursorX = documentWidth / 2;
 var cursorY = documentHeight / 2;
 
-var currentApp = null;
+var appTrail = [{
+    app: null,
+    data: null
+}];
 
 var navDisabled = false;
 
 $( function() {
     SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages } ] );
-    OpenApp('home');
+    OpenApp('home', null, true);
 });
 
 moment.fn.fromNowOrNow = function (a) {
@@ -48,7 +51,6 @@ window.addEventListener('message', function(event) {
             break;
         case 'hide':
             ClosePhone();
-            currentApp = null;
             break;
     }
 });
@@ -92,65 +94,60 @@ function ClosePhone() {
     $('.material-tooltip').remove();
     $('#cursor').hide();
     $('.wrapper').hide("slide", { direction: "down" }, 500);
+    appTrail = new Object({
+        app: null,
+        data: null
+    });
     $.post('http://mythic_phone2/ClosePhone', JSON.stringify({}));
 }
 
-function OpenApp(app, data) {
-    if (currentApp !== app) {
+function OpenApp(app, data = null, pop = false) {
+    if (appTrail[appTrail.length - 1].app !== app) {
         $('#' + app + '-container').fadeIn('fast', function() {
-            $('#' + currentApp + '-container').fadeOut('fast');
+            $('#' + appTrail[appTrail.length - 1].app + '-container').fadeOut('fast');
 
             $('.active-container').removeClass('active-container');
             $('#' + app + '-container').addClass('active-container');
 
-            currentApp = app;
+            if (pop) {
+                appTrail.pop();
+                appTrail.pop();
+            }
+            
+            appTrail.push({
+                app: app,
+                data: data
+            });
+
+            $('.material-tooltip').remove();
+            switch(app) {
+                case 'home':
+                    SetupHome()
+                    break;
+                case 'contacts':
+                    SetupContacts();
+                    break;
+                case 'message':
+                    SetupMessages();
+                    SetupNewMessage();
+                    break;
+                case 'message-convo':
+                    SetupConvo(data);
+                    break;
+            }
         });
-    }
-
-    $('.material-tooltip').remove();
-    switch(app) {
-        case 'home':
-            SetupHome()
-            break;
-        case 'contacts':
-            SetupContacts();
-            break;
-        case 'message':
-            SetupMessages();
-            SetupNewMessage();
-            break;
-        case 'message-convo':
-            SetupConvo(data);
-            break;
-    }
-}
-
-function CloseApp(app) {
-    switch(app) {
-        case 'home':
-            CloseHome();
-            break;
-        case 'contacts':
-            CloseContacts();
-            break;
-        case 'messages':
-            CloseMessages();
-            break;
-        case 'message-convo':
-            CloseConvo();
-            break;
     }
 }
 
 function GoHome() {
-    if (currentApp !== 'home') {
+    if (appTrail[appTrail.length - 1].app !== 'home') {
         OpenApp('home');
     }
 }
 
 function GoBack() {
-    if (currentApp !== 'home') {
-        OpenApp($('.active-container').data('back'))
+    if (appTrail[appTrail.length - 1].app !== 'home') {
+        OpenApp(appTrail[appTrail.length - 2].app, appTrail[appTrail.length - 2].data, true);
     }
 }
 

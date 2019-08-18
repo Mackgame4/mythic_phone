@@ -168,7 +168,3 @@ function SetupContacts() {
         $('.contacts-list .contact:last-child').data('contact', contact);
     });
 }
-
-function CloseContacts() {
-
-}
