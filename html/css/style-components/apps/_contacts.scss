@@ -1,5 +1,6 @@
 // Color
 @import "../../components/color-variables";
+@import "../config/config";
 
 #contacts-container {
     background: #eaeaea;
@@ -42,133 +43,30 @@
                     line-height: 35px;
                     margin-left: 10px;
                     margin-right: 10px;
-                    margin-top: 10px;
+                    margin-top: 8px;
                     height: 35px;
                     width: 35px;
-                    -moz-border-radius: 70px;
-                    -webkit-border-radius: 70px;
                     border-radius: 70px;
                     text-align: center;
                     position: relative;
                     top: 15%;
+                    -webkit-transform: translate(0%, 0%);
                     transform: translate(0%, 0%);
-                    background: #1e1e1e;
+                    background: #8b1014;
                     color: #ffffff;
-
-                    &.ava-0 {
-                        background: color("yellow", "darken-3");
-                    }
-                    &.ava-1 {
-                        background: color("yellow", "darken-4");
-                    }
-                    &.ava-2 {
-                        background: color("green", "darken-1");
-                    }
-                    &.ava-3 {
-                        background: color("green", "darken-2");
-                    }
-                    &.ava-4 {
-                        background: color("green", "darken-3");
-                    }
-                    &.ava-5 {
-                        background: color("green", "darken-4");
-                    }
-                    &.ava-6 {
-                        background: color("deep-orange", "darken-1");
-                    }
-                    &.ava-7 {
-                        background: color("deep-orange", "darken-2");
-                    }
-                    &.ava-8 {
-                        background: color("deep-orange", "darken-3");
-                    }
-                    &.ava-9 {
-                        background: color("deep-orange", "darken-4");
-                    }
-
-                    &.ava-a {
-                        background: color("materialize-red", "darken-1");
-                    }
-                    &.ava-b {
-                        background: color("materialize-red", "darken-2");
-                    }
-                    &.ava-c {
-                        background: color("materialize-red", "darken-3");
-                    }
-                    &.ava-d {
-                        background: color("materialize-red", "darken-4");
-                    }
-                    &.ava-e {
-                        background: color("pink", "darken-1");
-                    }
-                    &.ava-f {
-                        background: color("pink", "darken-2");
-                    }
-                    &.ava-g {
-                        background: color("pink", "darken-3");
-                    }
-                    &.ava-h {
-                        background: color("pink", "darken-4");
-                    }
-                    &.ava-i {
-                        background: color("purple", "darken-1");
-                    }
-                    &.ava-j {
-                        background: color("purple", "darken-2");
-                    }
-                    &.ava-k {
-                        background: color("purple", "darken-3");
-                    }
-                    &.ava-l {
-                        background: color("purple", "darken-4");
-                    }
-                    &.ava-m {
-                        background: color("deep-purple", "darken-1");
-                    }
-                    &.ava-n {
-                        background: color("deep-purple", "darken-2");
-                    }
-                    &.ava-o {
-                        background: color("deep-purple", "darken-3");
-                    }
-                    &.ava-p {
-                        background: color("deep-purple", "darken-4");
-                    }
-                    &.ava-q {
-                        background: color("indigo", "darken-1");
-                    }
-                    &.ava-r {
-                        background: color("indigo", "darken-2");
-                    }
-                    &.ava-s {
-                        background: color("indigo", "darken-3");
-                    }
-                    &.ava-t {
-                        background: color("indigo", "darken-4");
-                    }
-                    &.ava-u {
-                        background: color("blue", "darken-1");
-                    }
-                    &.ava-v {
-                        background: color("blue", "darken-2");
-                    }
-                    &.ava-w {
-                        background: color("blue", "darken-3");
-                    }
-                    &.ava-x {
-                        background: color("blue", "darken-4");
-                    }
-                    &.ava-y {
-                        background: color("yellow", "darken-1");
-                    }
-                    &.ava-z {
-                        background: color("yellow", "darken-2");
-                    }
                 }
 
                 .contact-name {
                     line-height: 50px;
 
+                    .contact-name-text {
+                        width: 50%;
+                        display: inline-block;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                    
                     .number {
                         font-weight: bold;
                         float: right;
@@ -179,17 +77,11 @@
                 &:hover {
                     transition: all ease-in 0.15s;
                     background: #c4c4c4;
-
-                    .contact-actions {
-                        transition: background ease-in 0.15s;
-                        background: #c4c4c4;
-                    }
                 }
 
                 .contact-actions {
                     z-index: 998;
                     padding: 10px;
-                    background: #ffffff;
                     display: none;
 
                     i {

@@ -42,3 +42,4 @@ FOR THE FINAL TIME, THIS IS A WIP RESOURCE THAT IS NOT INTENDED FOR ANYONE TO AC
 ### Messages
 ![Messages App](https://i.imgur.com/AkhjJmu.png)
 ![Messages App](https://i.imgur.com/jPkCe5t.png)
+![Messages App](https://i.imgur.com/8OaYbbY.gif)

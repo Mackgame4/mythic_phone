@@ -7,19 +7,40 @@ $('.messages-list').on('click', '.message', function(e) {
 $('#convo-new-text').on('submit', function(e) {
     e.preventDefault();
     let convoData = $(this).parent().parent().parent().data('data');
-    console.log(convoData);
     let data = $(this).serializeArray();
 
-    console.log(data);
+    let myNumber = JSON.parse(window.localStorage.getItem('myNumber'));
+    let messages = JSON.parse(window.localStorage.getItem('messages'));
+
+    let now = new Date();
+
+    messages.push({
+        id: messages[messages.length - 1].id + 1,
+        sender: myNumber,
+        receiver: convoData.number,
+        message: data[0].value,
+        sent_time: now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+        actual_sender: null,
+        isRead: true,
+        owner: 0
+    });
+
+    console.log(messages[messages.length - 1].sent_time);
+
+    window.localStorage.setItem('messages', JSON.stringify(messages));
+
+    $('.convo-texts-list').append('<div class="text me-sender"><span>' + data[0].value + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>');
+
+    $('#convo-input').val('');
 })
 
 function SetupConvo(data) {
     $('#message-convo-container').data('data', data);
-
-    let contacts = JSON.parse(window.localStorage.getItem('contacts'));
     let myNumber = JSON.parse(window.localStorage.getItem('myNumber'));
+    let contacts = JSON.parse(window.localStorage.getItem('contacts'));
+    let messages = JSON.parse(window.localStorage.getItem('messages'));
 
-    let texts = Messages.filter(c => c.sender == data.number || c.receiver == data.number);
+    let texts = messages.filter(c => c.sender == data.number || c.receiver == data.number);
     let contact = contacts.filter(c => c.number == data.number)[0];
 
     if (contact != null) {
@@ -37,25 +58,36 @@ function SetupConvo(data) {
         var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
 
         if (text.sender == myNumber) {
-            $('.convo-texts-list').append('<div class="text me-sender"><span>' + text.message + '</span><p>' + moment(d).fromNow() + '</p></div>')
+            $('.convo-texts-list').append('<div class="text me-sender"><span>' + text.message + '</span><p>' + moment(d).fromNowOrNow() + '</p></div>')
         } else {
             if (contact != null) {
-                $('.convo-texts-list').append('<div class="text other-sender"><span class=" other-' + contact.name[0] + '">' + text.message + '</span><p>' + moment(d).fromNow() + '</p></div>')
+                $('.convo-texts-list').append('<div class="text other-sender"><span class=" other-' + contact.name[0] + '">' + text.message + '</span><p>' + moment(d).fromNowOrNow() + '</p></div>')
             } else {
-                $('.convo-texts-list').append('<div class="text other-sender"><span>' + text.message + '</span><p>' + moment(d).fromNow() + '</p></div>')
+                $('.convo-texts-list').append('<div class="text other-sender"><span>' + text.message + '</span><p>' + moment(d).fromNowOrNow() + '</p></div>')
             }
             
         }
     });
 }
 
+$("#message-new-number").on('keyup', function(e) {
+    $(this).val($(this).val().replace(/^(\d{3})(\d{3})(\d)+$/, "$1-$2-$3"));
+});
+
+$('#message-new-contact').on('change', function(e) {
+    let data = $(this).val();
+
+    $('#message-new-number').val(data);
+})
+
 function SetupMessages() {
-    let contacts = JSON.parse(window.localStorage.getItem('contacts'));
     let myNumber = JSON.parse(window.localStorage.getItem('myNumber'));
+    let contacts = JSON.parse(window.localStorage.getItem('contacts'));
+    let messages = JSON.parse(window.localStorage.getItem('messages'));
 
     let convos = new Array();
 
-    $.each(Messages, function(index, message) {
+    $.each(messages, function(index, message) {
         let obj = new Object();
 
         if (message.sender == myNumber) {
@@ -98,13 +130,23 @@ function SetupMessages() {
 
         // Not A Contact
         if (contact == null) {
-            $('#message-container .inner-app .messages-list').append('<div class="message waves-effect"><div class="text-avatar">#</div><div class="text-name">' + message.number + '</div><div class="text-message">' + message.message + '</div><div class="text-time">' + moment([message.time[0], message.time[1] - 1, message.time[2], message.time[3], message.time[4], message.time[5]]).fromNow() + '</div></div>');
+            $('#message-container .inner-app .messages-list').append('<div class="message waves-effect"><div class="text-avatar">#</div><div class="text-name">' + message.number + '</div><div class="text-message">' + message.message + '</div><div class="text-time">' + moment([message.time[0], message.time[1] - 1, message.time[2], message.time[3], message.time[4], message.time[5]]).fromNowOrNow() + '</div></div>');
         } else {
-            $('#message-container .inner-app .messages-list').append('<div class="message waves-effect"><div class="text-avatar ava-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="text-name">' + contact.name + '</div><div class="text-message"> ' + message.message + '</div><div class="text-time">' + moment([message.time[0], message.time[1] - 1, message.time[2], message.time[3], message.time[4], message.time[5]]).fromNow() + '</div></div>')
+            $('#message-container .inner-app .messages-list').append('<div class="message waves-effect"><div class="text-avatar other-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="text-name">' + contact.name + '</div><div class="text-message"> ' + message.message + '</div><div class="text-time">' + moment([message.time[0], message.time[1] - 1, message.time[2], message.time[3], message.time[4], message.time[5]]).fromNowOrNow() + '</div></div>')
         }
 
         $('.messages-list .message:last-child').data('message', message);
-    })
+    });
+}
+
+function SetupNewMessage() {
+    let contacts = JSON.parse(window.localStorage.getItem('contacts'));
+
+    $.each(contacts, function(index, contact) {
+        $('#message-new-contact').append('<option value="' + contact.number + '">' + contact.name + ' (' + contact.number +')</option>');
+    });
+
+    $('#message-new-contact').formSelect();
 }
 
 function sortFunction(a,b){  
