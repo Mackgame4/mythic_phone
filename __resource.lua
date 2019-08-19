@@ -24,7 +24,6 @@ files {
     'html/libs/all.min.css',
     'html/libs/jquery.min.js',
     'html/libs/jquery-ui.min.js',
-    'html/libs/jquery.inputmask.bundle.min.js',
     'html/libs/materialize.min.js',
     'html/libs/moment.min.js',
 
