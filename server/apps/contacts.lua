@@ -37,8 +37,8 @@ AddEventHandler('mythic_phone:server:CreateContact', function(token, identifier,
     end)
 end)
 
-RegisterServerEvent('mythic_phone:server:UpdateContact')
-AddEventHandler('mythic_phone:server:UpdateContact', function(token, identifier, id, name, number)
+RegisterServerEvent('mythic_phone:server:EditContact')
+AddEventHandler('mythic_phone:server:EditContact', function(token, identifier, id, name, number)
     local src = source
     if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
 		return false

@@ -5,10 +5,11 @@ var appTrail = [{
 
 var navDisabled = false;
 
-/*$( function() {
+$( function() {
+    $('.wrapper').fadeIn();
     SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages } ] );
     OpenApp('home', null, true);
-});*/
+});
 
 $( function() {
     window.localStorage.clear(); 
@@ -41,8 +42,7 @@ $(document).ready(function(){
     $('.dropdown-trigger').dropdown({
         constrainWidth: false
     });
-    $('#convo-input').characterCounter();
-    $('#message-new-body').characterCounter();
+    $('.character-counter').characterCounter();
 });
 
 $( function() {

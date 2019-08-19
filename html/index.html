@@ -47,7 +47,7 @@
                                     <h6>Add Contact</h6>
                                     <form id="contacts-add-contact">
                                         <div class="input-field col s6">
-                                            <input id="contact-add-name" name="contact-add-name" type="text" class="validate" maxlength="64" required>
+                                            <input id="contact-add-name" name="contact-add-name" type="text" class="validate character-counter" data-length="64" maxlength="64" required>
                                             <label for="contact-add-name">Name</label>
                                         </div>
                                         <div class="input-field col s6">
@@ -67,7 +67,7 @@
                                     <h6>Edit Contact</h6>
                                     <form id="contacts-edit-contact">
                                         <div class="input-field col s6">
-                                            <input id="contact-edit-name" name="contact-edit-name" type="text" class="validate" maxlength="64" required>
+                                            <input id="contact-edit-name" name="contact-edit-name" type="text" class="validate character-counter" data-length="64" maxlength="64" required>
                                             <label for="contact-edit-name">Name</label>
                                         </div>
                                         <div class="input-field col s6">
@@ -110,7 +110,7 @@
                                             <input id="message-new-number" name="message-new-number" type="text" class="validate" pattern=".{12}" maxlength="12" placeholder="Recipient Number" required>
                                         </div>
                                         <div class="input-field col s12">
-                                            <textarea id="message-new-body" name="message-new-body" class="materialize-textarea" data-length="255" maxlength="255" required></textarea>
+                                            <textarea id="message-new-body" name="message-new-body" class="materialize-textarea character-counter" data-length="255" maxlength="255" required></textarea>
                                             <label for="message-new-body">Text message</label>
                                         </div>
                                     </form>
@@ -140,7 +140,7 @@
                                 <div class="convo-text-input">
                                     <form id="convo-new-text">
                                         <div class="input-field col s12">
-                                            <input id="convo-input" name="convo-input" type="text" placeholder="Text message" data-length="255" maxlength="255" required>
+                                            <input class="character-counter" id="convo-input" name="convo-input" type="text" placeholder="Text message" data-length="255" maxlength="255" required>
                                         </div>
                                         <button class="btn-flat convo-action-send"><i class="fas fa-paper-plane"></i></button>
                                     </form>
