@@ -46,7 +46,7 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
         if IsControlJustReleased(1, 170) then
-          SetNuiFocus(true, false)
+          SetNuiFocus(true, true)
           SendNUIMessage( { action = 'show' } )
           isPhoneOpen = true
           DisableControls()

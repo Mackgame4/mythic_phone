@@ -1,8 +1,3 @@
-var documentWidth = document.documentElement.clientWidth;
-var documentHeight = document.documentElement.clientHeight;
-var cursorX = documentWidth / 2;
-var cursorY = documentHeight / 2;
-
 var appTrail = [{
     app: null,
     data: null
@@ -26,23 +21,6 @@ moment.fn.fromNowOrNow = function (a) {
     return this.fromNow(a);
 }
 
-function UpdateCursorPos() {
-    $('#cursor').css('left', cursorX + 2);
-    $('#cursor').css('top', cursorY + 2);
-}
-
-function triggerClick(x, y) {
-    var element = $(document.elementFromPoint(x, y)); 
-    element.focus().click();
-    return true;
-}
-
-$(document).mousemove(function(event) {
-    cursorX = event.pageX;
-    cursorY = event.pageY;
-    UpdateCursorPos();
-});
-
 window.addEventListener('message', function(event) {
     switch(event.data.action) {
         case 'setup':
@@ -50,7 +28,6 @@ window.addEventListener('message', function(event) {
             break;
         case 'show':
             $('.wrapper').show("slide", { direction: "down" }, 500);
-            $('#cursor').show();
             OpenApp('home', null, true);
             break;
         case 'hide':
@@ -99,7 +76,6 @@ $('.home-button').click(function(event) {
 function ClosePhone() {
     $('#toast-container').remove();
     $('.material-tooltip').remove();
-    $('#cursor').hide();
     $('.wrapper').hide("slide", { direction: "down" }, 500);
     $('.app-container').hide();
     $.post('http://mythic_phone2/ClosePhone', JSON.stringify({}));

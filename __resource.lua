@@ -43,7 +43,6 @@ files {
     'html/webfonts/fa-solid-900.woff',
     'html/webfonts/fa-solid-900.woff2',
 
-    'html/imgs/cursor.png',
     'html/imgs/back001.png',
     'html/imgs/back002.png',
     'html/imgs/back003.png',
