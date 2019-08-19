@@ -55,12 +55,8 @@ AddEventHandler('mythic_phone:server:DeleteConversation', function(token, identi
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()
 
-    print(cData.phone, number)
-
     exports['ghmattimysql']:execute('UPDATE phone_texts SET sender_deleted = 1 WHERE sender = @me AND receiver = @other', { ['me'] = cData.phone, ['other'] = number }, function(status1)
-        print(json.encode(status1))
         exports['ghmattimysql']:execute('UPDATE phone_texts SET receiver_deleted = 1 WHERE receiver = @me AND sender = @other', { ['me'] = cData.phone, ['other'] = number }, function(status2)
-            print(json.encode(status2))
             if status1 ~= nil and status2 ~= nil then
                 TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, true)
             else

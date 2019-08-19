@@ -45,7 +45,7 @@ $(document).ready(function(){
     $('.dropdown-trigger').dropdown({
         constrainWidth: false
     });
-    $('.character-counter').characterCounter();
+    $('.char-count-input').characterCounter();
 });
 
 $( function() {

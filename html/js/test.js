@@ -11,7 +11,6 @@ var Contacts = [
 
 var Messages = [
     {
-        id: 1,
         sender: '111-111-1111',
         receiver: '555-555-5555',
         message: 'Fuck You',

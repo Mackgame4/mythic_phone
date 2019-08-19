@@ -32,6 +32,8 @@ $('#convo-new-text').on('submit', function(e) {
                 $('.convo-texts-list').append('<div class="text other-sender"><span>' + data[0].value + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>')
             }
         }
+    
+        M.toast({html: 'Message Sent'});
         
         $('#convo-input').val('');
         $('.convo-texts-list').animate({
@@ -225,7 +227,6 @@ function SendNewText(data, cb) {
             }
 
             messages.push({
-                id: textData.id,
                 sender: myNumber,
                 receiver: textData.receiver,
                 message: textData.message,

@@ -61,7 +61,7 @@ $('#contacts-add-contact').on('submit', function(e) {
             StoreData('contacts', contacts);
         
             $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar other-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name"><div class="contact-name-text">' + name + '</div><div class="number">(' + number + ')</div></div><div class="contact-actions waves-effect"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
-            $('.contacts-list .contact:last-child').data('contact', { name: name, number: number, id: status, index: contacts.length - 1 });
+            $('.contacts-list .contact:last-child').data('contact', { name: name, number: number, index: contacts.length - 1 });
         
             $('.contacts-list').animate({
                 scrollTop: $(".contacts-list .contact:last-child").offset().top
@@ -91,20 +91,21 @@ $('#contacts-edit-contact').on('submit', function(e) {
     let number = data[1].value;
 
     $.post('http://mythic_phone2/EditContact', JSON.stringify({
+        originName: editingData.name,
+        originNumber: editingData.number,
         name: name,
-        number: number,
-        id: editingData.id
+        number: number
     }), function(status) {
         if (status) {
             var modal = M.Modal.getInstance($('#edit-contact-modal'));
             modal.close();
 
             let contacts = GetData('contacts');
-            contacts[oData.index] = { name: name, number: number, id: editingData.id, index: editingData.index };
+            contacts[editingData.index] = { name: name, number: number, index: editingData.index };
             StoreData('contacts', contacts);
 
             $(editingContact).html('<div class="contact-avatar other-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name"><div class="contact-name-text">' + name + '</div><div class="number">(' + number + ')</div></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div>')
-            $(editingContact).data('contact', { name: name, number: number, id: editingData.id, index: editingData.index })
+            $(editingContact).data('contact', { name: name, number: number, index: editingData.index })
             
             $(editingContact).find('.contact-name').trigger('click');
             M.toast({html: 'Contact Updated'});
@@ -137,7 +138,8 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
     let $elem = $(this)
     let data = $elem.parent().parent().data('contact');
     $.post('http://mythic_phone2/DeleteContact', JSON.stringify({
-        id: data.id
+        name: data.name,
+        number: data.number
     }), function(status) {
         console.log(status);
         if (status) {
