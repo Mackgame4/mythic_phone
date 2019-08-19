@@ -21,9 +21,9 @@ end)
 RegisterServerEvent('mythic_phone:server:CreateContact')
 AddEventHandler('mythic_phone:server:CreateContact', function(token, identifier, name, number)
     local src = source
-    if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
+    --[[if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
 		return false
-    end
+    end ]]--
 
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()
@@ -40,9 +40,9 @@ end)
 RegisterServerEvent('mythic_phone:server:EditContact')
 AddEventHandler('mythic_phone:server:EditContact', function(token, identifier, id, name, number)
     local src = source
-    if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
+    --[[if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
 		return false
-    end
+    end ]]--
     
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()
@@ -59,9 +59,9 @@ end)
 RegisterServerEvent('mythic_phone:server:DeleteContact')
 AddEventHandler('mythic_phone:server:DeleteContact', function(token, identifier, id)
     local src = source
-    if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
+    --[[if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
 		return false
-    end
+    end ]]--
     
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()

@@ -1,3 +1,17 @@
+RegisterNetEvent('mythic_phone:client:ReceiveText')
+AddEventHandler('mythic_phone:client:ReceiveText', function(sender, text)
+    TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 10.0, 'text_message', 0.05)
+    exports['mythic_notify']:SendAlert('inform', 'You Received A Text From ' .. sender)
+
+    SendNUIMessage({
+        action = 'receiveText',
+        data = {
+            sender = sender,
+            text = text
+        }
+    })
+end)
+
 RegisterNUICallback( 'SendText', function( data, cb )
     actionCb['SendText'] = cb
     TriggerServerEvent('mythic_phone:server:SendText', securityToken, 'SendText', data.receiver, data.message)

@@ -20,6 +20,19 @@ $('#convo-new-text').on('submit', function(e) {
 
     SendNewText(text, function() {
         $('.convo-texts-list').append('<div class="text me-sender"><span>' + data[0].value + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>');
+
+        // Just incase losers wanna send themselves a text
+        let myNumber = GetData('myNumber');
+        let contacts = GetData('contacts');
+        let contact = contacts.filter(c => c.number == convoData.number)[0];
+        if (convoData.number == myNumber) {
+            if (contact != null) {
+                $('.convo-texts-list').append('<div class="text other-sender"><span class=" other-' + contact.name[0] + '">' + data[0].value + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>')
+            } else {
+                $('.convo-texts-list').append('<div class="text other-sender"><span>' + data[0].value + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>')
+            }
+        }
+        
         $('#convo-input').val('');
         $('.convo-texts-list').animate({
             scrollTop: $(".convo-texts-list .text:last-child").offset().top
@@ -69,13 +82,17 @@ $('#message-new-msg').on('submit', function(e) {
     });
 });
 
+function ReceiveText(sender, text) {
+    console.log(sender, text);
+}
+
 function SetupConvo(data) {
     $('#message-convo-container').data('data', data);
     let myNumber = GetData('myNumber');
     let contacts = GetData('contacts');
     let messages = GetData('messages');
 
-    let texts = messages.filter(c => c.sender == data.number || c.receiver == data.number);
+    let texts = messages.filter(c => c.sender == data.number && c.receiver == myNumber || c.sender == myNumber && c.receiver == data.number);
     let contact = contacts.filter(c => c.number == data.number)[0];
 
     if (contact != null) {
@@ -92,7 +109,16 @@ function SetupConvo(data) {
         var d = new Date(text.sent_time);
 
         if (text.sender == myNumber) {
-            $('.convo-texts-list').append('<div class="text me-sender"><span>' + text.message + '</span><p>' + moment(d).fromNowOrNow() + '</p></div>')
+            $('.convo-texts-list').append('<div class="text me-sender"><span>' + text.message + '</span><p>' + moment(d).fromNowOrNow() + '</p></div>');
+
+            // Just incase losers wanna send themselves a text
+            if (text.receiver == myNumber) {
+                if (contact != null) {
+                    $('.convo-texts-list').append('<div class="text other-sender"><span class=" other-' + contact.name[0] + '">' + text.message + '</span><p>' + moment(d).fromNowOrNow() + '</p></div>')
+                } else {
+                    $('.convo-texts-list').append('<div class="text other-sender"><span>' + text.message + '</span><p>' + moment(d).fromNowOrNow() + '</p></div>')
+                }
+            }
         } else {
             if (contact != null) {
                 $('.convo-texts-list').append('<div class="text other-sender"><span class=" other-' + contact.name[0] + '">' + text.message + '</span><p>' + moment(d).fromNowOrNow() + '</p></div>')
@@ -102,6 +128,11 @@ function SetupConvo(data) {
             
         }
     });
+
+    
+    $('.convo-texts-list').animate({
+        scrollTop: $(".convo-texts-list .text:last-child").offset().top
+    }, 25);
 }
 
 function SetupMessages() {

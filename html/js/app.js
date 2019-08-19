@@ -5,11 +5,11 @@ var appTrail = [{
 
 var navDisabled = false;
 
-$( function() {
+/*$( function() {
     $('.wrapper').fadeIn();
     SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages } ] );
     OpenApp('home', null, true);
-});
+}); */
 
 $( function() {
     window.localStorage.clear(); 
@@ -33,6 +33,9 @@ window.addEventListener('message', function(event) {
             break;
         case 'hide':
             ClosePhone();
+            break;
+        case 'receiveText':
+            ReceiveText(event.data.data.sender, event.data.data.text);
             break;
     }
 });
