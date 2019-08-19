@@ -11,6 +11,7 @@
     height: 100vh;
     width: 100vw;
     display: none;
+    overflow: hidden;
 
     .phone-wrapper {
         position: absolute;
@@ -28,6 +29,7 @@
             width: 500px;
             height: 1000px;
             pointer-events: none;
+            overflow: hidden;
         }
 
         .phone {
@@ -40,6 +42,7 @@
             display: flex;
             color: #1e1e1e;
             background: #eaeaea;
+            overflow: hidden;
 
             .phone-header {
                 height: 24px;

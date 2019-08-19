@@ -30,14 +30,20 @@ $('#convo-new-text').on('submit', function(e) {
 $('#convo-delete-all').on('click', function(e) {
     e.preventDefault();
     let convoData = $('#message-convo-container').data('data');
-    let messages = GetData('messages');
 
-    let cleanedMsgs = messages.filter(m => (m.sender != convoData.number) && (m.receiver != convoData.number));
-
-    StoreData('messages', cleanedMsgs);
-
-    M.toast({html: 'Conversation Deleted'});
-    GoBack();
+    $.post('http://mythic_phone2/DeleteConversation', JSON.stringify({
+        number: convoData.number
+    }), function(status) {
+        if (status) {
+            let messages = GetData('messages');
+            let cleanedMsgs = messages.filter(m => (m.sender != convoData.number) && (m.receiver != convoData.number));
+            StoreData('messages', cleanedMsgs);
+            M.toast({html: 'Conversation Deleted'});
+            GoBack();
+        } else {
+            M.toast({html: 'Error Deleting Conversation'});
+        }
+    });
 });
 
 $("#message-new-number").on('keyup', function(e) {
