@@ -74,15 +74,16 @@ $('.home-button').click(function(event) {
 });
 
 function ClosePhone() {
-    $('#toast-container').remove();
-    $('.material-tooltip').remove();
-    $('.wrapper').hide("slide", { direction: "down" }, 500);
-    $('.app-container').hide();
     $.post('http://mythic_phone2/ClosePhone', JSON.stringify({}));
-    appTrail = [{
-        app: null,
-        data: null
-    }];
+    $('.wrapper').hide("slide", { direction: "down" }, 500, function() {
+        $('#toast-container').remove();
+        $('.material-tooltip').remove();
+        $('.app-container').hide();
+        appTrail = [{
+            app: null,
+            data: null
+        }];
+    });
 }
 
 function OpenApp(app, data = null, pop = false) {
