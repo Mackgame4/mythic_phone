@@ -1,7 +1,17 @@
+actionCb = {}
 local isPhoneOpen = false
+
+RegisterNetEvent('mythic_phone:client:ActionCallback')
+AddEventHandler('mythic_phone:client:ActionCallback', function(identifier, data)
+    if actionCb[identifier] ~= nil then
+        actionCb[identifier](data)
+        actionCb[identifier] = nil
+    end
+end)
 
 RegisterNetEvent('mythic_phone:client:SetupData')
 AddEventHandler('mythic_phone:client:SetupData', function(data)
+  print(json.encode(data))
   SendNUIMessage({
     action = 'setup',
     data = data

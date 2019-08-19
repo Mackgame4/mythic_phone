@@ -10,10 +10,14 @@ var appTrail = [{
 
 var navDisabled = false;
 
-$( function() {
+/*$( function() {
     SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages } ] );
     OpenApp('home', null, true);
-});
+});*/
+
+$( function() {
+    window.localStorage.clear(); 
+})
 
 moment.fn.fromNowOrNow = function (a) {
     if (Math.abs(moment().diff(this)) < 60000) {
@@ -47,7 +51,7 @@ window.addEventListener('message', function(event) {
         case 'show':
             $('.wrapper').show("slide", { direction: "down" }, 500);
             $('#cursor').show();
-            OpenApp('home');
+            OpenApp('home', null, true);
             break;
         case 'hide':
             ClosePhone();
@@ -57,19 +61,22 @@ window.addEventListener('message', function(event) {
 
 $(document).ready(function(){
     $('.modal').modal();
+    $('.dropdown-trigger').dropdown({
+        constrainWidth: false
+    });
     $('#convo-input').characterCounter();
     $('#message-new-body').characterCounter();
 });
 
 $( function() {
     document.onkeyup = function ( data ) {
-        if ( data.which == 114 || data.which == 27 ) { // F3 key
+        if ( data.which == 114 || data.which == 27 ) {
             ClosePhone();
         }
     };
 });
 
-$('#back-button').click(function(event) {
+$('.back-button').click(function(event) {
     if (!navDisabled) {
         GoBack();
         navDisabled = true;
@@ -79,7 +86,7 @@ $('#back-button').click(function(event) {
     }
 });
 
-$('#home-button').click(function(event) {
+$('.home-button').click(function(event) {
     if (!navDisabled) {
         GoHome();
         navDisabled = true;
@@ -94,11 +101,12 @@ function ClosePhone() {
     $('.material-tooltip').remove();
     $('#cursor').hide();
     $('.wrapper').hide("slide", { direction: "down" }, 500);
-    appTrail = new Object({
+    $('.app-container').hide();
+    $.post('http://mythic_phone2/ClosePhone', JSON.stringify({}));
+    appTrail = [{
         app: null,
         data: null
-    });
-    $.post('http://mythic_phone2/ClosePhone', JSON.stringify({}));
+    }];
 }
 
 function OpenApp(app, data = null, pop = false) {
@@ -118,24 +126,43 @@ function OpenApp(app, data = null, pop = false) {
                 app: app,
                 data: data
             });
-
-            $('.material-tooltip').remove();
-            switch(app) {
-                case 'home':
-                    SetupHome()
-                    break;
-                case 'contacts':
-                    SetupContacts();
-                    break;
-                case 'message':
-                    SetupMessages();
-                    SetupNewMessage();
-                    break;
-                case 'message-convo':
-                    SetupConvo(data);
-                    break;
-            }
         });
+
+        $('.material-tooltip').remove();
+        switch(app) {
+            case 'home':
+                SetupHome()
+                break;
+            case 'contacts':
+                SetupContacts();
+                break;
+            case 'message':
+                SetupMessages();
+                SetupNewMessage();
+                break;
+            case 'message-convo':
+                SetupConvo(data);
+                break;
+        }
+    }
+}
+
+function RefreshApp() {
+    $('.material-tooltip').remove();
+    switch(appTrail[appTrail.length - 1].app) {
+        case 'home':
+            SetupHome()
+            break;
+        case 'contacts':
+            SetupContacts();
+            break;
+        case 'message':
+            SetupMessages();
+            SetupNewMessage();
+            break;
+        case 'message-convo':
+            SetupConvo(data);
+            break;
     }
 }
 
@@ -151,15 +178,16 @@ function GoBack() {
     }
 }
 
-function SetupData(data) {
-    window.localStorage.clear();   
+function SetupData(data) {  
     $.each(data, function(index, item) {
         window.localStorage.setItem(item.name, JSON.stringify(item.data));
     });
 }
 
-function StoreData(data) { 
-    $.each(data, function(index, item) {
-        window.localStorage.setItem(item.name, JSON.stringify(item.data));
-    });
+function StoreData(name, data) { 
+    window.localStorage.setItem(name, JSON.stringify(data));
+}
+
+function GetData(name) {
+    return JSON.parse(window.localStorage.getItem(name));
 }

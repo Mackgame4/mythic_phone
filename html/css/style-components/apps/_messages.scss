@@ -98,9 +98,21 @@
             font-weight: bold;
             background: color("materialize-red", "darken-4");
 
+            i.back-button {
+                float: left;
+                line-height: 40px;
+                padding-right: 15px;
+
+                &:hover {
+                    transition: all ease-in 0.15s;
+                    filter: brightness(85%);
+                }
+            }
+
             .convo-top-number {
-                width: 49%;
+                width: 44%;
                 font-size: 20px;
+                line-height: 35px;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -110,6 +122,7 @@
             .convo-top-actions {
                 display: inline-block;
                 width: 49%;
+                line-height: 40px;
                 text-align: right;
 
                 i {

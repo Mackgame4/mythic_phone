@@ -103,7 +103,7 @@
                                     <h6>Send New Message</h6>
                                     <form id="message-new-msg">
                                         <div class="input-field col s12">
-                                            <select id="message-new-contact" name="message-new-contact">
+                                            <select id="message-new-contact">
                                                 <option value="" selected>Choose Contact</option>
                                             </select>
                                         </div>
@@ -126,12 +126,13 @@
                         <div class="app-container" id="message-convo-container">
                             <div class="inner-app">
                                 <div class="convo-top-bar">
+                                    <i class="fas fa-chevron-left back-button"></i>
                                     <div class="convo-top-number">
                                         555-555-5555
                                     </div>
                                     <div class="convo-top-actions">
                                         <i class="fas fa-phone convo-action-call"></i>
-                                        <i class="fas fa-ellipsis-v convo-action-drop"></i>
+                                        <i class="fas fa-ellipsis-v convo-action-drop dropdown-trigger" data-target="convo-options-dropdown"></i>
                                     </div>
                                 </div>
                                 <div class="convo-texts-list">
@@ -145,6 +146,10 @@
                                         <button class="btn-flat convo-action-send"><i class="fas fa-paper-plane"></i></button>
                                     </form>
                                 </div>
+                                
+                                <ul id='convo-options-dropdown' class='dropdown-content'>
+                                    <li><a id="convo-delete-all">Delete Conversation</a></li>
+                                </ul>
                             </div>
                         </div>
 
@@ -160,13 +165,13 @@
                         </div>
                     </div>
                     <div class="phone-footer">
-                        <div class="footer-button" id="back-button">
+                        <div class="footer-button back-button">
                             <i class="fas fa-chevron-left"></i>
                         </div>
-                        <div class="footer-button" id="home-button">
+                        <div class="footer-button home-button">
                             <i class="far fa-circle"></i>
                         </div>
-                        <div class="footer-button" id="unk-button">
+                        <div class="footer-button unk-button">
                             <i class="far fa-square"></i>
                         </div>
                     </div>

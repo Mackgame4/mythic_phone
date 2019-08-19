@@ -17,6 +17,7 @@ files {
     'html/js/phone_apps.js',
     'html/js/test.js',
 
+    'html/js/apps/home.js',
     'html/js/apps/contacts.js',
     'html/js/apps/messages.js',
     

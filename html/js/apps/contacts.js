@@ -51,14 +51,14 @@ $('#contacts-add-contact').on('submit', function(e) {
             var modal = M.Modal.getInstance($('#add-contact-modal'));
             modal.close();
 
-            let contacts = JSON.parse(window.localStorage.getItem('contacts'));
+            let contacts = GetData('contacts');
 
             if (contacts == null) {
                 contacts = new Array();
             }
 
             contacts.push({ name: name, number: number, index: contacts.length });
-            window.localStorage.setItem('contacts', JSON.stringify(contacts));
+            StoreData('contacts', contacts);
         
             $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar other-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name"><div class="contact-name-text">' + name + '</div><div class="number">(' + number + ')</div></div><div class="contact-actions waves-effect"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');
             $('.contacts-list .contact:last-child').data('contact', { name: name, number: number, id: status, index: contacts.length - 1 });
@@ -99,9 +99,9 @@ $('#contacts-edit-contact').on('submit', function(e) {
             var modal = M.Modal.getInstance($('#edit-contact-modal'));
             modal.close();
 
-            let contacts = JSON.parse(window.localStorage.getItem('contacts'));
+            let contacts = GetData('contacts');
             contacts[oData.index] = { name: name, number: number, id: editingData.id, index: editingData.index };
-            window.localStorage.setItem('contacts', JSON.stringify(contacts));
+            StoreData('contacts', contacts);
 
             $(editingContact).html('<div class="contact-avatar other-' + name[0].toString().toLowerCase() + '">' + name[0] + '</div><div class="contact-name"><div class="contact-name-text">' + name + '</div><div class="number">(' + number + ')</div></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div>')
             $(editingContact).data('contact', { name: name, number: number, id: editingData.id, index: editingData.index })
@@ -121,9 +121,6 @@ $('#contacts-edit-contact').on('submit', function(e) {
 
 $('.contacts-list').on('click', '.contact-actions .action-text', function(e) {
     let data = $(this).parent().parent().data('contact');
-
-    console.log(data);
-
     OpenApp('message-convo', { number: data.number });
 });
 
@@ -149,9 +146,9 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
             })
             M.toast({html: 'Contact Deleted'});
 
-            let contacts = JSON.parse(window.localStorage.getItem('contacts'));
+            let contacts = GetData('contacts');
             contacts.splice(data.index, 1);
-            window.localStorage.setItem('contacts', JSON.stringify(contacts));
+            StoreData('contacts', contacts);
         } else {
             M.toast({html: 'Error Deleting Contact'});
         }
@@ -159,8 +156,7 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
 });
 
 function SetupContacts() {
-    let contacts = JSON.parse(window.localStorage.getItem('contacts'));
-
+    let contacts = GetData('contacts');
     $('.contacts-list').html('');
     $.each(contacts, function(index, contact) {
         $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar other-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="contact-name"><div class="contact-name-text">' + contact.name + '</div><div class="number">(' + contact.number + ')</div></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit  modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');

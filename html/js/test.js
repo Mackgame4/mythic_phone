@@ -16,7 +16,6 @@ var Messages = [
         receiver: '555-555-5555',
         message: 'Fuck You',
         sent_time: '2019-06-09 03:31:30',
-        actual_sender: null,
         isRead: 0,
         owner: 0
     },
@@ -26,7 +25,6 @@ var Messages = [
         receiver: '111-111-1111',
         message: 'HIIIII',
         sent_time: '2019-06-12 03:31:30',
-        actual_sender: null,
         isRead: 0,
         owner: 0
     },
@@ -36,7 +34,6 @@ var Messages = [
         receiver: '444-444-4444',
         message: 'Another Number',
         sent_time: '2019-06-09 03:31:30',
-        actual_sender: null,
         isRead: 0,
         owner: 0
     },
@@ -46,7 +43,6 @@ var Messages = [
         receiver: '111-111-1111',
         message: 'Woot',
         sent_time: '2019-06-12 03:31:30',
-        actual_sender: null,
         isRead: 0,
         owner: 0
     },
@@ -56,7 +52,6 @@ var Messages = [
         receiver: '111-111-1111',
         message: 'Woot',
         sent_time: '2019-08-12 03:31:30',
-        actual_sender: '444-444-4444',
         isRead: 0,
         owner: 0
     },
