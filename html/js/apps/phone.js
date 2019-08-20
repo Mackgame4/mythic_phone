@@ -45,9 +45,40 @@
         }
     });
 
+    $('[data-section=keypad').on('keydown', '.keypad-top input', function(e) {
+        switch (e.which) {
+            case 8:
+            case 48:
+            case 49:
+            case 50:
+            case 51:
+            case 52:
+            case 53:
+            case 54:
+            case 55:
+            case 56:
+            case 57:
+            case 96:
+            case 97:
+            case 98:
+            case 99:
+            case 100:
+            case 101:
+            case 102:
+            case 103:
+            case 104:
+            case 105:
+            case 106:
+                break;
+            default:
+                e.preventDefault();
+                break;
+        }
+        console.log(e.which);
+    });
+
     $('[data-section=keypad').on('change, keyup', '.keypad-top input', function(e) {
         let number = $(this).val();
-
         CheckIfContact(number);
     });
 
