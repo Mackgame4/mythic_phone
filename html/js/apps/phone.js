@@ -1,3 +1,32 @@
+var myNumber = null;
+var contacts = new Array();
+var history = new Array();
+
+$('[data-section=keypad').on('click', '.keypad-key', function(e) {
+    if (!$(this).hasClass('key-call')) {
+        let key = $(this).data('value');
+        let exist = $('.keypad-top input').val();
+        if (key === '#' || key === '*') {
+            let format = formatUSPhoneNumber(exist);
+            format = key + format
+            $('.keypad-top input').val(format);
+        }
+        else if ((exist.length < 12) || (exist.length < 13 && (exist[0] === '#' || exist[0] === '*') )) {
+            exist = exist + key
+            let format = formatUSPhoneNumber(exist);
+            $('.keypad-top input').val(format);
+        }
+    }
+});
+
+$('[data-section=keypad').on('click', '.keypad-key.key-call', function(e) {
+    console.log("Call " + $('.keypad-top input').val());
+});
+
+$('[data-section=keypad').on('keyup', '.keypad-top input', function(e) {
+    $(this).val(formatUSPhoneNumber($(this).val()));
+});
+
 $('[data-section=history').on('click', '.call', function(event) {
     if ($(this).find('.call-actions').is(":visible")) {
         $(this).find('.call-actions').slideUp();
@@ -8,7 +37,6 @@ $('[data-section=history').on('click', '.call', function(event) {
 });
 
 $('[data-section=history').on('click', '.call-actions .call-action-text', function(e) {
-    let myNumber = GetData('myNumber');
     let data = $(this).parent().parent().data('data');
     let number = data.sender;
 
@@ -20,7 +48,6 @@ $('[data-section=history').on('click', '.call-actions .call-action-text', functi
 });
 
 $('[data-section=history').on('click', '.call-actions .call-action-delete', function(e) {
-    let myNumber = GetData('myNumber');
     let data = $(this).parent().parent().data('data');
     let number = data.sender;
 
@@ -45,9 +72,9 @@ $('.phone-nav-button').on('click', function(e) {
 });
 
 function SetupCallHistory() {
-    let myNumber = GetData('myNumber');
-    let contacts = GetData('contacts');
-    let history = GetData('history');
+    myNumber = GetData('myNumber');
+    contacts = GetData('contacts');
+    history = GetData('history');
 
     history.sort(dateSortOldest);
 
@@ -92,5 +119,17 @@ function SetupCallHistory() {
 }
 
 function SetupCallContacts() {
+
+}
+
+function MakeCall() {
+
+}
+
+function StartCall() {
+    
+}
+
+function EndCall() {
 
 }

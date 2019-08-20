@@ -19,7 +19,19 @@
                     color: #1e1e1e;
 
                     .keypad-top {
-                        height: 51%;
+                        height: 37%;
+
+                        .contact-display {
+                            font-size: 30px;
+                            position: absolute;
+                            font-weight: bold;
+                            width: fit-content;
+                            top: 8%;
+                            left: 0;
+                            right: 0;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
 
                         input {
                             padding: 15px 0;
@@ -42,6 +54,31 @@
                             display: inline-block;
                             text-align: center;
                             font-size: 40px;
+                            border-radius: 15px;
+
+                            &:hover {
+                                transition: all ease-in 0.15s;
+                                filter: brightness(85%);
+                                background: #c4c4c4;
+                            }
+
+                            &.key-call {
+                                width: 32% !important;
+                                left: 34%;
+
+                                &:hover {
+                                    transition: all ease-in 0.15s;
+                                    filter: brightness(85%);
+                                    background: transparent;
+                                }
+
+                                i {
+                                    padding: 24px;
+                                    background: green;
+                                    border-radius: 50px;
+                                    color: #ffffff;
+                                }
+                            }
                         }
                     }
                 }

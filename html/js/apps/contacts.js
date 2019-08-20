@@ -1,3 +1,4 @@
+var contacts = new Array();
 var editingContact = null;
 
 $('.contacts-list').on('click', '.contact', function(event) {
@@ -32,7 +33,7 @@ $('#search-contacts').keyup(function(e) {
 });
 
 $("#contact-add-number").keyup(function() {
-    $(this).val($(this).val().replace(/^(\d{3})(\d{3})(\d)+$/, "$1-$2-$3"));
+    $(this).val(formatUSPhoneNumber($(this).val()));
 });
 
 $('#contacts-add-contact').on('submit', function(e) {
@@ -50,8 +51,6 @@ $('#contacts-add-contact').on('submit', function(e) {
         if (status) {
             var modal = M.Modal.getInstance($('#add-contact-modal'));
             modal.close();
-
-            let contacts = GetData('contacts');
 
             if (contacts == null) {
                 contacts = new Array();
@@ -99,8 +98,7 @@ $('#contacts-edit-contact').on('submit', function(e) {
         if (status) {
             var modal = M.Modal.getInstance($('#edit-contact-modal'));
             modal.close();
-
-            let contacts = GetData('contacts');
+            
             contacts[editingData.index] = { name: name, number: number, index: editingData.index };
             StoreData('contacts', contacts);
 
@@ -147,7 +145,6 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
             })
             M.toast({html: 'Contact Deleted'});
 
-            let contacts = GetData('contacts');
             contacts.splice(data.index, 1);
             StoreData('contacts', contacts);
         } else {
@@ -157,7 +154,7 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
 });
 
 function SetupContacts() {
-    let contacts = GetData('contacts');
+    contacts = GetData('contacts');
     $('.contacts-list').html('');
     $.each(contacts, function(index, contact) {
         $('.contacts-list').append('<div class="contact waves-effect"><div class="contact-avatar other-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="contact-name"><div class="contact-name-text">' + contact.name + '</div><div class="number">(' + contact.number + ')</div></div><div class="contact-actions"><i class="fas fa-phone-volume action-call"></i><i class="fas fa-sms action-text"></i><i class="fas fa-user-edit action-edit  modal-trigger" data-target="edit-contact-modal"></i><i class="fas fa-trash-alt action-delete"></i></div></div>');

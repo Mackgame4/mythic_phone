@@ -9,11 +9,11 @@ $( function() {
     window.localStorage.clear(); 
 });
 
-/*$( function() {
+$( function() {
     $('.wrapper').fadeIn();
     SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages }, { name: 'history', data: Calls } ] );
     OpenApp('home', null, true);
-}); */
+});
 
 moment.fn.fromNowOrNow = function (a) {
     if (Math.abs(moment().diff(this)) < 60000) {
@@ -88,7 +88,11 @@ $('.close-button').click(function(event) {
 
 function dateSortNewest(a,b){
     return a.time < b.time ? 1 : -1;  
-}; 
+};
+
+function formatUSPhoneNumber(input) {
+    return input.replace(/^(\d{3})(\d{3})(\d)+$/, "$1-$2-$3")
+}
 
 function dateSortOldest(a,b){
     return a.time > b.time ? 1 : -1;  
