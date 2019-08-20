@@ -9,7 +9,7 @@
             let key = $(this).data('value');
             let exist = $('.keypad-top input').val();
             if (key === '#' || key === '*') {
-                if (exist.length <= 12) {
+                if (exist.length <= 12 && (exist[0] != '#' && exist[0] != '*')) {
                     let format = formatUSPhoneNumber(exist);
                     format = key + format
                     $('.keypad-top input').val(format).trigger('input');
@@ -20,12 +20,6 @@
                 }
                 // Remove Symbol from number and check if that is a contact
                 CheckIfContact($('.keypad-top input').val().substr(1));
-
-                if (key === '#') {
-
-                } else {
-                    NotifyCallAnon()
-                }
             }
             else if ((exist.length < 12) || (exist.length < 13 && (exist[0] === '#' || exist[0] === '*') )) {
                 let substr = ''
@@ -35,10 +29,18 @@
                 if (format[0] === '#' || format[0] === '*') {
                     substr = format[0]
                     format = format.substring(1);
+                } else {
+                    RemoveCallType();
                 }
 
                 CheckIfContact(format);
                 $('.keypad-top input').val(substr + format);
+            }
+
+            if (key === '#') {
+                NotifyCallAnon();
+            } else {
+                NotifyCallStar();
             }
         }
     });
@@ -114,8 +116,20 @@
         }
     }
 
-    function NotifyCallAnon() {
+    function NotifyCallStar() {
+        $('.call-type').html('Calling UNKNOWN');
         $('.call-type').fadeIn();
+    }
+
+    function NotifyCallAnon() {
+        $('.call-type').html('Calling Anonymously');
+        $('.call-type').fadeIn();
+    }
+
+    function RemoveCallType() {
+        $('.call-type').fadeOut('fast', function() {
+            $('.call-type').html('Call Type');
+        });
     }
 
     exports.SetupCallHistory = function() {
