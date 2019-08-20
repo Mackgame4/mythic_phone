@@ -31,6 +31,18 @@
                             right: 0;
                             margin-left: auto;
                             margin-right: auto;
+                            display: none;
+                        }
+
+                        .call-type {
+                            font-size: 15px;
+                            position: absolute;
+                            width: fit-content;
+                            left: 0;
+                            right: 0;
+                            margin-left: auto;
+                            margin-right: auto;
+                            display: none;
                         }
 
                         input {

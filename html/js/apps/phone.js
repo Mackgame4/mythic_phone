@@ -9,16 +9,44 @@
             let key = $(this).data('value');
             let exist = $('.keypad-top input').val();
             if (key === '#' || key === '*') {
-                let format = formatUSPhoneNumber(exist);
-                format = key + format
-                $('.keypad-top input').val(format);
+                if (exist.length <= 12) {
+                    let format = formatUSPhoneNumber(exist);
+                    format = key + format
+                    $('.keypad-top input').val(format).trigger('input');
+                } else {
+                    let format = formatUSPhoneNumber(exist.substr(1));
+                    format = key + format
+                    $('.keypad-top input').val(format).trigger('input');
+                }
+                // Remove Symbol from number and check if that is a contact
+                CheckIfContact($('.keypad-top input').val().substr(1));
+
+                if (key === '#') {
+
+                } else {
+                    NotifyCallAnon()
+                }
             }
             else if ((exist.length < 12) || (exist.length < 13 && (exist[0] === '#' || exist[0] === '*') )) {
+                let substr = ''
                 exist = exist + key
                 let format = formatUSPhoneNumber(exist);
-                $('.keypad-top input').val(format);
+
+                if (format[0] === '#' || format[0] === '*') {
+                    substr = format[0]
+                    format = format.substring(1);
+                }
+
+                CheckIfContact(format);
+                $('.keypad-top input').val(substr + format);
             }
         }
+    });
+
+    $('[data-section=keypad').on('change, keyup', '.keypad-top input', function(e) {
+        let number = $(this).val();
+
+        CheckIfContact(number);
     });
 
     $('[data-section=keypad').on('click', '.keypad-key.key-call', function(e) {
@@ -73,10 +101,28 @@
         }
     });
 
+    function CheckIfContact(number) {
+        let contact = contacts.filter(c => c.number == number)[0];
+
+        console.log(number);
+
+        if (contact != null) {
+            $('.keypad-top .contact-display').html(contact.name);
+            $('.keypad-top .contact-display').fadeIn();
+        } else {
+            $('.keypad-top .contact-display').fadeOut();
+        }
+    }
+
+    function NotifyCallAnon() {
+        $('.call-type').fadeIn();
+    }
+
     exports.SetupCallHistory = function() {
         myNumber = GetData('myNumber');
         contacts = GetData('contacts');
         history = GetData('history');
+
 
         $('[data-section=history').html('');
         $.each(history, function(index, call) {
@@ -115,7 +161,8 @@
             }
 
             $('[data-section=history').find('.call:first-child').data('data', call);
-        })
+        });
+        setTimeout(function() { $('.keypad-top input').get(0).focus(); }, 1500);
     }
 
     exports.SetupCallContacts = function() {

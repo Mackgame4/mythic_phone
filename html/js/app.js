@@ -91,7 +91,13 @@ function dateSortNewest(a,b){
 };
 
 function formatUSPhoneNumber(input) {
-    return input.replace(/^(\d{3})(\d{3})(\d)+$/, "$1-$2-$3")
+    let substr = ''
+    if (input[0] === '#' || input[0] === '*') {
+        substr = input[0]
+        input = input.substring(1);
+    }
+
+    return substr + input.replace(/^(\d{3})(\d{3})(\d)+$/, "$1-$2-$3")
 }
 
 function dateSortOldest(a,b){
