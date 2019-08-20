@@ -19,6 +19,7 @@ files {
 
     'html/js/apps/home.js',
     'html/js/apps/contacts.js',
+    'html/js/apps/phone.js',
     'html/js/apps/messages.js',
     
     'html/libs/all.min.css',
@@ -60,6 +61,7 @@ client_script {
     "client/animation.lua",
     
 	"client/apps/contacts.lua",
+	"client/apps/phone.lua",
 	"client/apps/messages.lua",
 }
 
@@ -72,6 +74,7 @@ server_script {
     "server/main.lua",
     
 	"server/apps/contacts.lua",
+	"server/apps/phone.lua",
 	"server/apps/messages.lua",
 }
 

@@ -14,9 +14,9 @@ end)
 RegisterServerEvent('mythic_phone:server:SendText')
 AddEventHandler('mythic_phone:server:SendText', function(token, identifier, receiver, message)
     local src = source
-    --[[if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
+    if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
 		return false
-    end ]]--
+    end
     
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()
@@ -48,9 +48,9 @@ end)
 RegisterServerEvent('mythic_phone:server:DeleteConversation')
 AddEventHandler('mythic_phone:server:DeleteConversation', function(token, identifier, number)
     local src = source
-    --[[if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
+    if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
 		return false
-    end ]]--
+    end
     
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()

@@ -5,15 +5,15 @@ var appTrail = [{
 
 var navDisabled = false;
 
-/*$( function() {
+$( function() {
+    window.localStorage.clear(); 
+});
+
+$( function() {
     $('.wrapper').fadeIn();
     SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages } ] );
     OpenApp('home', null, true);
-}); */
-
-$( function() {
-    window.localStorage.clear(); 
-})
+});
 
 moment.fn.fromNowOrNow = function (a) {
     if (Math.abs(moment().diff(this)) < 60000) {
@@ -45,6 +45,9 @@ $(document).ready(function(){
     $('.dropdown-trigger').dropdown({
         constrainWidth: false
     });
+    $('.tabs').tabs({
+        swipeable: true
+    });
     $('.char-count-input').characterCounter();
 });
 
@@ -74,6 +77,10 @@ $('.home-button').click(function(event) {
             navDisabled = false;
         }, 500);
     }
+});
+
+$('.close-button').click(function(event) {
+    ClosePhone()
 });
 
 function ClosePhone() {
@@ -109,29 +116,19 @@ function OpenApp(app, data = null, pop = false) {
         });
 
         $('.material-tooltip').remove();
-        switch(app) {
-            case 'home':
-                SetupHome()
-                break;
-            case 'contacts':
-                SetupContacts();
-                break;
-            case 'message':
-                SetupMessages();
-                SetupNewMessage();
-                break;
-            case 'message-convo':
-                SetupConvo(data);
-                break;
-        }
+        OpenAppAction(app, data);
     }
 }
 
 function RefreshApp() {
     $('.material-tooltip').remove();
-    switch(appTrail[appTrail.length - 1].app) {
+    OpenAppAction(appTrail[appTrail.length - 1].app, appTrail[appTrail.length - 1].data)
+}
+
+function OpenAppAction(app, data) {
+    switch(app) {
         case 'home':
-            SetupHome()
+            SetupHome();
             break;
         case 'contacts':
             SetupContacts();
@@ -142,6 +139,10 @@ function RefreshApp() {
             break;
         case 'message-convo':
             SetupConvo(data);
+            break;
+        case 'phone':
+            SetupCallContacts();
+            SetupCallHistory();
             break;
     }
 }
@@ -160,6 +161,7 @@ function GoBack() {
 
 function SetupData(data) {  
     $.each(data, function(index, item) {
+        console.log(item.name + ' ' + item.data.length);
         window.localStorage.setItem(item.name, JSON.stringify(item.data));
     });
 }

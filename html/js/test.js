@@ -14,8 +14,77 @@ var Messages = [
         sender: '111-111-1111',
         receiver: '555-555-5555',
         message: 'Fuck You',
-        sent_time: '2019-06-09 03:31:30',
+        sent_time: 1566263235,
         isRead: 0,
         owner: 0
-    }
+    },
+    {
+        sender: '111-111-1111',
+        receiver: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: 1566263235,
+        isRead: 0,
+        owner: 0
+    },
+    {
+        sender: '111-111-1111',
+        receiver: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: 1566263235,
+        isRead: 0,
+        owner: 0
+    },
+    {
+        sender: '111-111-1111',
+        receiver: '555-555-5555',
+        message: 'Fuck You',
+        sent_time: 1566263235,
+        isRead: 0,
+        owner: 0
+    },
+]
+
+var Calls = [
+    {
+        sender: '111-111-1111',
+        receiver: '555-555-5555',
+        time: 1566263235,
+        status: 0,
+        duration: 1150
+    },
+    {
+        sender: '111-111-1111',
+        receiver: '555-555-5555',
+        time: 1566263235,
+        status: 1,
+        duration: 1150
+    },
+    {
+        sender: '111-111-1111',
+        receiver: '555-555-5555',
+        time: 1566263235,
+        status: 2,
+        duration: 1150
+    },
+    {
+        sender: '555-555-5555',
+        receiver: '111-111-1111',
+        time: 1566263235,
+        status: 0,
+        duration: 1150
+    },
+    {
+        sender: '555-555-5555',
+        receiver: '111-111-1111',
+        time: 1566263235,
+        status: 1,
+        duration: 1150
+    },
+    {
+        sender: '555-555-5555',
+        receiver: '111-111-1111',
+        time: 1566263235,
+        status: 2,
+        duration: 1150
+    },
 ]

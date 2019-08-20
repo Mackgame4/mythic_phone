@@ -1,0 +1,69 @@
+#phone-container {
+    background: #eaeaea;
+
+    .inner-app {
+        .phone-app-top {
+            height: 92%;
+
+            .inner-phone-container {
+                height: 100%;
+                display: none;
+
+                &.active-section {
+                    display: block;
+                }
+
+                &[data-section="keypad"] {
+                    background: green;
+                }
+
+                &[data-section="history"] {
+                    background: purple;
+
+                    .call {
+                        padding: 10px;
+                        background: #ffffff;
+                        border-bottom: 1px solid #1e1e1e;
+
+                        &:hover {
+                            background: #c4c4c4;
+                        }
+                    }
+                }
+
+                &[data-section="contacts"] {
+                    background: yellow
+                }
+            }
+        }
+
+        .inner-phone-nav {
+            position: absolute;
+            bottom: 0;
+            background: #fff000;
+            color: #1e1e1e;
+            width: 100%;
+
+            .phone-nav-button {
+                display: inline-block;
+                width: 32%;
+                text-align: center;
+                padding: 15px;
+                font-weight: bold;
+                font-size: 18px;
+                border-bottom: 5px solid transparent;
+
+                &.active-nav {
+                    border-bottom: 5px solid color("materialize-red", "darken-4");
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    transition: all ease-in 0.15s;
+                    color: color("materialize-red", "darken-4");
+                    border-bottom: 5px solid color("materialize-red", "darken-4");
+                }
+            }
+        }
+    }
+}
