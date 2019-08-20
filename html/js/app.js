@@ -9,11 +9,11 @@ $( function() {
     window.localStorage.clear(); 
 });
 
-$( function() {
+/*$( function() {
     $('.wrapper').fadeIn();
     SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages }, { name: 'history', data: Calls } ] );
     OpenApp('home', null, true);
-});
+}); */
 
 moment.fn.fromNowOrNow = function (a) {
     if (Math.abs(moment().diff(this)) < 60000) {
@@ -33,6 +33,9 @@ window.addEventListener('message', function(event) {
             break;
         case 'hide':
             ClosePhone();
+            break;
+        case 'updateTime':
+            UpdateClock(event.data.time);
             break;
         case 'receiveText':
             ReceiveText(event.data.data.sender, event.data.data.text);
@@ -89,7 +92,11 @@ function dateSortNewest(a,b){
 
 function dateSortOldest(a,b){
     return a.time > b.time ? 1 : -1;  
-}; 
+};
+
+function UpdateClock(time) {
+    $('.time span').html(time)
+}
 
 function ClosePhone() {
     $.post('http://mythic_phone2/ClosePhone', JSON.stringify({}));

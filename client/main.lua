@@ -1,4 +1,5 @@
 actionCb = {}
+local isLoggedIn = false
 local isPhoneOpen = false
 
 RegisterNetEvent('mythic_phone:client:ActionCallback')
@@ -17,6 +18,26 @@ AddEventHandler('mythic_phone:client:SetupData', function(data)
     data = data
   })
 end)
+
+function CalculateTimeToDisplay()
+  hour = GetClockHours()
+  minute = GetClockMinutes()
+  
+  local obj = {}
+  
+  if hour <= 9 then
+    hour = "0" .. hour
+  end
+  
+  if minute <= 9 then
+    minute = "0" .. minute
+  end
+  
+  obj.hour = hour
+  obj.minute = minute
+
+  return obj
+end
 
 function hasPhone(cb)
   TriggerEvent('mythic_inventory:client:CheckItemCount', 'phone-check', { { item = 'phone', count = 1 } }, function(hasPhone)
@@ -42,16 +63,35 @@ function ShowNoPhoneWarning()
   exports['mythic_notify']:SendAlert('error', 'You Don\'t Have a Phone')
 end
 
-Citizen.CreateThread(function()
-    while true do
-      Citizen.Wait(0)
+AddEventHandler('mythic_characters:client:Logout', function()
+  isLoggedIn = false
+end)
+
+AddEventHandler('mythic_characters:client:CharacterSpawned', function()
+  isLoggedIn = true
+
+  local counter = 0
+  Citizen.CreateThread(function()
+    while isLoggedIn do
       if IsControlJustReleased(1, 170) then
         TogglePhone()
       end
+
+      if counter <= 0 then
+        local time = CalculateTimeToDisplay()
+        SendNUIMessage({
+          action = 'updateTime',
+          time = time.hour .. ':' .. time.minute
+        })
+        counter = 100
+      else
+        counter = counter - 1
+      end
+
+      Citizen.Wait(1)
     end
+  end)
 end)
-
-
 
 function TogglePhone()
   if not openingCd or isPhoneOpen then
