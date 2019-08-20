@@ -34,7 +34,71 @@
         }
     });
     
-    $("#contact-add-number").keyup(function() {
+    $("#contact-add-number").on('keydown', function(e) {
+        switch (e.which) {
+            case 8:
+            case 48:
+            case 49:
+            case 50:
+            case 51:
+            case 52:
+            case 53:
+            case 54:
+            case 55:
+            case 56:
+            case 57:
+            case 96:
+            case 97:
+            case 98:
+            case 99:
+            case 100:
+            case 101:
+            case 102:
+            case 103:
+            case 104:
+            case 105:
+                break;
+            default:
+                e.preventDefault();
+                break;
+        }
+    });
+    
+    $("#contact-add-number").on('keyup', function(e) {
+        $(this).val(formatUSPhoneNumber($(this).val()));
+    });
+    
+    $("#contact-edit-number").on('keydown', function(e) {
+        switch (e.which) {
+            case 8:
+            case 48:
+            case 49:
+            case 50:
+            case 51:
+            case 52:
+            case 53:
+            case 54:
+            case 55:
+            case 56:
+            case 57:
+            case 96:
+            case 97:
+            case 98:
+            case 99:
+            case 100:
+            case 101:
+            case 102:
+            case 103:
+            case 104:
+            case 105:
+                break;
+            default:
+                e.preventDefault();
+                break;
+        }
+    });
+    
+    $("#contact-edit-number").on('keyup', function(e) {
         $(this).val(formatUSPhoneNumber($(this).val()));
     });
     
@@ -86,7 +150,7 @@
         e.preventDefault();
         
         let data = $(this).serializeArray();
-        let editingData = $(editingContact).data('contact')
+        let editingData = $(editingContact).data('contact');
     
         let name = data[0].value;
         let number = data[1].value;

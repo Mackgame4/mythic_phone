@@ -29,18 +29,18 @@
                 if (format[0] === '#' || format[0] === '*') {
                     substr = format[0]
                     format = format.substring(1);
-                } else {
-                    RemoveCallType();
                 }
 
                 CheckIfContact(format);
                 $('.keypad-top input').val(substr + format);
             }
 
-            if (key === '#') {
+            if (key === '#' || exist[0] === '#') {
                 NotifyCallAnon();
-            } else {
+            } else if (key === '*' || exist[0] === '*') {
                 NotifyCallStar();
+            } else {
+                RemoveCallType();
             }
         }
     });
@@ -74,7 +74,6 @@
                 e.preventDefault();
                 break;
         }
-        console.log(e.which);
     });
 
     $('[data-section=keypad').on('change, keyup', '.keypad-top input', function(e) {
