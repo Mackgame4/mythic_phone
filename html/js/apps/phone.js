@@ -19,6 +19,18 @@ $('[data-section=history').on('click', '.call-actions .call-action-text', functi
     OpenApp('message-convo', { number: number });
 });
 
+$('[data-section=history').on('click', '.call-actions .call-action-delete', function(e) {
+    let myNumber = GetData('myNumber');
+    let data = $(this).parent().parent().data('data');
+    let number = data.sender;
+
+    if (data.sender == myNumber) {
+        number = data.receiver;
+    }
+
+    OpenApp('message-convo', { number: number });
+});
+
 $('.phone-nav-button').on('click', function(e) {
     if (!($(this).hasClass('active-nav'))) {
         let activeSection = $('.active-nav').data('nav');

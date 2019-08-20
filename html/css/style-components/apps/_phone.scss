@@ -16,7 +16,34 @@
                 }
 
                 &[data-section="keypad"] {
-                    color: #000000;
+                    color: #1e1e1e;
+
+                    .keypad-top {
+                        height: 51%;
+
+                        input {
+                            padding: 15px 0;
+                            height: 100%;
+                            font-size: 50px;
+                            text-align: center;
+                        }
+                    }
+
+                    .keypad-keys {
+                        background: #ffffff;
+                        border-top: 1px solid #1e1e1e;
+                        position: absolute;
+                        width: 100%;
+                        bottom: 8.5%;
+
+                        .keypad-key {
+                            width: 32%;
+                            padding: 10px;
+                            display: inline-block;
+                            text-align: center;
+                            font-size: 40px;
+                        }
+                    }
                 }
 
                 &[data-section="history"] {
@@ -123,7 +150,7 @@
 
                 &:hover {
                     cursor: pointer;
-                    transition: all ease-in 0.15s;
+                    transition: all ease-in 0.3s;
                     color: color("materialize-red", "darken-4");
                     border-bottom: 5px solid color("materialize-red", "darken-4");
                 }

@@ -41,6 +41,10 @@ FOR THE FINAL TIME, THIS IS A WIP RESOURCE THAT IS NOT INTENDED FOR ANYONE TO AC
 ![Contacts App](https://i.imgur.com/ItGpCwf.gif)
 ![Contacts App](https://i.imgur.com/2sBWhZY.gif)
 
+### Phone
+![Phone App](https://i.imgur.com/6zo2A7x.png)
+![Phone App](https://i.imgur.com/EQLigc1.png)
+
 ### Messages
 ![Messages App](https://i.imgur.com/H2lae7o.png)
 ![Messages App](https://i.imgur.com/FSVIusg.png)
