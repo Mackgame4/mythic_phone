@@ -47,7 +47,6 @@ $('#contacts-add-contact').on('submit', function(e) {
         name: name,
         number: number,
     }), function(status) {
-        console.log(status)
         if (status) {
             var modal = M.Modal.getInstance($('#add-contact-modal'));
             modal.close();
@@ -142,7 +141,6 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
         name: data.name,
         number: data.number
     }), function(status) {
-        console.log(status);
         if (status) {
             $elem.parent().parent().fadeOut('normal', function() {
                 $elem.parent().parent().remove();

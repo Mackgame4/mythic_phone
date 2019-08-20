@@ -1,6 +1,4 @@
 $('.messages-list').on('click', '.message', function(e) {
-    console.log($(this).data('message'));
-
     OpenApp('message-convo', $(this).data('message'));
 });
 
@@ -144,8 +142,6 @@ function SetupMessages() {
 
     let convos = new Array();
 
-    console.log(messages);
-
     $.each(messages, function(index, message) {
         let obj = new Object();
 
@@ -177,7 +173,7 @@ function SetupMessages() {
         }
     });
 
-    convos.sort(sortFunction);
+    convos.sort(dateSortNewest);
 
     $('#message-container .inner-app .messages-list').html('');
     $.each(convos, function(index, message) {
@@ -245,7 +241,3 @@ function SendNewText(data, cb) {
         }
     });
 }
-
-function sortFunction(a,b){
-    return a.time < b.time ? 1 : -1;  
-}; 

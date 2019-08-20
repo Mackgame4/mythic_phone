@@ -83,6 +83,14 @@ $('.close-button').click(function(event) {
     ClosePhone()
 });
 
+function dateSortNewest(a,b){
+    return a.time < b.time ? 1 : -1;  
+}; 
+
+function dateSortOldest(a,b){
+    return a.time > b.time ? 1 : -1;  
+}; 
+
 function ClosePhone() {
     $.post('http://mythic_phone2/ClosePhone', JSON.stringify({}));
     $('.wrapper').hide("slide", { direction: "down" }, 500, function() {
@@ -161,7 +169,6 @@ function GoBack() {
 
 function SetupData(data) {  
     $.each(data, function(index, item) {
-        console.log(item.name + ' ' + item.data.length);
         window.localStorage.setItem(item.name, JSON.stringify(item.data));
     });
 }

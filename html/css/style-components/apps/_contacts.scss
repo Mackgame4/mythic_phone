@@ -90,6 +90,7 @@
                         width: 25%;
                         text-align: center;
                         font-size: 25px;
+                        pointer-events: auto;
                     
                         &:hover {
                             transition: all ease-in 0.15s;
