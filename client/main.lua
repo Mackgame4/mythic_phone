@@ -44,15 +44,36 @@ end
 
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(0)
-        if IsControlJustReleased(1, 170) then
-          SetNuiFocus(true, true)
-          SendNUIMessage( { action = 'show' } )
-          isPhoneOpen = true
-          DisableControls()
+      Citizen.Wait(0)
+      if IsControlJustReleased(1, 170) then
+        TogglePhone()
       end
     end
 end)
+
+
+
+function TogglePhone()
+  if not openingCd or isPhoneOpen then
+    isPhoneOpen = not isPhoneOpen
+    SetNuiFocus(isPhoneOpen, isPhoneOpen)
+    if isPhoneOpen == true then 
+      PhonePlayIn()
+      SendNUIMessage( { action = 'show' } )
+      DisableControls()
+    else
+      PhonePlayOut()
+      SendNUIMessage( { action = 'hide' } )
+    end
+
+    openingCd = true
+  end
+
+  Citizen.CreateThread(function()
+    Citizen.Wait(2000)
+    openingCd = false
+  end)
+end
 
 function DisableControls()
   Citizen.CreateThread(function()
@@ -89,6 +110,5 @@ function DisableControls()
 end
 
 RegisterNUICallback( "ClosePhone", function( data, cb )
-  SetNuiFocus(false, false)
-  isPhoneOpen = false
+  TogglePhone()
 end)

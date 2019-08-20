@@ -57,6 +57,7 @@ client_script {
     'config/contacts.lua',
 
     "client/main.lua",
+    "client/animation.lua",
     
 	"client/apps/contacts.lua",
 	"client/apps/messages.lua",
