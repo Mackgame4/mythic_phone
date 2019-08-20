@@ -103,7 +103,7 @@ function UpdateClock(time) {
 }
 
 function ClosePhone() {
-    $.post('http://mythic_phone2/ClosePhone', JSON.stringify({}));
+    $.post(ROOT_ADDRESS + '/ClosePhone', JSON.stringify({}));
     $('.wrapper').hide("slide", { direction: "down" }, 500, function() {
         $('#toast-container').remove();
         $('.material-tooltip').remove();

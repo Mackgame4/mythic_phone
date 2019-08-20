@@ -1,3 +1,5 @@
+var ROOT_ADDRESS = 'http://mythic_phone2'
+
 var Apps = [
     {
         name: 'Contacts',
