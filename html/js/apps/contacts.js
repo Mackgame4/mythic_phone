@@ -1,10 +1,11 @@
 var editingContact = null;
 
-$('.contacts-list').on('click', '.contact-avatar, .contact-name', function(event) {
-    if ($(this).parent().find('.contact-actions').is(":visible")) {
-        $(this).parent().find('.contact-actions').slideUp();
+$('.contacts-list').on('click', '.contact', function(event) {
+    if ($(this).find('.contact-actions').is(":visible")) {
+        $(this).find('.contact-actions').slideUp();
     } else {
-        $(this).parent().find('.contact-actions').slideDown();
+        $(this).parent().find('.contact-actions').slideUp();
+        $(this).find('.contact-actions').slideDown();
     }
 });
 

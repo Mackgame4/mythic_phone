@@ -54,10 +54,12 @@
                     transform: translate(0%, 0%);
                     background: #8b1014;
                     color: #ffffff;
+                    pointer-events: none;
                 }
 
                 .contact-name {
                     line-height: 50px;
+                    pointer-events: none;
 
                     .contact-name-text {
                         width: 50%;

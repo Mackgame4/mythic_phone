@@ -11,7 +11,7 @@ $( function() {
 
 $( function() {
     $('.wrapper').fadeIn();
-    SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages } ] );
+    SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages }, { name: 'history', data: Calls } ] );
     OpenApp('home', null, true);
 });
 
