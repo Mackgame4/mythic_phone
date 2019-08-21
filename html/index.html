@@ -17,10 +17,12 @@
                     <div class="phone-header">
                             <span class="carrier">MythicRP</span>
                             <span class="time">
-                                <span>14:51</span>
+                                <span>00:00</span>
                             </span> 
                             <span class="battery"><i class="fas fa-battery-three-quarters"></i></span>
                             <span class="signal"><i class="fas fa-signal"></i></span>
+                            <span class="simcard modal-trigger" data-target="remove-sim-conf"><i class="fas fa-sim-card"></i></span>
+                            <span class="payphone"><i class="fas fa-phone-slash"></i></span>
                     </div>
                     <div class="phone-screen">
                         <div class="app-container" id="home-container">
@@ -89,7 +91,10 @@
                                     <div class="inner-phone-container" id="keypad-section" data-section="keypad">
                                         <div class="keypad-top">
                                             <div class="contact-display">Contact Name</div>
-                                            <input type="text" placeholder="555-555-5555" maxlength="12">
+                                            <form id="call-number">
+                                                <input type="text" name="number" placeholder="555-555-5555" pattern=".{12,13}" maxlength="12" required>
+                                            </form>
+                                            <div class="delete-num-btn"><i class="fas fa-backspace"></i></div>
                                             <div class="call-type">Calling Anonymously</div>
                                         </div>
                                         <div class="keypad-keys">
@@ -114,7 +119,7 @@
                                                 <div class="waves-effect waves-red keypad-key" data-value="*">*</div>
                                             </div>
                                             <div class="keypad-row">
-                                                <div class="waves-effect waves-red keypad-key key-call"><i class="fas fa-phone-alt"></i></div>
+                                                <button class="waves-effect waves-light keypad-key key-call btn-flat" type="submit" form="call-number"><i class="fas fa-phone-alt"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -202,6 +207,17 @@
                         <div class="app-container" id="ads-container">
                             <div class="inner-app">
                                 
+                            </div>
+                        </div>
+
+                        <div id="remove-sim-conf" class="modal">
+                            <div class="modal-content">
+                                <h6>Remove Temporary Sim</h6>
+                                <p>Are you sure you want to remove the sim?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="modal-close waves-effect waves-red btn">Cancel</a>
+                                <button class="btn waves-effect waves-red" type="button" id="remove-sim-card">Yes</button>
                             </div>
                         </div>
                     </div>

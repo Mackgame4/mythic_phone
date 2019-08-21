@@ -49,8 +49,20 @@
                         input {
                             padding: 15px 0;
                             height: 100%;
-                            font-size: 50px;
+                            font-size: 40px;
                             text-align: center;
+                        }
+
+                        .delete-num-btn {
+                            position: absolute;
+                            right: 2%;
+                            top: 17.5%;
+                            font-size: 25px;
+                            
+                            &:hover {
+                                transition: all ease-in 0.15s;
+                                color: color("materialize-red", "darken-4");
+                            }
                         }
                     }
 
@@ -78,6 +90,7 @@
                             &.key-call {
                                 width: 32% !important;
                                 left: 34%;
+                                height: 100%;
 
                                 &:hover {
                                     transition: all ease-in 0.15s;
@@ -87,9 +100,11 @@
 
                                 i {
                                     padding: 24px;
-                                    background: green;
-                                    border-radius: 50px;
+                                    width: 85px;
+                                    background: #1B5E20;
+                                    border-radius: 100px;
                                     color: #ffffff;
+                                    font-size: 35px;
                                 }
                             }
                         }

@@ -82,6 +82,21 @@
                     right: 19%;
                     top: 30%;
                 }
+
+                .simcard {
+                    position: absolute;
+                    right: 24%;
+                    top: 30%;
+                    color: color("materialize-red", "lighten-1");
+                }
+
+                .payphone {
+                    position: absolute;
+                    right: 24%;
+                    top: 30%;
+                    color: color("materialize-red", "lighten-1");
+                    display: none;
+                }
             }
 
             .phone-screen {
@@ -126,6 +141,10 @@
                             font-weight: bold;
                         }
                     }
+                }
+
+                #remove-sim-conf {
+                    top: 0 !important;
                 }
             }
 

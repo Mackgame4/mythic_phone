@@ -62,7 +62,7 @@ $( function() {
     };
 });
 
-$('.back-button').click(function(event) {
+$('.back-button').on('click', function(e) {
     if (!navDisabled) {
         GoBack();
         navDisabled = true;
@@ -72,7 +72,7 @@ $('.back-button').click(function(event) {
     }
 });
 
-$('.home-button').click(function(event) {
+$('.home-button').on('click', function(e) {
     if (!navDisabled) {
         GoHome();
         navDisabled = true;
@@ -82,8 +82,15 @@ $('.home-button').click(function(event) {
     }
 });
 
-$('.close-button').click(function(event) {
+$('.close-button').on('click', function(e) {
     ClosePhone()
+});
+
+$('#remove-sim-card').on('click', function(e) {
+    var modal = M.Modal.getInstance($('#remove-sim-conf'));
+    modal.close();
+    NotifyAltSim(false);
+    M.toast({html: 'Sim Removed'});
 });
 
 function dateSortNewest(a,b){
@@ -106,6 +113,22 @@ function dateSortOldest(a,b){
 
 function UpdateClock(time) {
     $('.time span').html(time)
+}
+
+function NotifyAltSim(status) {
+    if (status) {
+        $('.simcard').fadeIn();
+    } else {
+        $('.simcard').fadeOut();
+    }
+}
+
+function NotifyPayphone(status) {
+    if (status) {
+        $('.payphone').fadeIn();
+    } else {
+        $('.payphone').fadeOut();
+    }
 }
 
 function ClosePhone() {

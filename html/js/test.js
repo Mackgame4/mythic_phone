@@ -46,39 +46,99 @@ var Messages = [
 
 var Calls = [
     {
+        id: 1,
         sender: '111-111-1111',
         receiver: '555-555-5555',
         time: 1566163235000,
-        status: 0
+        status: 0,
+        anon: 0
     },
     {
+        id: 2,
         sender: '111-111-1111',
         receiver: '555-555-5555',
         time: 1566263235000,
-        status: 1
+        status: 1,
+        anon: 0
     },
     {
+        id: 3,
         sender: '111-111-1111',
         receiver: '555-555-5555',
         time: 1566263235000,
-        status: 2
+        status: 2,
+        anon: 0
     },
     {
+        id: 4,
         sender: '555-555-5555',
         receiver: '111-111-1111',
         time: 1566263235000,
-        status: 0
+        status: 0,
+        anon: 0
     },
     {
+        id: 5,
         sender: '555-555-5555',
         receiver: '111-111-1111',
         time: 1566263235000,
-        status: 1
+        status: 1,
+        anon: 0
     },
     {
+        id: 6,
         sender: '555-555-5555',
         receiver: '111-111-1111',
         time: 1566263235000,
-        status: 2
+        status: 2,
+        anon: 0
+    },
+    {
+        id: 7,
+        sender: '111-111-1111',
+        receiver: '555-555-5555',
+        time: 1566163235000,
+        status: 0,
+        anon: 1
+    },
+    {
+        id: 8,
+        sender: '111-111-1111',
+        receiver: '555-555-5555',
+        time: 1566263235000,
+        status: 1,
+        anon: 1
+    },
+    {
+        id: 9,
+        sender: '111-111-1111',
+        receiver: '555-555-5555',
+        time: 1566263235000,
+        status: 2,
+        anon: 1
+    },
+    {
+        id: 10,
+        sender: '555-555-5555',
+        receiver: '111-111-1111',
+        time: 1566263235000,
+        status: 0,
+        anon: 1
+    },
+    {
+        id: 11,
+        sender: '555-555-5555',
+        receiver: '111-111-1111',
+        time: 1566263235000,
+        status: 1,
+        anon: 1
+    },
+    {
+        id: 12,
+        sender: '555-555-5555',
+        receiver: '111-111-1111',
+        time: 1566263235000,
+        status: 2,
+        anon: 1
     },
 ]
