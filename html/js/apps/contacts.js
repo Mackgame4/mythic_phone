@@ -12,7 +12,7 @@
         }
     });
     
-    $('#search-contacts').keyup(function(e) {
+    $('#search-contacts').on('keyup', function(e) {
         e.preventDefault();
         
         let searchVal = $(this).val();

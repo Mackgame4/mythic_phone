@@ -85,15 +85,6 @@
         console.log('kill me');
     })
 
-    /*$('[data-section=keypad').on('keydown', '.keypad-top #number', function(e) {
-        $(this).val(formatUSPhoneNumber($(this).val().replace(/[^\d]/,'')));
-    });*/
-
-
-    /*$('[data-section=keypad').on('keyup', '.keypad-top #number', function(e) {
-        $(this).val(formatUSPhoneNumber($(this).val()));
-    });*/
-
     $('[data-section=history').on('click', '.call', function(event) {
         if ($(this).find('.call-actions').is(":visible")) {
             $(this).find('.call-actions').slideUp();
@@ -132,10 +123,25 @@
         })
     });
 
-    $('[data-section=contacts').on('change', '.contact-search input', function(e) {
-        let data = $(this).val();
-
-        console.log(data);
+    $('[data-section=contacts').on('keyup', '.contact-search input', function(e) {
+        e.preventDefault();
+        let searchVal = $(this).val();
+    
+        if (searchVal !== '') {
+            $.each($(this).parent().parent().find('.contacts-list').children(), function(index, contact) {
+                let data = $(contact).data('data');
+        
+                if (data.name.toUpperCase().includes(searchVal.toUpperCase()) || data.number.includes(searchVal.toUpperCase())) {
+                    $(contact).fadeIn();
+                } else {
+                    $(contact).fadeOut();
+                }
+            });
+        } else {
+            $.each($(this).parent().parent().find('.contacts-list').children(), function(index, contact) {
+                $(contact).fadeIn();
+            });
+        }
     });
 
     $('[data-section=contacts').on('click', '.phone-contact', function(event) {
