@@ -21,27 +21,25 @@ AddEventHandler('mythic_phone:server:SendText', function(token, identifier, rece
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()
 
-    exports['ghmattimysql']:execute('INSERT INTO phone_texts (`sender`, `receiver`, `message`) VALUES(@sender, @receiver, @message)', { ['sender'] = cData.phone, ['receiver'] = receiver, ['message'] = message }, function(status)
-        local time = os.time()
-        if status.affectedRows > 0 then
-            exports['ghmattimysql']:execute('SELECT * FROM phone_texts WHERE UNIX_TIMESTAMP(sent_time) >= @time - 1000 AND sender = @me AND receiver = @receiver AND message = @message', { ['time'] = time, ['sender'] = cData.phone, ['receiver'] = receiver, ['message'] = message }, function(text)
-                if text[1] ~= nil then
-                    exports['ghmattimysql']:execute('SELECT id FROM characters WHERE phone_number = @phone', { ['phone'] = receiver }, function(rChar)
-                        if rChar[1] ~= nil then
-                            local tPlayer = exports['mythic_base']:getPlayerFromCharId(rChar[1].id)
-                            if tPlayer ~= nil then
-                                TriggerClientEvent('mythic_phone:client:ReceiveText', tPlayer.getSource(), char.getFullName(), text[1])
-                            end
+    Citizen.CreateThread(function()
+        exports['ghmattimysql']:execute('INSERT INTO phone_texts (`sender`, `receiver`, `message`) VALUES(@sender, @receiver, @message)', { ['sender'] = cData.phone, ['receiver'] = receiver, ['message'] = message }, function(status)
+            if status.affectedRows > 0 then
+                exports['ghmattimysql']:execute('SELECT * FROM phone_texts WHERE id = @id', { ['id'] = status.insertId }, function(text)
+                    if text[1] ~= nil then
+                        TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, text[1])
+
+                        local tPlayer = exports['mythic_base']:getPlayerFromPhone(receiver)
+                        if tPlayer ~= nil then
+                            TriggerClientEvent('mythic_phone:client:ReceiveText', tPlayer.getSource(), char.getFullName(), text[1])
                         end
-                    end)
-                    TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, text[1])
-                else
-                    TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, false)
-                end
-            end)
-        else
-            TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, false)
-        end
+                    else
+                        TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, false)
+                    end
+                end)
+            else
+                TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, false)
+            end
+        end)
     end)
 end)
 

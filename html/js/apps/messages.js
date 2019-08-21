@@ -22,25 +22,22 @@
             }
         ]
 
-        SendNewText(text, function() {
-            $('.convo-texts-list').append('<div class="text me-sender"><span>' + data[0].value + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>');
+        SendNewText(text, function(sent) {
+            if (sent) {
+                $('.convo-texts-list').append('<div class="text me-sender"><span>' + data[0].value + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>');
+    
+            
+                M.toast({html: 'Message Sent'});
+                
+                $('#convo-input').val('');
 
-            // Just incase losers wanna send themselves a text
-            let contact = contacts.filter(c => c.number == convoData.number)[0];
-            if (convoData.number == myNumber) {
-                if (contact != null) {
-                    $('.convo-texts-list').append('<div class="text other-sender"><span class=" other-' + contact.name[0] + '">' + data[0].value + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>')
-                } else {
-                    $('.convo-texts-list').append('<div class="text other-sender"><span>' + data[0].value + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>')
+
+                if ($(".convo-texts-list .text:last-child").offset() != null) {
+                    $(".convo-texts-list").animate({
+                        scrollTop: $('.convo-texts-list')[0].scrollHeight - $('.convo-texts-list')[0].clientHeight
+                    }, 200);
                 }
             }
-        
-            M.toast({html: 'Message Sent'});
-            
-            $('#convo-input').val('');
-            $('.convo-texts-list').animate({
-                scrollTop: $(".convo-texts-list .text:last-child").offset().top
-            }, 25);
         });
     });
 
@@ -75,21 +72,44 @@
         e.preventDefault();
         let data = $(this).serializeArray();
 
-        SendNewText(data, function() {
-            var modal = M.Modal.getInstance($('#messages-new-modal'));
-            modal.close();
-        
-            M.toast({html: 'Message Sent'});
-        
-            RefreshApp();
+        SendNewText(data, function(sent) {
+            if (sent) {
+                var modal = M.Modal.getInstance($('#messages-new-modal'));
+                modal.close();
+            
+                M.toast({html: 'Message Sent'});
+            
+                RefreshApp();
+            }
         });
     });
 
     exports.ReceiveText = function(sender, text) {
-        console.log(sender, text);
+        let viewingConvo = $('#message-convo-container').data('data');
+
+        if (viewingConvo != null) {
+            let contact = contacts.filter(c => c.number == viewingConvo.number)[0];
+            if (viewingConvo.number == text.sender) {
+                if (contact != null) {
+                    $('.convo-texts-list').append('<div class="text other-sender"><span class=" other-' + contact.name[0] + '">' + text.message + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>')
+                } else {
+                    $('.convo-texts-list').append('<div class="text other-sender"><span>' + text.message + '</span><p>' + moment(Date.now()).fromNowOrNow() + '</p></div>')
+                }
+
+                if ($(".convo-texts-list .text:last-child").offset() != null) {
+                    $(".convo-texts-list").animate({
+                        scrollTop: $('.convo-texts-list')[0].scrollHeight - $('.convo-texts-list')[0].clientHeight
+                    }, 200);
+                }
+            }
+        }
     }
 
     exports.SetupConvo = function(data) {
+        myNumber = GetData('myNumber');
+        contacts = GetData('contacts');
+        messages = GetData('messages');
+
         $('#message-convo-container').data('data', data);
 
         let texts = messages.filter(c => c.sender == data.number && c.receiver == myNumber || c.sender == myNumber && c.receiver == data.number);
@@ -129,10 +149,11 @@
             }
         });
 
-        
-        $('.convo-texts-list').animate({
-            scrollTop: $(".convo-texts-list .text:last-child").offset().top
-        }, 25);
+        if ($(".convo-texts-list .text:last-child").offset() != null) {
+            $('.convo-texts-list').animate({
+                scrollTop: $(".convo-texts-list .text:last-child").offset().top
+            }, 25);
+        }
     }
 
     exports.SetupMessages = function() {
@@ -212,7 +233,7 @@
             receiver: data[0].value,
             message: data[1].value,
         }), function(textData) {
-            if (textData) {
+            if (textData != null) {
                 if (messages == null) {
                     messages = new Array();
                 }
@@ -228,11 +249,11 @@
 
                 StoreData('messages', messages);
 
-                cb();
+                cb(true);
             } else {
                 M.toast({html: 'Unable To Send Text'});
 
-                cb();
+                cb(false);
             }
         });
     }

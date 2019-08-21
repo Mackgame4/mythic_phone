@@ -11,7 +11,7 @@ $( function() {
 
 $( function() {
     $('.wrapper').fadeIn();
-    SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages }, { name: 'history', data: Calls } ] );
+    SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages }, { name: 'history', data: Calls }, { name: 'apps', data: Apps }, { name: 'muted', data: false } ] );
     OpenApp('home', null, true);
 });
 
@@ -34,6 +34,9 @@ window.addEventListener('message', function(event) {
         case 'hide':
             ClosePhone();
             break;
+        case 'setmute':
+            SetMute(event.data.muted);
+            break;
         case 'updateTime':
             UpdateClock(event.data.time);
             break;
@@ -52,6 +55,7 @@ $(document).ready(function(){
         swipeable: true
     });
     $('.char-count-input').characterCounter();
+    $('.phone-number').mask("000-000-0000", {placeholder: "###-###-####"});
 });
 
 $( function() {
@@ -93,11 +97,17 @@ $('#remove-sim-card').on('click', function(e) {
     M.toast({html: 'Sim Removed'});
 });
 
+$('.mute').on('click', function(e) {
+    let muted = GetData('muted');
+    SetMute(!muted);
+});
+
 function dateSortNewest(a,b){
     return a.time < b.time ? 1 : -1;  
 };
 
 function formatUSPhoneNumber(input) {
+    return input
     let substr = ''
     if (input[0] === '#' || input[0] === '*') {
         substr = input[0]
@@ -128,6 +138,18 @@ function NotifyPayphone(status) {
         $('.payphone').fadeIn();
     } else {
         $('.payphone').fadeOut();
+    }
+}
+
+function SetMute(status) {
+    if (status) {
+        $('.mute').html('<i class="fas fa-volume-mute"></i>');
+        $('.mute').removeClass('not-muted').addClass('muted');
+        StoreData('muted', true);
+    } else {
+        $('.mute').html('<i class="fas fa-volume-up"></i>');
+        $('.mute').removeClass('muted').addClass('not-muted');
+        StoreData('muted', false);
     }
 }
 

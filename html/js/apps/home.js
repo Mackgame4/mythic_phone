@@ -1,12 +1,15 @@
 (function(exports){
+    var apps = null;
 
     $('#home-container').on('click', '.app-button', function(event) {
         OpenApp($(this).data('container'));
     });
     
     exports.SetupHome = function() {
+        apps = GetData('apps');
         $('#home-container .inner-app').html('');
-        $.each(Apps, function(index, app) {
+        $.each(apps, function(index, app) {
+            //console.log(JSON.stringify(app));
             if (app.enabled) {
                 if (app.unread > 0) {
                     $('#home-container .inner-app').append('<div class="app-button" data-tooltip="' + app.name + '"><div class="app-icon" id="' + app.container + '-app" style="background-color: ' + app.color + '"> ' + app.icon + '<div class="badge pulse">' + app.unread + '</div></div></div>')

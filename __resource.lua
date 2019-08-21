@@ -13,9 +13,9 @@ files {
 	'html/css/materialize.min.css',
 	'html/css/style.min.css',
     'html/libs/jquery-ui.min.css',
+
+	'html/js/config.js',
 	'html/js/app.js',
-    'html/js/phone_apps.js',
-    'html/js/test.js',
 
     'html/js/apps/home.js',
     'html/js/apps/contacts.js',
@@ -72,6 +72,7 @@ server_script {
     'config/contacts.lua',
 
     "server/main.lua",
+    "server/commands.lua",
     
 	"server/apps/contacts.lua",
 	"server/apps/phone.lua",

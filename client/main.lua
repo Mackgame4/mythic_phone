@@ -10,9 +10,13 @@ AddEventHandler('mythic_phone:client:ActionCallback', function(identifier, data)
     end
 end)
 
+RegisterNetEvent('mythic_phone:client:TogglePhone')
+AddEventHandler('mythic_phone:client:TogglePhone', function(identifier, data)
+  TogglePhone()
+end)
+
 RegisterNetEvent('mythic_phone:client:SetupData')
 AddEventHandler('mythic_phone:client:SetupData', function(data)
-  print(json.encode(data))
   SendNUIMessage({
     action = 'setup',
     data = data
@@ -97,7 +101,7 @@ function TogglePhone()
   if not openingCd or isPhoneOpen then
     isPhoneOpen = not isPhoneOpen
     SetNuiFocus(isPhoneOpen, isPhoneOpen)
-    if isPhoneOpen == true then 
+    if isPhoneOpen == true then
       PhonePlayIn()
       SendNUIMessage( { action = 'show' } )
       DisableControls()

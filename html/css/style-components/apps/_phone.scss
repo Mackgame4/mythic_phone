@@ -46,7 +46,20 @@
                             display: none;
                         }
 
-                        input {
+                        #type {
+                            position: absolute;
+                            height: 10%;
+                            width: 19%;
+                            border: none;
+                            top: 12%;
+                            left: 5%;
+                            padding: 15px 0;
+                            font-size: 40px;
+                            text-align: center;
+                            color: #797979;
+                        }
+
+                        #number {
                             padding: 15px 0;
                             height: 100%;
                             font-size: 40px;
@@ -187,7 +200,78 @@
                 }
 
                 &[data-section="contacts"] {
-                    color: #000000;
+                    .contacts-list {
+                        max-height: 89.5%;
+                        overflow-y: auto;
+                        overflow-x: hidden;
+                        
+                        .phone-contact {
+                            padding: 10px;
+                            background: #ffffff;
+                            color: #1e1e1e;
+                            border-bottom: 1px solid #1e1e1e;
+                            line-height: 35px;
+
+                            &:hover {
+                                transform: all ease-in 0.15s;
+                                background: #c4c4c4;
+                            }
+
+                            .phone-avatar {
+                                font-size: 20px;
+                                float: left;
+                                line-height: 35px;
+                                margin-left: 10px;
+                                margin-right: 10px;
+                                height: 35px;
+                                width: 35px;
+                                border-radius: 70px;
+                                text-align: center;
+                                -webkit-transform: translate(0%, 0%);
+                                transform: translate(0%, 0%);
+                                background: #8b1014;
+                                color: #ffffff;
+                                pointer-events: none;
+                            }
+                        
+                            .call-actions {
+                                z-index: 998;
+                                display: none;
+        
+                                i {
+                                    width: 49.5%;
+                                    text-align: center;
+                                    font-size: 25px;
+                                    pointer-events: auto;
+                                
+                                    &:hover {
+                                        transition: all ease-in 0.15s;
+                                        color: color("materialize-red", "darken-4");
+                                    }
+        
+                                    &.action-disabled {
+                                        color: #3f3f3f !important;
+                
+                                        &:hover {
+                                            color: #3f3f3f !important;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    .contact-search {
+                        border-top: 1px solid #1e1e1e;
+                        width: 100%;
+                        position: absolute;
+                        bottom: 8.58%;
+
+                        input {
+                            padding: 10px;
+                            margin: 0;  
+                        }
+                    }
                 }
             }
         }

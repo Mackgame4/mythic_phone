@@ -15,6 +15,7 @@ To get the source to fully work, you'll need a SASS compiler as I am using the S
 
 #### Libraries Used
 * [jQuery](https://jquery.com/)
+* [jQuery Inputmask](http://igorescobar.github.io/jQuery-Mask-Plugin/)
 * [jQuery UI](https://jqueryui.com/)
 * [Materialize](https://materializecss.com/)
 * [Moment.js](https://momentjs.com/)

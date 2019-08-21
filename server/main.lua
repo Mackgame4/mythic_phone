@@ -4,5 +4,5 @@ AddEventHandler('mythic_characters:server:CharacterSpawned', function()
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()
 
-    TriggerClientEvent('mythic_phone:client:SetupData', src, { { name = 'myNumber', data = cData.phone } })
+    TriggerClientEvent('mythic_phone:client:SetupData', src, { { name = 'myNumber', data = cData.phone }, { name = 'apps', data = Config.Apps } })
 end)

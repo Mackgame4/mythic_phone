@@ -6,29 +6,41 @@
 
     var delHold = null;
 
-    $('[data-section=keypad').on('click', '.keypad-top .delete-num-btn', function(e) {
-        let number = $('.keypad-top input').val();
-        if (number.length > 0) {
-            let delNum = number.substring(0, number.length - 1);
-            $('.keypad-top input').val(delNum);
-            SetupCallType();
+    $('.phone-nav-button').on('click', function(e) {
+        if (!($(this).hasClass('active-nav'))) {
+            let activeSection = $('.active-nav').data('nav');
+            $('.active-nav').removeClass('active-nav');
+        
+            let section = $(this).data('nav');
+            $(this).addClass('active-nav');
+            $('[data-section=' + activeSection + ']').fadeOut('fast', function() {
+                $('[data-section=' + section + ']').fadeIn();
+            });
         }
     });
 
+    $('[data-section=keypad').on('click', '.keypad-top .delete-num-btn', function(e) {
+        let number = $('.keypad-top #number').val();
+        if (number.length > 0) {
+            let delNum = number.substring(0, number.length - 1);
+            $('.keypad-top #number').val($('.keypad-top #number').masked(delNum));
+        } else if($('.keypad-top #type').val() != null) {
+            $('.keypad-top #type').val('');
+        }
+
+        CheckIfContact($('.keypad-top #number').val());
+        SetupCallType();
+    });
+
     $('[data-section=keypad').on('mousedown', '.keypad-top .delete-num-btn', function(e) {
-        let number = $('.keypad-top input').val();
+        let number = $('.keypad-top #number').val();
         delHold = setInterval(function(){
             if (number.length > 0) {
                 let delNum = number.substring(0, number.length - 1);
-                $('.keypad-top input').val(delNum);
+                $('.keypad-top #number').val($('.keypad-top #number').masked(delNum));
+                number = $('.keypad-top #number').val();
+                CheckIfContact($('.keypad-top #number').val());
                 SetupCallType();
-
-                if (delNum[0] === '#' || delNum[0] === '*') {
-                    CheckIfContact(delNum.substr(1));
-                } else {
-                    CheckIfContact(delNum);
-                }
-                number = delNum;
             }
         }, 250);
 
@@ -37,9 +49,8 @@
 
     $('[data-section=keypad').on('submit', '#call-number', function(e) {
         e.preventDefault();
-
-        let data = $(this).serializeArray();
-
+        let data = $(this).serializeArray()[0];
+        let nonStandard = data.value[0] === '#' || data.value[0] === '*' ? true : false;
         console.log(data);
     });
 
@@ -51,78 +62,37 @@
     $('[data-section=keypad').on('click', '.keypad-key', function(e) {
         if (!$(this).hasClass('key-call')) {
             let key = $(this).data('value');
-            let exist = $('.keypad-top input').val();
+            let exist = $('.keypad-top #number').val();
             if (key === '#' || key === '*') {
-                if (exist.length <= 12 && (exist[0] != '#' && exist[0] != '*')) {
-                    let format = formatUSPhoneNumber(exist);
-                    format = key + format
-                    $('.keypad-top input').val(format).trigger('input');
+                if ($('.keypad-top #type').val() === key) {
+                    $('.keypad-top #type').val('');
                 } else {
-                    let format = formatUSPhoneNumber(exist.substr(1));
-                    format = key + format
-                    $('.keypad-top input').val(format).trigger('input');
+                    $('.keypad-top #type').val(key);
                 }
-                // Remove Symbol from number and check if that is a contact
-                CheckIfContact($('.keypad-top input').val().substr(1));
             }
-            else if ((exist.length < 12) || (exist.length < 13 && (exist[0] === '#' || exist[0] === '*') )) {
-                let substr = ''
-                exist = exist + key
-                let format = formatUSPhoneNumber(exist);
-
-                if (format[0] === '#' || format[0] === '*') {
-                    substr = format[0]
-                    format = format.substring(1);
-                }
-
-                CheckIfContact(format);
-                $('.keypad-top input').val(substr + format);
+            else if (exist.length < 12) {
+                exist = exist + key;
+                $('.keypad-top #number').val($('.keypad-top #number').masked(exist));
             }
         }
 
+        CheckIfContact($('.keypad-top #number').val());
         SetupCallType();
-        $('.keypad-top input').get(0).focus();
+        $('.keypad-top #number').get(0).focus();
     });
 
-    $('[data-section=keypad').on('keydown', '.keypad-top input', function(e) {
-        switch (e.which) {
-            case 8:
-            case 48:
-            case 49:
-            case 50:
-            case 51:
-            case 52:
-            case 53:
-            case 54:
-            case 55:
-            case 56:
-            case 57:
-            case 96:
-            case 97:
-            case 98:
-            case 99:
-            case 100:
-            case 101:
-            case 102:
-            case 103:
-            case 104:
-            case 105:
-            case 106:
-                break;
-            default:
-                e.preventDefault();
-                break;
-        }
-    });
+    $('.keypad-top #number').on('change', function(e) {
+        console.log('kill me');
+    })
 
-    $('[data-section=keypad').on('change, keyup', '.keypad-top input', function(e) {
-        let number = $(this).val();
-        CheckIfContact(number);
-    });
+    /*$('[data-section=keypad').on('keydown', '.keypad-top #number', function(e) {
+        $(this).val(formatUSPhoneNumber($(this).val().replace(/[^\d]/,'')));
+    });*/
 
-    $('[data-section=keypad').on('keyup', '.keypad-top input', function(e) {
+
+    /*$('[data-section=keypad').on('keyup', '.keypad-top #number', function(e) {
         $(this).val(formatUSPhoneNumber($(this).val()));
-    });
+    });*/
 
     $('[data-section=history').on('click', '.call', function(event) {
         if ($(this).find('.call-actions').is(":visible")) {
@@ -162,17 +132,24 @@
         })
     });
 
-    $('.phone-nav-button').on('click', function(e) {
-        if (!($(this).hasClass('active-nav'))) {
-            let activeSection = $('.active-nav').data('nav');
-            $('.active-nav').removeClass('active-nav');
-        
-            let section = $(this).data('nav');
-            $(this).addClass('active-nav');
-            $('[data-section=' + activeSection + ']').fadeOut('fast', function() {
-                $('[data-section=' + section + ']').fadeIn();
-            });
+    $('[data-section=contacts').on('change', '.contact-search input', function(e) {
+        let data = $(this).val();
+
+        console.log(data);
+    });
+
+    $('[data-section=contacts').on('click', '.phone-contact', function(event) {
+        if ($(this).find('.call-actions').is(":visible")) {
+            $(this).find('.call-actions').slideUp();
+        } else {
+            $(this).parent().find('.call-actions').slideUp();
+            $(this).find('.call-actions').slideDown();
         }
+    });
+
+    $('[data-section=contacts').on('click', '.call-actions .call-action-text', function(e) {
+        let data = $(this).parent().parent().data('data');
+        OpenApp('message-convo', { number: data.number });
     });
 
     function CheckIfContact(number) {
@@ -186,7 +163,7 @@
     }
 
     function SetupCallType() {
-        let number = $('.keypad-top input').val();
+        let number = $('.keypad-top #type').val();
 
         if (number[0] === '#') {
             $('.keypad-top .call-type').html('Calling Anonymously');
@@ -207,11 +184,23 @@
         }
     }
 
+    function SetupCallContacts() {
+        $('[data-section=contacts').find('.contacts-list').html('');
+
+        contacts.sort(SortContacts);
+
+        $.each(contacts, function(index, contact) {
+            $('[data-section=contacts').find('.contacts-list').append('<div class="phone-contact"><div class="phone-avatar other-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div>' + contact.name + '<div class="call-actions"><i class="fas fa-phone-volume call-action-call"></i><i class="fas fa-sms call-action-text"></i></div></div>');
+            $('[data-section=contacts').find('.contacts-list').find('.phone-contact:last-child').data('data', contact);
+        });
+    }
+
     exports.SetupCallHistory = function() {
         myNumber = GetData('myNumber');
         contacts = GetData('contacts');
         history = GetData('history');
 
+        SetupCallContacts();
 
         $('[data-section=history').html('');
         $.each(history, function(index, call) {
@@ -259,7 +248,7 @@
             call.index = index;
             $('[data-section=history').find('.call:first-child').data('data', call);
         });
-        setTimeout(function() { $('.keypad-top input').get(0).focus(); }, 1500);
+        setTimeout(function() { $('.keypad-top #number').get(0).focus(); }, 1500);
     }
 
     exports.SetupCallContacts = function() {

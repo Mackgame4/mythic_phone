@@ -1,7 +1,3 @@
-// Color
-@import "../../components/color-variables";
-@import "../config/config";
-
 #contacts-container {
     background: #eaeaea;
 
@@ -32,7 +28,7 @@
 
             .contact {
                 border-bottom: 1px solid #1e1e1e;
-                min-height: 50px;
+                padding: 10px;
                 display: block;
                 color: #1e1e1e;
                 background: #ffffff;
