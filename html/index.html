@@ -23,6 +23,7 @@
                             <span class="signal"><i class="fas fa-signal"></i></span>
                             <span class="simcard modal-trigger" data-target="remove-sim-conf"><i class="fas fa-sim-card"></i></span>
                             <span class="payphone"><i class="fas fa-phone-slash"></i></span>
+                            <span class="mute not-muted"><i class="fas fa-volume-up"></i></span>
                     </div>
                     <div class="phone-screen">
                         <div class="app-container" id="home-container">
@@ -53,7 +54,7 @@
                                             <label for="contact-add-name">Name</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="contact-add-number" name="contact-add-number" type="text" class="validate" pattern=".{12}" maxlength="12" required>
+                                            <input id="contact-add-number" name="contact-add-number" type="text" class="validate phone-number" pattern=".{12}" maxlength="12" required>
                                             <label for="contact-add-number">Number</label>
                                         </div>
                                     </form>
@@ -73,7 +74,7 @@
                                             <label for="contact-edit-name">Name</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="contact-edit-number" name="contact-edit-number" type="text" class="validate" pattern=".{12}" maxlength="12" required>
+                                            <input id="contact-edit-number" name="contact-edit-number" type="text" class="validate phone-number" pattern=".{12}" maxlength="12" required>
                                             <label for="contact-edit-number">Number</label>
                                         </div>
                                     </form>
@@ -88,11 +89,12 @@
                         <div class="app-container" id="phone-container">
                             <div class="inner-app">
                                 <div class="phone-app-top">
-                                    <div class="inner-phone-container" id="keypad-section" data-section="keypad">
+                                    <div class="inner-phone-container" data-section="keypad">
                                         <div class="keypad-top">
                                             <div class="contact-display">Contact Name</div>
                                             <form id="call-number">
-                                                <input type="text" name="number" placeholder="555-555-5555" pattern=".{12,13}" maxlength="12" required>
+                                                <input type="text" maxlength="1" id="type" name="type" readonly>
+                                                <input class="phone-number" type="text" id="number" name="number" placeholder="555-555-5555" pattern=".{12}" maxlength="12" required>
                                             </form>
                                             <div class="delete-num-btn"><i class="fas fa-backspace"></i></div>
                                             <div class="call-type">Calling Anonymously</div>
@@ -123,11 +125,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="inner-phone-container active-section" id="history-section" data-section="history">
+                                    <div class="inner-phone-container active-section" data-section="history">
                                         
                                     </div>
-                                    <div class="inner-phone-container" id="contacts-section" data-section="contacts">
-                                        
+                                    <div class="inner-phone-container" data-section="contacts">
+                                        <div class="contacts-list">
+
+                                        </div>
+                                        <div class="contact-search">
+                                            <input type="text" placeholder="Search Contacts">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="inner-phone-nav">
@@ -135,6 +142,12 @@
                                     <div class="phone-nav-button active-nav" data-nav="history">History</div>
                                     <div class="phone-nav-button" data-nav="contacts">Contacts</div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="app-container" id="phone-call-container">
+                            <div class="inner-app">
+
                             </div>
                         </div>
 
@@ -154,7 +167,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input id="message-new-number" name="message-new-number" type="text" class="validate" pattern=".{12}" maxlength="12" placeholder="Recipient Number" required>
+                                            <input id="message-new-number" name="message-new-number" type="text" class="validate phone-number" pattern=".{12}" maxlength="12" placeholder="Recipient Number" required>
                                         </div>
                                         <div class="input-field col s12">
                                             <textarea id="message-new-body" name="message-new-body" class="materialize-textarea char-count-input" data-length="255" maxlength="255" required></textarea>
@@ -237,10 +250,16 @@
         </div>
 
         <script src="libs/jquery.min.js" type="text/javascript"></script>
+        <script src="libs/jquery.mask.min.js" type="text/javascript"></script>
         <script src="libs/jquery-ui.min.js" type="text/javascript"></script>
         <script src="libs/materialize.min.js" type="text/javascript"></script>
         <script src="libs/moment.min.js" type="text/javascript"></script>
         <script src="./js/test.js" type="text/javascript"></script>
-        <script src="./js/include.js" type="text/javascript"></script>
+        <script src="./js/config.js" type="text/javascript"></script>
+        <script src="./js/app.js" type="text/javascript"></script>
+        <script src="./js/apps/contacts.js" type="text/javascript"></script>
+        <script src="./js/apps/phone.js" type="text/javascript"></script>
+        <script src="./js/apps/home.js" type="text/javascript"></script>
+        <script src="./js/apps/messages.js" type="text/javascript"></script>
     </body>
 </html>
