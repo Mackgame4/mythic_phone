@@ -1,3 +1,5 @@
+// TODO : Need To Verify Flow Works As It Should Once Back-End Communication Is Setup
+
 (function(exports){
 
     var myNumber = null;
@@ -48,7 +50,6 @@
 
             $('.call-number .call-timer').html(activeCallDigits.hours + ':' + min + ':' + sec)
         }, 1000);
-
     }
 
     exports.CallHungUp = function(state) {
@@ -71,7 +72,8 @@
         myNumber = GetData('myNumber');
         contacts = GetData('contacts');
 
-        this.console.log(data);
+        $('#phone-call-container').data('data', data);
+
         let contact = contacts.filter(c => c.number == data.number)[0];
 
         this.console.log(contact != null);
@@ -95,10 +97,10 @@
             }
 
             $('.call-number .call-timer').html('Calling ' + dots);
-        }, 500)
+        }, 500);
 
         this.setTimeout(function() {
-            CallAnswered();
+            OpenApp('phone-incoming', data);
         }, 10000);
     }
 
@@ -106,6 +108,7 @@
         myNumber = null;
         contacts = null;
         $('#phone-call-container').attr('class', 'app-container');
+        $('#phone-call-container').removeData('data');
         $('.call-number .call-number-text').html('');
         $('.call-number .call-subnumber').html('');
     }

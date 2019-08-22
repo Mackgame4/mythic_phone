@@ -1,15 +1,15 @@
 var Contacts = [
     {
-        "name": "Dickhole",
-        "number": "555-555-5556"
+        name: "Dickhole",
+        number: "555-555-5556"
     },
     {
-        "name": "Contact 1",
-        "number": "555-555-5555"
+        name: "Contact 1",
+        number: "555-555-5555"
     },
     {
-        "name": "ABC",
-        "number": "155-555-5555"
+        name: "ABC",
+        number: "155-555-5555"
     },
 ]
 
@@ -177,4 +177,37 @@ var Calls = [
         status: 2,
         anon: 1
     },
+]
+
+var Tweets = [
+    {
+        author: '@PleaseWork199',
+        message: 'asdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;a1',
+        time: 1566263235000
+    },
+    {
+        author: '@PleaseWork199',
+        message: 'asdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;a1',
+        time: 1566263235000
+    },
+    {
+        author: '@PleaseWork199',
+        message: 'Please Work 199',
+        time: 1566263235000
+    },
+    {
+        author: '@PleaseWork199',
+        message: 'Please Work 199',
+        time: 1566263235000
+    },
+    {
+        author: '@PleaseWork199',
+        message: 'Please Work 199',
+        time: 1566263235000
+    },
+    {
+        author: '@PleaseWork199',
+        message: 'Please Work 199',
+        time: 1566263235000
+    }
 ]

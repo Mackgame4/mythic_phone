@@ -9,11 +9,20 @@ $( function() {
     window.localStorage.clear(); 
 });
 
-/*$( function() {
+$( function() {
     $('.wrapper').fadeIn();
-    SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages }, { name: 'history', data: Calls }, { name: 'apps', data: Apps }, { name: 'muted', data: false } ] );
+    SetupData([ 
+        { name: 'myNumber', data: '111-111-1111' },
+        { name: 'contacts', data: Contacts },
+        { name: 'messages', data: Messages },
+        { name: 'history', data: Calls },
+        { name: 'apps', data: Apps },
+        { name: 'muted', data: false },
+        { name: 'tweets', data: Tweets }
+    ]);
+
     OpenApp('home', null, true);
-});*/
+});
 
 moment.fn.fromNowOrNow = function (a) {
     if (Math.abs(moment().diff(this)) < 60000) {
@@ -215,8 +224,14 @@ function OpenAppAction(app, data) {
             SetupCallContacts();
             SetupCallHistory();
             break;
+        case 'phone-incoming':
+            SetupIncomingCall(data);
+            break;
         case 'phone-call':
             SetupCallActive(data);
+            break;
+        case 'twitter':
+            SetupTwitter();
             break;
     }
 }
