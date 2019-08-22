@@ -49,9 +49,8 @@
 
     $('[data-section=keypad').on('submit', '#call-number', function(e) {
         e.preventDefault();
-        let data = $(this).serializeArray()[0];
-        let nonStandard = data.value[0] === '#' || data.value[0] === '*' ? true : false;
-        console.log(data);
+        let data = $(this).serializeArray();
+        OpenApp('phone-call', { number: data[1].value, nonStandard: (data[0].value === '#' || data[0].value === '*')})
     });
 
     $(document).mouseup(function(){
@@ -81,10 +80,6 @@
         $('.keypad-top #number').get(0).focus();
     });
 
-    $('.keypad-top #number').on('change', function(e) {
-        console.log('kill me');
-    })
-
     $('[data-section=history').on('click', '.call', function(event) {
         if ($(this).find('.call-actions').is(":visible")) {
             $(this).find('.call-actions').slideUp();
@@ -92,6 +87,17 @@
             $(this).parent().find('.call-actions').slideUp();
             $(this).find('.call-actions').slideDown();
         }
+    });
+
+    $('[data-section=history').on('click', '.call-actions .call-action-call', function(e) {
+        let data = $(this).parent().parent().data('data');
+        let number = data.sender;
+
+        if (data.sender == myNumber) {
+            number = data.receiver;
+        }
+
+        OpenApp('phone-call', { number: number });
     });
 
     $('[data-section=history').on('click', '.call-actions .call-action-text', function(e) {
@@ -107,7 +113,6 @@
 
     $('[data-section=history').on('click', '.call-actions .call-action-delete', function(e) {
         let data = $(this).parent().parent().data('data');
-        M.toast({html: 'Call Record Deleted'});
         $.post(ROOT_ADDRESS + '/DeleteCallRecord', JSON.stringify({
             id: data.id
         }), function(status) {
@@ -116,6 +121,7 @@
                     history.splice(data.index, 1);
                     StoreData('history', history);
                     RefreshApp();
+                    M.toast({html: 'Call Record Deleted'});
                 });
             } else {
                 M.toast({html: 'Error Deleting Call Record'});
@@ -157,6 +163,10 @@
         let data = $(this).parent().parent().data('data');
         OpenApp('message-convo', { number: data.number });
     });
+
+    $('.call-action-mute').on('click', function(e) {
+        
+    })
 
     function CheckIfContact(number) {
         let contact = contacts.filter(c => c.number == number)[0];

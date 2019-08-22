@@ -64,10 +64,6 @@
         }
     });
     
-    $("#contact-add-number").on('keyup', function(e) {
-        $(this).val(formatUSPhoneNumber($(this).val()));
-    });
-    
     $("#contact-edit-number").on('keydown', function(e) {
         switch (e.which) {
             case 8:
@@ -96,10 +92,6 @@
                 e.preventDefault();
                 break;
         }
-    });
-    
-    $("#contact-edit-number").on('keyup', function(e) {
-        $(this).val(formatUSPhoneNumber($(this).val()));
     });
     
     $('#contacts-add-contact').on('submit', function(e) {

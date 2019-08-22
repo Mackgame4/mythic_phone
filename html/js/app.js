@@ -9,11 +9,11 @@ $( function() {
     window.localStorage.clear(); 
 });
 
-$( function() {
+/*$( function() {
     $('.wrapper').fadeIn();
     SetupData( [ { name: 'myNumber', data: '111-111-1111' }, { name: 'contacts', data: Contacts }, { name: 'messages', data: Messages }, { name: 'history', data: Calls }, { name: 'apps', data: Apps }, { name: 'muted', data: false } ] );
     OpenApp('home', null, true);
-});
+});*/
 
 moment.fn.fromNowOrNow = function (a) {
     if (Math.abs(moment().diff(this)) < 60000) {
@@ -106,17 +106,6 @@ function dateSortNewest(a,b){
     return a.time < b.time ? 1 : -1;  
 };
 
-function formatUSPhoneNumber(input) {
-    return input
-    let substr = ''
-    if (input[0] === '#' || input[0] === '*') {
-        substr = input[0]
-        input = input.substring(1);
-    }
-
-    return substr + input.replace(/^(\d{3})(\d{3})(\d)+$/, "$1-$2-$3")
-}
-
 function dateSortOldest(a,b){
     return a.time > b.time ? 1 : -1;  
 };
@@ -169,11 +158,12 @@ function ClosePhone() {
 function OpenApp(app, data = null, pop = false) {
     if (appTrail[appTrail.length - 1].app !== app) {
         $('#' + app + '-container').fadeIn('fast', function() {
-            $('#' + appTrail[appTrail.length - 1].app + '-container').fadeOut('fast');
+            $('#' + appTrail[appTrail.length - 1].app + '-container').hide();
 
             $('.active-container').removeClass('active-container');
             $('#' + app + '-container').addClass('active-container');
 
+            CloseAppAction(appTrail[appTrail.length - 1].app);
             if (pop) {
                 appTrail.pop();
                 appTrail.pop();
@@ -195,6 +185,17 @@ function RefreshApp() {
     OpenAppAction(appTrail[appTrail.length - 1].app, appTrail[appTrail.length - 1].data)
 }
 
+function CloseAppAction(app) {
+    switch(app) {
+        case 'message-convo':
+            CloseConvo();
+            break;
+        case 'phone-call':
+            CloseCallActive();
+            break;
+    }
+}
+
 function OpenAppAction(app, data) {
     switch(app) {
         case 'home':
@@ -213,6 +214,9 @@ function OpenAppAction(app, data) {
         case 'phone':
             SetupCallContacts();
             SetupCallHistory();
+            break;
+        case 'phone-call':
+            SetupCallActive(data);
             break;
     }
 }

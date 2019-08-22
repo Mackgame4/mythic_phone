@@ -126,7 +126,7 @@
                                         </div>
                                     </div>
                                     <div class="inner-phone-container active-section" data-section="history">
-                                        
+
                                     </div>
                                     <div class="inner-phone-container" data-section="contacts">
                                         <div class="contacts-list">
@@ -147,7 +147,57 @@
 
                         <div class="app-container" id="phone-call-container">
                             <div class="inner-app">
+                                <div class="call-header">
+                                    <div class="call-avatar">#</div>
+                                    <div class="call-number">
+                                        <div class="call-number-text"></div>
+                                        <div class="call-subnumber"></div>
+                                        <div class="call-timer">Calling</div>
+                                    </div>
+                                </div>
+                                <div class="call-buttons">
+                                    <div class="call-button-row">
+                                        <div class="call-button">
+                                            <i class="fas fa-microphone-slash call-action-mute" data-active="false"></i>
+                                        </div>
+                                        <div class="call-button">
+                                            <i class="fas fa-plus call-action-addperson"></i>
+                                        </div>
+                                    </div>
+                                    <div class="call-button-row">
+                                        <div class="call-button" id="end-call">
+                                            <i class="fas fa-phone-alt call-action-hangup"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="app-container" id="phone-incoming-container">
+                            <div class="inner-app">
+                                <div class="call-header">
+                                    <div class="call-avatar">#</div>
+                                    <div class="call-number">
+                                        <div class="call-number-text"></div>
+                                        <div class="call-subnumber"></div>
+                                        <div class="call-timer">Calling</div>
+                                    </div>
+                                </div>
+                                <div class="call-buttons">
+                                    <div class="call-button-row">
+                                        <div class="call-button">
+                                            <i class="fas fa-microphone-slash call-action-mutemic" data-active="false"></i>
+                                        </div>
+                                        <div class="call-button">
+                                            <i class="fas fa-volume-mute call-action-mutesound"></i>
+                                        </div>
+                                    </div>
+                                    <div class="call-button-row">
+                                        <div class="call-button" id="end-call">
+                                            <i class="fas fa-phone-alt call-action-hangup"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -190,6 +240,7 @@
                                         555-555-5555
                                     </div>
                                     <div class="convo-top-actions">
+                                        <i class="fas fa-user-plus convo-action-addcontact modal-trigger" data-target="convo-add-contact-modal"></i>
                                         <i class="fas fa-phone convo-action-call"></i>
                                         <i class="fas fa-ellipsis-v convo-action-drop dropdown-trigger" data-target="convo-options-dropdown"></i>
                                     </div>
@@ -209,6 +260,27 @@
                                 <ul id='convo-options-dropdown' class='dropdown-content'>
                                     <li><a id="convo-delete-all">Delete Conversation</a></li>
                                 </ul>
+                            </div>
+                            
+
+                            <div id="convo-add-contact-modal" class="modal">
+                                <div class="modal-content">
+                                    <h6>Add Contact</h6>
+                                    <form id="convo-add-contact">
+                                        <div class="input-field col s6">
+                                            <input id="convo-add-contact-name" name="convo-add-contact-name" type="text" class="validate char-count-input" data-length="64" maxlength="64" required>
+                                            <label for="convo-add-contact-name">Name</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="convo-add-contact-number" value="555-555-5555" name="convo-add-contact-name" type="text" class="validate phone-number" pattern=".{12}" maxlength="12" required>
+                                            <label for="convo-add-contact-name">Number</label>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-close waves-effect waves-red btn">Cancel</a>
+                                    <button class="btn waves-effect waves-red" type="submit" form="convo-add-contact" >Add</button>
+                                </div>
                             </div>
                         </div>
 
@@ -258,8 +330,10 @@
         <script src="./js/config.js" type="text/javascript"></script>
         <script src="./js/app.js" type="text/javascript"></script>
         <script src="./js/apps/contacts.js" type="text/javascript"></script>
-        <script src="./js/apps/phone.js" type="text/javascript"></script>
+        <script src="./js/apps/phone/phone.js" type="text/javascript"></script>
+        <script src="./js/apps/phone/call.js" type="text/javascript"></script>
         <script src="./js/apps/home.js" type="text/javascript"></script>
-        <script src="./js/apps/messages.js" type="text/javascript"></script>
+        <script src="./js/apps/messages/messages.js" type="text/javascript"></script>
+        <script src="./js/apps/messages/convo.js" type="text/javascript"></script>
     </body>
 </html>

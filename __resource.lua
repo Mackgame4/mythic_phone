@@ -19,11 +19,14 @@ files {
 
     'html/js/apps/home.js',
     'html/js/apps/contacts.js',
-    'html/js/apps/phone.js',
-    'html/js/apps/messages.js',
+    'html/js/apps/phone/phone.js',
+    'html/js/apps/phone/call.js',
+    'html/js/apps/messages/messages.js',
+    'html/js/apps/messages/convo.js',
     
     'html/libs/all.min.css',
     'html/libs/jquery.min.js',
+    'html/libs/jquery.mask.min.js',
     'html/libs/jquery-ui.min.js',
     'html/libs/materialize.min.js',
     'html/libs/moment.min.js',

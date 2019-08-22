@@ -307,3 +307,95 @@
         }
     }
 }
+
+#phone-call-container {
+    background: color('blue', 'darken-4');
+
+    .inner-app {
+        .call-header {
+            text-align: center;
+            height: 50%;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 20px;
+
+            .call-avatar {
+                font-size: 55px;
+                line-height: 120px;
+                height: 120px;
+                width: 120px;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 100px;
+                margin-top: 30%;
+                background: #ffffff;
+                color: #1e1e1e;
+
+                &.call-pending {
+                    transition: all ease-in 0.3s;
+                    filter: brightness(10%);
+                }
+
+                &.call-connected {
+                    transition: all ease-in 0.3s;
+                    filter: brightness(100%);
+                }
+
+                &.call-disconnected {
+                    transition: all ease-in 0.3s;
+                    color: #ffffff;
+                    background: color('materialize-red', 'darken-4');
+                }
+            }
+
+            .call-number {
+                margin-top: 15px;
+            }
+        }
+
+        .call-buttons {
+            height: 30%;
+            font-size: 55px;
+            color: #ffffff;
+
+            .call-button-row {
+                width: 100%;
+                text-align: center;
+
+                .call-button {
+                    display: inline-block;
+                    width: 45%;
+                    padding: 30px;
+                    border-radius: 50px;
+
+                    &:hover {
+                        transition: all ease-in 0.15s;
+                        filter: brightness(85%);
+                        background: #1e1e1e;
+                    }
+
+                    &#end-call {
+                        width: 32% !important;
+                        left: 34%;
+                        height: 100%;
+
+                        &:hover {
+                            transition: all ease-in 0.15s;
+                            filter: brightness(85%);
+                            background: transparent;
+                        }
+
+                        i {
+                            padding: 24px;
+                            width: 85px;
+                            background: color('materialize-red', 'darken-4');
+                            border-radius: 100px;
+                            color: #ffffff;
+                            font-size: 35px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
