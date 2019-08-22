@@ -182,7 +182,7 @@ var Calls = [
 var Tweets = [
     {
         author: '@PleaseWork199',
-        message: 'asdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;a1',
+        message: '@HiThere1 SUP BRO',
         time: 1566263235000
     },
     {

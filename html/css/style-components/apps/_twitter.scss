@@ -43,6 +43,36 @@
                 color: #ffffff;
                 pointer-events: none;
             }
+
+            .author {
+                padding: 20px;
+                border-bottom: 1px solid #c4c4c4;
+                margin-left: auto;
+            }
+
+            .body {
+                padding: 5px 20px 0px 20px;
+                margin-left: auto;
+                overflow: hidden;
+                white-space: normal;
+                white-space: -moz-pre-wrap !important;
+                white-space: -webkit-pre-wrap;
+                white-space: -pre-wrap;
+                white-space: -o-pre-wrap;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                word-break: break-all;
+                white-space: normal;
+
+                .mention {
+                    color: #00aced;
+                }
+            }
+
+            .time {
+                padding: 0 10px 5px 10px;
+                text-align: right;
+            }
         }
     }
 
