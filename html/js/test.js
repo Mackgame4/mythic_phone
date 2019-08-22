@@ -181,32 +181,32 @@ var Calls = [
 
 var Tweets = [
     {
-        author: '@PleaseWork199',
+        author: 'PleaseWork199',
         message: '@HiThere1 SUP BRO',
         time: 1566263235000
     },
     {
-        author: '@PleaseWork199',
+        author: 'PleaseWork199',
         message: 'asdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;a1',
         time: 1566263235000
     },
     {
-        author: '@PleaseWork199',
+        author: 'PleaseWork199',
         message: 'Please Work 199',
         time: 1566263235000
     },
     {
-        author: '@PleaseWork199',
+        author: 'PleaseWork199',
         message: 'Please Work 199',
         time: 1566263235000
     },
     {
-        author: '@PleaseWork199',
+        author: 'PleaseWork199',
         message: 'Please Work 199',
         time: 1566263235000
     },
     {
-        author: '@PleaseWork199',
+        author: 'PleaseWork199',
         message: 'Please Work 199',
         time: 1566263235000
     }
