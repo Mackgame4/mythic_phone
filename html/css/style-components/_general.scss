@@ -51,6 +51,11 @@
                 background-color: rgba(0, 0, 0, 1);
                 position: absolute;
                 z-index: 99;
+                transition: background-color ease-in 0.15s;
+
+                &.in-call {
+                    background-color: color('green', 'darken-4');
+                }
 
                 hr {
                     position: absolute;
@@ -85,6 +90,11 @@
                     right: 24%;
                     top: 30%;
                     color: color("materialize-red", "lighten-1");
+
+                    &:hover {
+                        transition: all ease-in 0.15s;
+                        filter: brightness(60%);
+                    }
                 }
 
                 .payphone {
@@ -93,6 +103,11 @@
                     top: 30%;
                     color: color("materialize-red", "lighten-1");
                     display: none;
+
+                    &:hover {
+                        transition: all ease-in 0.15s;
+                        filter: brightness(60%);
+                    }
                 }
 
                 .mute {
@@ -100,6 +115,23 @@
                     font-size: 14px;
                     left: 21%;
                     top: 22%;
+
+                    &:hover {
+                        transition: all ease-in 0.15s;
+                        filter: brightness(60%);
+                    }
+                }
+
+                .in-call {
+                    position: absolute;
+                    font-size: 14px;
+                    left: 27%;
+                    display: none;
+
+                    &:hover {
+                        transition: all ease-in 0.15s;
+                        filter: brightness(60%);
+                    }
                 }
             }
 

@@ -200,7 +200,8 @@
             if (status) {
                 $elem.parent().parent().fadeOut('normal', function() {
                     $elem.parent().parent().remove();
-                })
+                });
+                
                 M.toast({html: 'Contact Deleted'});
     
                 contacts.splice(data.index, 1);

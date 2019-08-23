@@ -50,7 +50,17 @@
     $('[data-section=keypad').on('submit', '#call-number', function(e) {
         e.preventDefault();
         let data = $(this).serializeArray();
-        OpenApp('phone-call', { number: data[1].value, nonStandard: (data[0].value === '#' || data[0].value === '*')})
+
+        $.post(ROOT_ADDRESS + '/CreateCall', JSON.stringify({
+            number: data[1].value,
+            nonStandard: (data[0].value === '#' || data[0].value === '*')
+        }), function(status) {
+            if (status) {
+                OpenApp('phone-call', { number: data[1].value, nonStandard: (data[0].value === '#' || data[0].value === '*')})
+            } else {
+                M.toast({html:'Error Making Call'})
+            }
+        })
     });
 
     $(document).mouseup(function(){

@@ -75,6 +75,12 @@ $( function() {
     };
 });
 
+$('.phone-header').on('click', '.in-call', function(e) {
+    if (appTrail[appTrail.length - 1].app != 'phone-call') {
+        OpenApp('phone-call', null, false);
+    }
+});
+
 $('.back-button').on('click', function(e) {
     if (!navDisabled) {
         GoBack();
@@ -166,26 +172,47 @@ function ClosePhone() {
 
 function OpenApp(app, data = null, pop = false) {
     if (appTrail[appTrail.length - 1].app !== app) {
-        $('#' + app + '-container').fadeIn('fast', function() {
-            $('#' + appTrail[appTrail.length - 1].app + '-container').hide();
-
-            $('.active-container').removeClass('active-container');
-            $('#' + app + '-container').addClass('active-container');
-
-            CloseAppAction(appTrail[appTrail.length - 1].app);
-            if (pop) {
-                appTrail.pop();
-                appTrail.pop();
-            }
-            
-            appTrail.push({
-                app: app,
-                data: data
+        if ($('#' + appTrail[appTrail.length - 1].app + '-container').length > 0) {
+            $('#' + appTrail[appTrail.length - 1].app + '-container').fadeOut('fast', function() {
+                $('#' + app + '-container').fadeIn('fast', function() {
+                    $('.active-container').removeClass('active-container');
+                    $('#' + app + '-container').addClass('active-container');
+        
+                    CloseAppAction(appTrail[appTrail.length - 1].app);
+                    if (pop) {
+                        appTrail.pop();
+                        appTrail.pop();
+                    }
+                    
+                    appTrail.push({
+                        app: app,
+                        data: data
+                    });
+                });
+        
+                $('.material-tooltip').remove();
+                OpenAppAction(app, data);
             });
-        });
-
-        $('.material-tooltip').remove();
-        OpenAppAction(app, data);
+        } else {
+            $('#' + app + '-container').fadeIn('fast', function() {
+                $('.active-container').removeClass('active-container');
+                $('#' + app + '-container').addClass('active-container');
+    
+                CloseAppAction(appTrail[appTrail.length - 1].app);
+                if (pop) {
+                    appTrail.pop();
+                    appTrail.pop();
+                }
+                
+                appTrail.push({
+                    app: app,
+                    data: data
+                });
+            });
+    
+            $('.material-tooltip').remove();
+            OpenAppAction(app, data);
+        }
     }
 }
 

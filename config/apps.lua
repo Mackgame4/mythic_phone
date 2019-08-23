@@ -35,7 +35,7 @@ Config.Apps = {
         name = 'Twitter',
         container = 'twitter',
         icon = '<i class="fab fa-twitter"></i>',
-        color = '#00b0ff',
+        color = '#039be5',
         unread = 1,
         enabled = true
     },

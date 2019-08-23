@@ -24,6 +24,7 @@
                             <span class="simcard modal-trigger" data-target="remove-sim-conf"><i class="fas fa-sim-card"></i></span>
                             <span class="payphone"><i class="fas fa-phone-slash"></i></span>
                             <span class="mute not-muted"><i class="fas fa-volume-up"></i></span>
+                            <span class="in-call"><i class="fas fa-phone"></i> 0:00:00</span>
                     </div>
                     <div class="phone-screen">
                         <div class="app-container" id="home-container">
@@ -157,11 +158,13 @@
                                 </div>
                                 <div class="call-buttons">
                                     <div class="call-button-row">
-                                        <div class="call-button">
-                                            <i class="fas fa-microphone-slash call-action-mutemic" data-active="false"></i>
+                                        <div class="call-button call-action-mutemic">
+                                            <i class="fas fa-microphone-slash color-disabled"></i>
+                                            <span>Mute Mic</span>
                                         </div>
-                                        <div class="call-button">
-                                            <i class="fas fa-volume-mute call-action-mutesound"></i>
+                                        <div class="call-button call-action-mutesound">
+                                            <i class="fas fa-volume-mute color-disabled"></i>
+                                            <span>Mute Sound</span>
                                         </div>
                                     </div>
                                     <div class="call-button-row">
@@ -283,21 +286,20 @@
                                 <div class="twitter-header">
                                     <i class="fab fa-twitter"></i>
                                 </div>
-                                <div class="twitter-body">
-                                    
-                                </div><a class="btn-floating btn-large waves-effect modal-trigger waves-light blue darken-4" data-target="send-tweet-modal"><i class="fas fa-plus"></i></a>
+                                <div class="twitter-body"></div>
+                                <a class="btn-floating btn-large waves-effect modal-trigger waves-light light-blue darken-1" data-target="send-tweet-modal"><i class="fas fa-plus"></i></a>
                             </div>
 
                             <div id="send-tweet-modal" class="modal">
                                 <div class="modal-content">
                                     <h6>Send Tweet</h6>
                                     <form id="new-tweet">
-                                        <input type="text" class="validate char-count-input" maxlength="255" data-length="255" required>
+                                        <input type="text" class="validate char-count-input" id="new-tweet-msg" name="new-tweet-msg" maxlength="255" data-length="255" required>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <a class="modal-close waves-effect waves-red btn">Cancel</a>
-                                    <button class="btn waves-effect waves-red" type="submit" form="new-tweet">Tweet</button>
+                                    <a class="modal-close btn waves-effect waves-light light-blue darken-1">Cancel</a>
+                                    <button class="btn waves-effect waves-light light-blue darken-1" type="submit" form="new-tweet">Tweet</button>
                                 </div>
                             </div>
                         </div>

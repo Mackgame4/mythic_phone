@@ -357,6 +357,12 @@
             height: 30%;
             font-size: 55px;
             color: #ffffff;
+            position: absolute;
+            bottom: 15%;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
 
             .call-button-row {
                 width: 100%;
@@ -372,6 +378,13 @@
                         transition: all ease-in 0.15s;
                         filter: brightness(85%);
                         background: #1e1e1e;
+                    }
+
+                    span {
+                        display: block;
+                        font-size: 12px;
+                        margin-top: 10px;
+                        font-weight: bold;
                     }
 
                     &#end-call {

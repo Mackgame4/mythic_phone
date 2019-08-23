@@ -6,7 +6,7 @@
             width: 100%;
             text-align: center;
             font-size: 30px;
-            background: #00aced;
+            background: color('light-blue', 'darken-1');
             color: #ffffff;
         }
     }
@@ -23,6 +23,8 @@
         .tweet {
             background: #ffffff;
             border-bottom: 1px solid #1e1e1e;
+            color: #1e1e1e;
+            font-size: 17;
 
             .avatar {
                 font-size: 20px;
@@ -39,14 +41,15 @@
                 top: 15%;
                 -webkit-transform: translate(0%, 0%);
                 transform: translate(0%, 0%);
-                background: #8b1014;
+                background: color('materialize-red', 'darken-4');
                 color: #ffffff;
                 pointer-events: none;
             }
 
             .author {
-                padding: 20px;
+                padding: 10px;
                 margin-left: auto;
+                font-weight: bold;
             }
 
             .body {
@@ -64,13 +67,31 @@
                 white-space: normal;
 
                 .mention {
-                    color: #00aced;
+                    color: color('light-blue', 'darken-1');
+                    font-weight: bold;
+
+                    &:hover {
+                        transition: all ease-in 0.3s;
+                        filter: brightness(60%);
+                    }
+                }
+
+                .hashtag {
+                    color: color('materialize-red', 'darken-4');
+                    font-weight: bold;
+
+                    &:hover {
+                        transition: all ease-in 0.3s;
+                        filter: brightness(60%);
+                    }
                 }
             }
 
             .time {
                 padding: 0 10px 5px 10px;
                 text-align: right;
+                font-size: 12px;
+                font-weight: bold;
             }
         }
     }
