@@ -42,12 +42,11 @@ window.addEventListener('message', function(event) {
             if (!IsCallPending()) {
                 OpenApp('home', null, true);
             } else {
-                this.console.log("????????");
                 appTrail = [{
                     app: 'home',
                     data: null
                 }];
-                OpenApp('phone-incoming', { number: event.data.number }, false);
+                OpenApp('phone-call', { number: event.data.number, receiver: true }, false);
             }
 
             break;
@@ -64,13 +63,18 @@ window.addEventListener('message', function(event) {
             ReceiveText(event.data.data.sender, event.data.data.text);
             break;
         case 'receiveCall':
-            OpenApp('phone-incoming', { number: event.data.number }, false);
+            OpenApp('phone-call', { number: event.data.number, receiver: true }, false);
+            break;
+        case 'acceptCallSender':
+            this.console.log("pls " + JSON.stringify(event.data));
+            OpenApp('phone-call', null, true);
+            break;
+        case 'acceptCallReceiver':
+            this.console.log("asdfasdf");
+            OpenApp('phone-call', {number: event.data.number, reciever: true}, true);
             break;
         case 'endCall':
-            CallHungUp(event.data.status);
-            break;
-        case 'rejectCall':
-            RejectIncomingCall();
+            CallHungUp();
             break;
     }
 });
@@ -191,8 +195,6 @@ function ClosePhone() {
 }
 
 function OpenApp(app, data = null, pop = false) {
-    console.log(app + ' ' + JSON.stringify(data) + ' ' + JSON.stringify(pop));
-    console.log(JSON.stringify(appTrail[appTrail.length - 1]));
     if (appTrail[appTrail.length - 1].app !== app) {
         if ($('#' + appTrail[appTrail.length - 1].app + '-container').length > 0) {
             $('#' + appTrail[appTrail.length - 1].app + '-container').fadeOut('fast', function() {
@@ -272,9 +274,6 @@ function OpenAppAction(app, data) {
         case 'phone':
             SetupCallContacts();
             SetupCallHistory();
-            break;
-        case 'phone-incoming':
-            SetupIncomingCall(data);
             break;
         case 'phone-call':
             SetupCallActive(data);

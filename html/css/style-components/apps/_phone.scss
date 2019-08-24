@@ -309,7 +309,7 @@
 }
 
 #phone-call-container {
-    background: color('blue', 'darken-4');
+    background: #1e1e1e;
 
     .inner-app {
         .call-header {
@@ -333,7 +333,7 @@
 
                 &.call-pending {
                     transition: all ease-in 0.3s;
-                    filter: brightness(10%);
+                    filter: brightness(40%);
                 }
 
                 &.call-connected {
@@ -405,89 +405,24 @@
                             font-size: 35px;
                         }
                     }
-                }
-            }
-        }
-    }
-}
 
-#phone-incoming-container {
-    background: color('blue', 'darken-4');
+                    &#answer-call {
+                        height: 100%;
 
-    .inner-app {
-        .call-header {
-            text-align: center;
-            height: 50%;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 20px;
+                        &:hover {
+                            transition: all ease-in 0.15s;
+                            filter: brightness(85%);
+                            background: transparent;
+                        }
 
-            .call-avatar {
-                font-size: 55px;
-                line-height: 120px;
-                height: 120px;
-                width: 120px;
-                margin-left: auto;
-                margin-right: auto;
-                border-radius: 100px;
-                margin-top: 30%;
-                background: #ffffff;
-                color: #1e1e1e;
-
-                &.call-pending {
-                    transition: all ease-in 0.3s;
-                    filter: brightness(10%);
-                }
-
-                &.call-connected {
-                    transition: all ease-in 0.3s;
-                    filter: brightness(100%);
-                }
-
-                &.call-disconnected {
-                    transition: all ease-in 0.3s;
-                    color: #ffffff;
-                    background: color('materialize-red', 'darken-4');
-                }
-            }
-
-            .call-number {
-                margin-top: 15px;
-            }
-        }
-
-        .call-buttons {
-            height: 30%;
-            font-size: 55px;
-            color: #ffffff;
-
-            .call-button-row {
-                width: 100%;
-                text-align: center;
-                display: flex;
-                justify-content: space-around;
-
-                .call-button {
-                    height: 85px;
-                    width: 85px;
-                    font-size: 40px;
-                    border-radius: 100px;
-
-                    &:hover {
-                        transition: all ease-in 0.15s;
-                        filter: brightness(85%);
-                    }
-
-                    i {
-                        line-height: 85px;
-                    }
-
-                    &.call-action-decline {
-                        background: color("materialize-red", "darken-4");
-                    }
-
-                    &.call-action-answer {
-                        background: color("green", "darken-4");
+                        i {
+                            padding: 24px;
+                            width: 85px;
+                            background: color('green', 'darken-4');
+                            border-radius: 100px;
+                            color: #ffffff;
+                            font-size: 35px;
+                        }
                     }
                 }
             }

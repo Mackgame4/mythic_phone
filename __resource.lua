@@ -21,7 +21,6 @@ files {
     'html/js/apps/contacts.js',
     'html/js/apps/phone/phone.js',
     'html/js/apps/phone/call.js',
-    'html/js/apps/phone/incoming.js',
     'html/js/apps/messages/messages.js',
     'html/js/apps/messages/convo.js',
     'html/js/apps/twitter.js',

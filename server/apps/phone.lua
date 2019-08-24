@@ -1,5 +1,4 @@
-PendingCalls = {}
-ActiveCalls = {}
+Calls = {}
 
 RegisterServerEvent('mythic_characters:server:CharacterSpawned')
 AddEventHandler('mythic_characters:server:CharacterSpawned', function()
@@ -60,33 +59,37 @@ AddEventHandler('mythic_phone:server:CreateCall', function(token, identifier, nu
     local cData = char.getCharData()
 
     local tPlayer = exports['mythic_base']:getPlayerFromPhone(number)
-    print(number)
-    print(tPlayer ~= nil)
     if tPlayer ~= nil then
-        print(PendingCalls[number] ~= nil)
-        print(ActiveCalls[number] ~= nil)
-        if PendingCalls[number] ~= nil or ActiveCalls[number] ~= nil then
-            print(-2)
-            TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, -2)
-            TriggerClientEvent('mythic_notify:client:SendAlert', tPlayer.getSource(), { type = 'inform', text = char.getFullName() .. ' Tried Calling You But You\'re Already In A Call, Sending Busy Response'})
+        if tPlayer.getSource ~= src then
+            if Calls[number] ~= nil then
+                TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, -3)
+                TriggerClientEvent('mythic_notify:client:SendAlert', tPlayer.getSource(), { type = 'inform', text = char.getFullName() .. ' Tried Calling You, Sending Busy Response'})
+            else
+                TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, 1)
+
+                TriggerClientEvent('mythic_phone:client:CreateCall', src, cData.phone)
+                TriggerClientEvent('mythic_phone:client:ReceiveCall', tPlayer.getSource(), cData.phone)
+
+                TriggerClientEvent('mythic_notify:client:PersistentAlert', tPlayer.getSource(), { id = 'incoming-call', action = 'start', type = 'inform', text = char.getFullName() .. ' Is Calling You'})
+                Calls[cData.phone] = {
+                    number = number,
+                    status = 0
+                }
+                Calls[number] = {
+                    number = cData.phone,
+                    status = 0
+                }
+            end
         else
-            print(1)
-            TriggerClientEvent('mythic_notify:client:PersistentAlert', tPlayer.getSource(), { id = 'incoming-call', action = 'start', type = 'inform', text = char.getFullName() .. ' Is Calling You'})
-            TriggerClientEvent('mythic_phone:client:ReceiveCall', tPlayer.getSource(), char.getFullName(), cData.phone)
-            TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, 1)
-            PendingCalls[cData.phone] = {
-                number = number,
-            }
+            TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, -2)
         end
     else
-        print(-1)
-        PendingCalls[cData.phone] = nil
         TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, -1)
     end
 end)
 
 RegisterServerEvent('mythic_phone:server:AcceptCall')
-AddEventHandler('mythic_phone:server:AcceptCall', function(token, identifier, number)
+AddEventHandler('mythic_phone:server:AcceptCall', function(token)
     local src = source
     if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
 		return false
@@ -94,50 +97,38 @@ AddEventHandler('mythic_phone:server:AcceptCall', function(token, identifier, nu
     
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()
-    local call = nil
 
-    for k, v in pairs(PendingCalls) do
-        if v.number == cData.number then
-            call = k
-        end
-    end
-
-    if k ~= nil then
-        local tPlayer = exports['mythic_base']:getPlayerFromPhone(k)
+    if (Calls[cData.phone].number ~= nil and Calls[cData.phone].status == 0) and ((Calls[Calls[cData.phone].number].number ~= nil and Calls[Calls[cData.phone].number].status == 0)) then
+        local tPlayer = exports['mythic_base']:getPlayerFromPhone(Calls[Calls[cData.phone].number].number)
         if tPlayer ~= nil then
-            TriggerClientEvent('mythic_phone:client:AcceptCall', src, tPlayer.getSource(), cData.phone)
-            TriggerClientEvent('mythic_phone:client:AcceptCall', tPlayer.getSource(), tPlayer.getSource(), k)
-            TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, true)
-            PendingCalls[cData.phone] = nil
+            Calls[Calls[cData.phone].number].status = 1
+            Calls[cData.phone].status = 1
 
-            ActiveCalls[k] = {
-                number = cData.phone
-            }
+            TriggerClientEvent('mythic_phone:client:AcceptCall', src, tPlayer.getSource(), false)
+            TriggerClientEvent('mythic_phone:client:AcceptCall', tPlayer.getSource(), tPlayer.getSource(), true)
         else
-            PendingCalls[k] = nil
-            TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, false)
+            Calls[Calls[cData.phone].number] = nil
+            Calls[cData.phone] = nil
+            TriggerClientEvent('mythic_phone:client:EndCall', src)
         end
     else
-        PendingCalls[k] = nil
-        TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, false)
+        TriggerClientEvent('mythic_phone:client:EndCall', src)
     end
 end)
 
-RegisterServerEvent('mythic_phone:server:RejectCall')
-AddEventHandler('mythic_phone:server:RejectCall', function(token, identifier, number)
+RegisterServerEvent('mythic_phone:server:EndCall')
+AddEventHandler('mythic_phone:server:EndCall', function(token)
     local src = source
     
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()
 
-    local tPlayer = exports['mythic_base']:getPlayerFromPhone(number)
+    local tPlayer = exports['mythic_base']:getPlayerFromPhone(Calls[cData.phone].number)
     if tPlayer ~= nil then
-        PendingCalls[cData.phone] = nil
-        PendingCalls[number] = nil
-        TriggerClientEvent('mythic_phone:client:EndCall', tPlayer.getSource(), false)
-        TriggerClientEvent('mythic_phone:client:RejectCall', src, false)
-        TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, true)
-    else
-        TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, false)
+        Calls[Calls[cData.phone].number] = nil
+        Calls[cData.phone] = nil
+
+        TriggerClientEvent('mythic_phone:client:EndCall', src)
+        TriggerClientEvent('mythic_phone:client:EndCall', tPlayer.getSource())
     end
 end)

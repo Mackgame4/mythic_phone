@@ -51,16 +51,15 @@
         e.preventDefault();
         let data = $(this).serializeArray();
 
-        console.log(JSON.stringify(data));
-
         $.post(ROOT_ADDRESS + '/CreateCall', JSON.stringify({
             number: data[1].value,
             nonStandard: (data[0].value === '#' || data[0].value === '*')
         }), function(status) {
-            console.log(status);
             if (status > 0) {
-                OpenApp('phone-call', { number: data[1].value, nonStandard: (data[0].value === '#' || data[0].value === '*')})
+                OpenApp('phone-call', { number: data[1].value, nonStandard: (data[0].value === '#' || data[0].value === '*'), receiver: false})
             } else if (status == -2) {
+                M.toast({html:'Can\'t Call Yourself, Idiot'})   
+            }else if (status == -3) {
                 M.toast({html:'Number is Busy'})
             } else {
                 M.toast({html:'Number Not Currently Active'})
@@ -116,9 +115,8 @@
             number: number,
             nonStandard: false
         }), function(status) {
-            console.log(status);
             if (status) {
-                OpenApp('phone-call', { number: number, nonStandard: false})
+                OpenApp('phone-call', { number: number, nonStandard: false, receiver: false})
             } else {
                 M.toast({html:'Number Not Currently Active'})
             }

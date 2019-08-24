@@ -1,44 +1,16 @@
-PendingCall = {}
+Call = {}
 
-RegisterNetEvent('mythic_phone:client:AcceptCall')
-AddEventHandler('mythic_phone:client:AcceptCall', function(channel, number)
-
-end)
-
-RegisterNetEvent('mythic_phone:client:EndCall')
-AddEventHandler('mythic_phone:client:EndCall', function(status)
-    SendNUIMessage({
-        action = 'endCall',
-        status = status
-    });
-    PendingCall = {}
-end)
-
-RegisterNetEvent('mythic_phone:client:RejectCall')
-AddEventHandler('mythic_phone:client:RejectCall', function(status)
-    SendNUIMessage({
-        action = 'rejectCall'
-    });
-    exports['mythic_notify']:PersistentAlert('end', 'incoming-call')
-    PendingCall = {}
-end)
-
-RegisterNetEvent('mythic_phone:client:ReceiveCall')
-AddEventHandler('mythic_phone:client:ReceiveCall', function(caller, number)
-    PendingCall.caller = caller
-    PendingCall.number = number
-
-    SendNUIMessage({
-        action = 'receiveCall',
-        number = number
-    });
+RegisterNetEvent('mythic_phone:client:CreateCall')
+AddEventHandler('mythic_phone:client:CreateCall', function(number)
+    Call.number = number
+    Call.status = 0
 
     local count = 0
     Citizen.CreateThread(function()
-        while PendingCall.number ~= nil do
+        while Call.status == 0 do
             if count >= 30 then
-                TriggerServerEvent('mythic_phone:server:RejectCall', securityToken, 'RejectCall', PendingCall.number)
-                PendingCall = {}
+                TriggerServerEvent('mythic_phone:server:EndCall', securityToken)
+                Call = {}
             else
                 count = count + 1
             end
@@ -47,15 +19,70 @@ AddEventHandler('mythic_phone:client:ReceiveCall', function(caller, number)
     end)
 end)
 
+RegisterNetEvent('mythic_phone:client:AcceptCall')
+AddEventHandler('mythic_phone:client:AcceptCall', function(channel, initiator)
+    if Call.number ~= nil and Call.status == 0 then
+        Call.status = 1
+
+        if initiator then
+            SendNUIMessage({
+                action = 'acceptCallSender',
+                number = Call.number
+            })
+        else
+            SendNUIMessage({
+                action = 'acceptCallReceiver',
+                number = Call.number
+            })
+        end
+    end
+end)
+
+RegisterNetEvent('mythic_phone:client:EndCall')
+AddEventHandler('mythic_phone:client:EndCall', function()
+    SendNUIMessage({
+        action = 'endCall'
+    })
+    exports['mythic_notify']:PersistentAlert('end', 'incoming-call')
+    Call = {}
+end)
+
+RegisterNetEvent('mythic_phone:client:ReceiveCall')
+AddEventHandler('mythic_phone:client:ReceiveCall', function(number)
+    Call.number = number
+    Call.status = 0
+
+    SendNUIMessage({
+        action = 'receiveCall',
+        number = number
+    })
+
+    local count = 0
+    Citizen.CreateThread(function()
+        while Call.status == 0 do
+            if count >= 30 then
+                TriggerServerEvent('mythic_phone:server:EndCall', securityToken)
+                Call = {}
+            else
+                count = count + 1
+            end
+            Citizen.Wait(1000)
+        end
+    end)
+end)
 
 RegisterNUICallback( 'CreateCall', function( data, cb )
     actionCb['CreateCall'] = cb
     TriggerServerEvent('mythic_phone:server:CreateCall', securityToken, 'CreateCall', data.number, data.nonStandard)
 end)
 
-RegisterNUICallback( 'RejectCall', function( data, cb )
-    actionCb['RejectCall'] = cb
-    TriggerServerEvent('mythic_phone:server:RejectCall', securityToken, 'RejectCall', PendingCall.number)
+RegisterNUICallback( 'AcceptCall', function( data, cb )
+    print('please?')
+    TriggerServerEvent('mythic_phone:server:AcceptCall', securityToken)
+end)
+
+RegisterNUICallback( 'EndCall', function( data, cb )
+    TriggerServerEvent('mythic_phone:server:EndCall', securityToken)
 end)
 
 RegisterNUICallback( 'DeleteCallRecord', function( data, cb )
