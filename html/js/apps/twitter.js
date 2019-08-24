@@ -7,6 +7,16 @@
 
         let data = $(this).serializeArray();
 
+        $.post(ROOT_ADDRESS + '/NewTweet', JSON.stringify({
+            message: data[0].value
+        }), function(status) {
+            if (status) {
+
+            } else {
+                
+            }
+        })
+
         let tweet = {
             author: 'PleaseWork',
             message: data[0].value,
@@ -33,9 +43,15 @@
                 <div class="avatar other-${tweet.author[0].toString().toLowerCase()}">${tweet.author[0]}</div>
                 <div class="author">${tweet.author}</div>
                 <div class="body">${tweet.message}</div>
-                <div class="time">${moment(Date.now()).fromNowOrNow()}</div>
+                <div class="time" data-tooltip="${moment().format('MM/DD/YYYY')} ${moment().format('hh:mmA')}">${moment().fromNowOrNow()}</div>
             </div>`
         );
+
+        $('.twitter-body .tweet:first-child .time').tooltip( {
+            enterDelay: 0,
+            exitDelay: 0,
+            inDuration: 0,
+        });
 
         $('.twitter-body .tweet:first-child').data('data', tweet);
 
@@ -57,10 +73,13 @@
     exports.SetupTwitter = function() {
         tweets = GetData('tweets');
 
-        this.console.log(tweets.length);
+        if (tweets == null) {
+            tweets = new Array();
+        }
 
         tweets.sort(dateSortNewest);
 
+        $('.twitter-body').html('');
         $.each(tweets, function(index, tweet) {
 
             var pattern = /\B@[a-z0-9_-]+/gi;
@@ -75,14 +94,27 @@
                 tweet.message = tweet.message.replace(hashtag, `<span class="hashtag" data-hashtag="${hashtag.replace('#', '')}">' + hashtag + '</span>`);
             });
 
+            pattern = /https?[^<"]+/g;
+            data = tweet.message.match(pattern);
+            $.each(data, function(index2, hashtag) {
+                console.log(hashtag);
+                //tweet.message = tweet.message.replace(hashtag, `<span class="hashtag" data-hashtag="${hashtag.replace('#', '')}">' + hashtag + '</span>`);
+            });
+
+            
+
             $('.twitter-body').prepend(`
                 <div class="tweet">
                     <div class="avatar other-${tweet.author[0].toString().toLowerCase()}">${tweet.author[0]}</div>
                     <div class="author">${tweet.author}</div>
                     <div class="body">${tweet.message}</div>
-                    <div class="time">${moment(Date.now()).fromNowOrNow()}</div>
+                    <div class="time" data-tooltip="${moment(tweet.time).format('MM/DD/YYYY')} ${moment(tweet.time).format('hh:mmA')}">${moment(tweet.time).fromNowOrNow()}</div>
                 </div>`
             );
+
+            $('.twitter-body .tweet:first-child .time').tooltip( {
+                position: top
+            });
             $('.twitter-body .tweet:first-child').data('data', tweet);
         });
     }

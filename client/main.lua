@@ -4,8 +4,6 @@ local isPhoneOpen = false
 
 RegisterNetEvent('mythic_phone:client:ActionCallback')
 AddEventHandler('mythic_phone:client:ActionCallback', function(identifier, data)
-  print(identifier)
-
   if actionCb[identifier] ~= nil then
     actionCb[identifier](data)
     actionCb[identifier] = nil
@@ -105,7 +103,12 @@ function TogglePhone()
     SetNuiFocus(isPhoneOpen, isPhoneOpen)
     if isPhoneOpen == true then
       PhonePlayIn()
-      SendNUIMessage( { action = 'show' } )
+      if PendingCall ~= nil then
+        print(PendingCall.number)
+        SendNUIMessage( { action = 'show', number = PendingCall.number } )
+      else
+        SendNUIMessage( { action = 'show' } )
+      end
       DisableControls()
     else
       PhonePlayOut()

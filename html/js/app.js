@@ -9,7 +9,7 @@ $( function() {
     window.localStorage.clear(); 
 });
 
-$( function() {
+/*$( function() {
     $('.wrapper').fadeIn();
     SetupData([ 
         { name: 'myNumber', data: '111-111-1111' },
@@ -22,7 +22,7 @@ $( function() {
     ]);
 
     OpenApp('home', null, true);
-});
+});*/
 
 moment.fn.fromNowOrNow = function (a) {
     if (Math.abs(moment().diff(this)) < 60000) {
@@ -38,7 +38,18 @@ window.addEventListener('message', function(event) {
             break;
         case 'show':
             $('.wrapper').show("slide", { direction: "down" }, 500);
-            OpenApp('home', null, true);
+
+            if (!IsCallPending()) {
+                OpenApp('home', null, true);
+            } else {
+                this.console.log("????????");
+                appTrail = [{
+                    app: 'home',
+                    data: null
+                }];
+                OpenApp('phone-incoming', { number: event.data.number }, false);
+            }
+
             break;
         case 'hide':
             ClosePhone();
@@ -51,6 +62,15 @@ window.addEventListener('message', function(event) {
             break;
         case 'receiveText':
             ReceiveText(event.data.data.sender, event.data.data.text);
+            break;
+        case 'receiveCall':
+            OpenApp('phone-incoming', { number: event.data.number }, false);
+            break;
+        case 'endCall':
+            CallHungUp(event.data.status);
+            break;
+        case 'rejectCall':
+            RejectIncomingCall();
             break;
     }
 });
@@ -171,6 +191,8 @@ function ClosePhone() {
 }
 
 function OpenApp(app, data = null, pop = false) {
+    console.log(app + ' ' + JSON.stringify(data) + ' ' + JSON.stringify(pop));
+    console.log(JSON.stringify(appTrail[appTrail.length - 1]));
     if (appTrail[appTrail.length - 1].app !== app) {
         if ($('#' + appTrail[appTrail.length - 1].app + '-container').length > 0) {
             $('#' + appTrail[appTrail.length - 1].app + '-container').fadeOut('fast', function() {

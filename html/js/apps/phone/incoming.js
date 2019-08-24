@@ -3,11 +3,10 @@
 (function(exports){
 
     var contacts = null;
-
     var callPending = null;
 
     $('.call-action-decline').on('click', function(e) {
-        RejectIncomingCall(true);
+        $.post(ROOT_ADDRESS + '/RejectCall', JSON.stringify({}));
     });
 
     $('.call-action-answer').on('click', function(e) {
@@ -16,17 +15,26 @@
 
     exports.AcceptIncomingCall = function() {
         let data = $('#phone-incoming-container').data('data');
-
         OpenApp('phone-call', data, true);
+        clearInterval(callPending);
+        callPending = null;
     }
 
     exports.RejectIncomingCall = function() {
+        if (callPending == null) return;
         $('.call-avatar').addClass('call-disconnected').removeClass('call-connected').removeClass('call-pending');
         $('.call-number .call-timer').html('NO ANSWER');
 
-        this.setTimeout(function() {
+        clearInterval(callPending);
+        callPending = null;
+
+        setTimeout(function() {
             GoBack();
-        }, 2500);
+        }, 1000);
+    }
+
+    exports.IsCallPending = function() {
+        return (callPending != null)
     }
 
     exports.SetupIncomingCall = function(data) {
@@ -44,15 +52,7 @@
             $('.call-number .inc-subnumber').html('');
         }
 
-        let counter = 0;
-        callPending = this.setInterval(function() {
-            if (counter < 30) {
-                counter++;
-            } else {
-                RejectIncomingCall();
-                clearInterval(callPending);
-            }
-        }, 1000);
+        callPending = data
     }
 
     exports.CloseIncomingCall = function() {

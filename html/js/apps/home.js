@@ -22,7 +22,7 @@
                     enterDelay: 0,
                     exitDelay: 0,
                     inDuration: 0,
-                } );
+                });
         
                 $app.data('container', app.container);
             }

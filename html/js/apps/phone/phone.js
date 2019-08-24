@@ -51,16 +51,21 @@
         e.preventDefault();
         let data = $(this).serializeArray();
 
+        console.log(JSON.stringify(data));
+
         $.post(ROOT_ADDRESS + '/CreateCall', JSON.stringify({
             number: data[1].value,
             nonStandard: (data[0].value === '#' || data[0].value === '*')
         }), function(status) {
-            if (status) {
+            console.log(status);
+            if (status > 0) {
                 OpenApp('phone-call', { number: data[1].value, nonStandard: (data[0].value === '#' || data[0].value === '*')})
+            } else if (status == -2) {
+                M.toast({html:'Number is Busy'})
             } else {
-                M.toast({html:'Error Making Call'})
+                M.toast({html:'Number Not Currently Active'})
             }
-        })
+        });
     });
 
     $(document).mouseup(function(){
@@ -107,7 +112,17 @@
             number = data.receiver;
         }
 
-        OpenApp('phone-call', { number: number });
+        $.post(ROOT_ADDRESS + '/CreateCall', JSON.stringify({
+            number: number,
+            nonStandard: false
+        }), function(status) {
+            console.log(status);
+            if (status) {
+                OpenApp('phone-call', { number: number, nonStandard: false})
+            } else {
+                M.toast({html:'Number Not Currently Active'})
+            }
+        });
     });
 
     $('[data-section=history').on('click', '.call-actions .call-action-text', function(e) {

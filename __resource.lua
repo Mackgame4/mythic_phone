@@ -21,8 +21,10 @@ files {
     'html/js/apps/contacts.js',
     'html/js/apps/phone/phone.js',
     'html/js/apps/phone/call.js',
+    'html/js/apps/phone/incoming.js',
     'html/js/apps/messages/messages.js',
     'html/js/apps/messages/convo.js',
+    'html/js/apps/twitter.js',
     
     'html/libs/all.min.css',
     'html/libs/jquery.min.js',
@@ -66,6 +68,7 @@ client_script {
 	"client/apps/contacts.lua",
 	"client/apps/phone.lua",
 	"client/apps/messages.lua",
+	"client/apps/twitter.lua",
 }
 
 server_script {
@@ -80,6 +83,7 @@ server_script {
 	"server/apps/contacts.lua",
 	"server/apps/phone.lua",
 	"server/apps/messages.lua",
+	"server/apps/twitter.lua",
 }
 
 dependencies {

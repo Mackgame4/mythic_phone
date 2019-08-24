@@ -37,12 +37,14 @@
     $('.call-action-hangup').on('click', function(e) {
         if (isCallActive == null) {
             // Need To Send Cancel To Other Client
+            console.log('Send To Other Client That Call Was Cancelled');
             CallHungUp(false);
-        } else {
+        } else if (callPending != null) {
             // Need To Send Disconnect To Other Client
+            console.log('Send To Other Client That Call Was Disconnected');
             CallHungUp(true);
         }
-    })
+    });
 
     exports.CallAnswered = function() {
         this.clearInterval(callPending);
@@ -55,6 +57,7 @@
         activeCallDigits.hours = 0;
 
         isCallActive = callData;
+        callData = null;
 
         activeCallTimer = this.setInterval(function() {
             if (activeCallDigits.seconds < 59) {
@@ -94,6 +97,9 @@
 
         this.clearInterval(activeCallTimer);
         this.clearInterval(callPending);
+        activeCallTimer = null;
+        callPending = null;
+
         $('.call-avatar').addClass('call-disconnected').removeClass('call-connected').removeClass('call-pending');
 
         $('.phone-header').attr('class', 'phone-header');
@@ -101,15 +107,18 @@
             $('.phone-header .in-call').html(`<i class="fas fa-phone"></i>`);
         });
 
+        this.console.log('hello?');
+
         this.setTimeout(function() {
-            GoBack();
             $('.call-number .call-timer').html('Calling');
             $('.call-avatar').attr('class', 'call-avatar');
+            GoBack();
         }, 2500);
+        this.console.log('hello?');
     }
 
     exports.SetupCallActive = function(data){
-        if (isCallActive != null) return;
+        if (isCallActive != null) CallAnswered();
         myNumber = GetData('myNumber');
         contacts = GetData('contacts');
 
@@ -118,12 +127,14 @@
         let contact = contacts.filter(c => c.number == data.number)[0];
 
         if (contact != null) {
-            $('#phone-call-container').addClass('other-' + contact.name[0]);
+            $('#phone-call-container').addClass('other-' + contact.name[0].toString().toLowerCase());
             $('.call-number .call-number-text').html(contact.name);
             $('.call-number .call-subnumber').html(contact.number);
+            $('.call-header .call-avatar').html(contact.name[0])
         } else {
             $('.call-number .call-number-text').html(data.number);
             $('.call-number .call-subnumber').html('');
+            $('.call-header .call-avatar').html('#')
         }
 
         $('.call-avatar').addClass('call-pending');
@@ -139,20 +150,27 @@
             $('.call-number .call-timer').html('Calling ' + dots);
         }, 500);
 
-        callData = data;
-
-        this.setTimeout(function() {
-            CallAnswered();
-        }, 10000);
+        callData = data
     }
 
     exports.CloseCallActive = function() {
         if (isCallActive != null) return;
+
+        /*if (callPending != null && is`C`allActive == null && callData != null) {
+            this.console.log('fuck me');
+            $.post(ROOT_ADDRESS + '/CancelCall', JSON.stringify({
+                
+            }));
+        } */
+
         myNumber = null;
         contacts = null;
         callData = null;
+
         this.clearInterval(activeCallTimer);
         this.clearInterval(callPending);
+        callPending = null;
+
         $('#phone-call-container').attr('class', 'app-container');
         $('.call-avatar').attr('class', 'call-avatar');
         $('.call-number .call-timer').html('Calling');

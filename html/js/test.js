@@ -84,7 +84,7 @@ var Calls = [
     {
         id: 1,
         sender: '111-111-1111',
-        receiver: '555-555-5555',
+        receiver: '333-555-5555',
         time: 1566163235000,
         status: 0,
         anon: 0
@@ -183,7 +183,7 @@ var Tweets = [
     {
         author: 'PleaseWork199',
         message: '@HiThere1 SUP BRO',
-        time: 1566263235000
+        time: 1562263235000
     },
     {
         author: 'PleaseWork199',
