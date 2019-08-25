@@ -125,7 +125,18 @@ function PhonePlayText()
 end
 
 function PhonePlayCall (freeze)
-	PhonePlayAnim('call', freeze)
+	Citizen.CreateThread(function()
+		while IsInCall() do
+			if not IsEntityPlayingAnim(PlayerPedId(), 'cellphone@', 'cellphone_text_to_call', 3) then
+				PhonePlayAnim('call', freeze, true)
+			end
+			Citizen.Wait(1000)
+		end
+	end)
+end
+
+function PhoneCallToText()
+	PhonePlayAnim('text', false, true)
 end
 
 function PhonePlayIn() 

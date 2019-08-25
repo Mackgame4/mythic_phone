@@ -107,7 +107,7 @@
     }
 
     exports.SetupCallActive = function(data){
-        if (activeCallTimer != null) CallAnswered();
+        if (activeCallTimer != null || data == null) CallAnswered();
         contacts = GetData('contacts');
 
         if (!data.receiver) {

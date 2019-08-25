@@ -1,15 +1,29 @@
 Call = {}
 
+function IsInCall()
+    return (Call.number ~= nil and Call.status == 1) or (Call.number ~= nil and Call.status == 0 and Call.initiator)
+end
+
 RegisterNetEvent('mythic_phone:client:CreateCall')
 AddEventHandler('mythic_phone:client:CreateCall', function(number)
     Call.number = number
     Call.status = 0
+    Call.initiator = true
+
+    PhonePlayCall(false)
 
     local count = 0
     Citizen.CreateThread(function()
         while Call.status == 0 do
             if count >= 30 then
                 TriggerServerEvent('mythic_phone:server:EndCall', securityToken)
+
+                if isPhoneOpen then
+                    PhoneCallToText()
+                else
+                    PhonePlayOut()
+                end
+
                 Call = {}
             else
                 count = count + 1
@@ -21,7 +35,6 @@ end)
 
 RegisterNetEvent('mythic_phone:client:AcceptCall')
 AddEventHandler('mythic_phone:client:AcceptCall', function(channel, initiator)
-    print('lolfuckmelifem8y')
     if Call.number ~= nil and Call.status == 0 then
         Call.status = 1
 
@@ -32,6 +45,7 @@ AddEventHandler('mythic_phone:client:AcceptCall', function(channel, initiator)
             })
         else
             exports['mythic_notify']:PersistentAlert('end', 'incoming-call')
+            PhonePlayCall(false)
             SendNUIMessage({
                 action = 'acceptCallReceiver',
                 number = Call.number
@@ -47,12 +61,19 @@ AddEventHandler('mythic_phone:client:EndCall', function()
     })
     exports['mythic_notify']:PersistentAlert('end', 'incoming-call')
     Call = {}
+
+    if isPhoneOpen then
+        PhoneCallToText()
+    else
+        PhonePlayOut()
+    end
 end)
 
 RegisterNetEvent('mythic_phone:client:ReceiveCall')
 AddEventHandler('mythic_phone:client:ReceiveCall', function(number)
     Call.number = number
     Call.status = 0
+    Call.initiator = false
 
     SendNUIMessage({
         action = 'receiveCall',

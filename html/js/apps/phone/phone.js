@@ -209,7 +209,7 @@
             nonStandard: nonStandard
         }), function(status) {
             if (status > 0) {
-                OpenApp('phone-call', { number: data[1].value, nonStandard: nonStandard, receiver: receiver})
+                OpenApp('phone-call', { number: number, nonStandard: nonStandard, receiver: receiver})
             } else if (status == -2) {
                 M.toast({html:'Can\'t Call Yourself, Idiot'})   
             }else if (status == -3) {

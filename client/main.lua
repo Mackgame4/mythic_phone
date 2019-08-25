@@ -1,6 +1,7 @@
-actionCb = {}
 local isLoggedIn = false
-local isPhoneOpen = false
+
+actionCb = {}
+isPhoneOpen = false
 
 RegisterNetEvent('mythic_phone:client:ActionCallback')
 AddEventHandler('mythic_phone:client:ActionCallback', function(identifier, data)
@@ -104,14 +105,15 @@ function TogglePhone()
     if isPhoneOpen == true then
       PhonePlayIn()
       if PendingCall ~= nil then
-        print(PendingCall.number)
         SendNUIMessage( { action = 'show', number = PendingCall.number } )
       else
         SendNUIMessage( { action = 'show' } )
       end
       DisableControls()
     else
-      PhonePlayOut()
+      if not IsInCall() then
+        PhonePlayOut()
+      end
       SendNUIMessage( { action = 'hide' } )
     end
 
@@ -122,6 +124,15 @@ function TogglePhone()
     Citizen.Wait(2000)
     openingCd = false
   end)
+end
+
+function ForceClosePhone()
+  isPhoneOpen = false
+  SetNuiFocus(isPhoneOpen, isPhoneOpen)
+  if not IsInCall() then
+    PhonePlayOut()
+  end
+  SendNUIMessage( { action = 'hide' } )
 end
 
 function DisableControls()

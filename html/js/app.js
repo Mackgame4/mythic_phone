@@ -193,11 +193,13 @@ function ClosePhone() {
 }
 
 function OpenApp(app, data = null, pop = false) {
-    if ($('#' + app + '-container').length == 0) return;
-    
+    if ($('#' + app + '-container').length == 0 || appTrail.length == 0) return;    
+
     if (appTrail[appTrail.length - 1].app !== app) {
-        if ($('#' + appTrail[appTrail.length - 1].app + '-container').length > 0) {
-            $('#' + appTrail[appTrail.length - 1].app + '-container').fadeOut('fast', function() {
+        if ($('.active-container').length > 0) {
+            $('.active-container').fadeOut('fast', function() {
+                $('.active-container').removeClass('active-container');
+                
                 $('#' + app + '-container').fadeIn('fast', function() {
                     $('.active-container').removeClass('active-container');
                     $('#' + app + '-container').addClass('active-container');
@@ -217,7 +219,7 @@ function OpenApp(app, data = null, pop = false) {
                 $('.material-tooltip').remove();
                 OpenAppAction(app, data);
             });
-        } else {
+        } else {  
             $('#' + app + '-container').fadeIn('fast', function() {
                 $('.active-container').removeClass('active-container');
                 $('#' + app + '-container').addClass('active-container');
@@ -284,15 +286,16 @@ function OpenAppAction(app, data) {
 }
 
 function GoHome() {
-    if (appTrail[appTrail.length - 1].app !== 'home') {
-        OpenApp('home');
+    if (appTrail.length > 1) {
+        if (appTrail[appTrail.length - 1].app !== 'home') {
+            OpenApp('home');
+        }
     }
 }
 
 function GoBack() {
     if (appTrail[appTrail.length - 1].app !== 'home') {
         if (appTrail.length > 1) {
-            console.log(appTrail[appTrail.length - 2].app);
             OpenApp(appTrail[appTrail.length - 2].app, appTrail[appTrail.length - 2].data, true);
         } else {
             GoHome();
