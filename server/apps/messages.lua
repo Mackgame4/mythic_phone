@@ -30,7 +30,14 @@ AddEventHandler('mythic_phone:server:SendText', function(token, identifier, rece
 
                         local tPlayer = exports['mythic_base']:getPlayerFromPhone(receiver)
                         if tPlayer ~= nil then
-                            TriggerClientEvent('mythic_phone:client:ReceiveText', tPlayer.getSource(), char.getFullName(), text[1])
+                            local tChar = tPlayer.getChar().getCharData()
+                            exports['ghmattimysql']:execute('SELECT * FROM phone_contacts WHERE number = @number AND charid = @charid', { ['number'] = cData.phone, ['charid'] = tChar.id }, function(contact)
+                                if contact[1] ~= nil then
+                                    TriggerClientEvent('mythic_phone:client:ReceiveText', tPlayer.getSource(), contact[1].name, text[1])
+                                else
+                                    TriggerClientEvent('mythic_phone:client:ReceiveText', tPlayer.getSource(), cData.phone, text[1])
+                                end
+                            end)
                         end
                     else
                         TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, false)

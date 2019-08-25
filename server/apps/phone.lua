@@ -98,11 +98,14 @@ AddEventHandler('mythic_phone:server:AcceptCall', function(token)
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()
 
-    if (Calls[cData.phone].number ~= nil and Calls[cData.phone].status == 0) and ((Calls[Calls[cData.phone].number].number ~= nil and Calls[Calls[cData.phone].number].status == 0)) then
-        local tPlayer = exports['mythic_base']:getPlayerFromPhone(Calls[Calls[cData.phone].number].number)
-        if tPlayer ~= nil then
+    local tPlayer = exports['mythic_base']:getPlayerFromPhone(Calls[cData.phone].number)
+    print(tPlayer ~= nil)
+    if tPlayer ~= nil then
+        if (Calls[cData.phone].number ~= nil) and (Calls[Calls[cData.phone].number].number ~= nil) then
             Calls[Calls[cData.phone].number].status = 1
             Calls[cData.phone].status = 1
+
+            print('end my life jesus christ')
 
             TriggerClientEvent('mythic_phone:client:AcceptCall', src, tPlayer.getSource(), false)
             TriggerClientEvent('mythic_phone:client:AcceptCall', tPlayer.getSource(), tPlayer.getSource(), true)
@@ -110,6 +113,7 @@ AddEventHandler('mythic_phone:server:AcceptCall', function(token)
             Calls[Calls[cData.phone].number] = nil
             Calls[cData.phone] = nil
             TriggerClientEvent('mythic_phone:client:EndCall', src)
+            TriggerClientEvent('mythic_phone:client:EndCall', tPlayer.getSource())
         end
     else
         TriggerClientEvent('mythic_phone:client:EndCall', src)
@@ -123,12 +127,14 @@ AddEventHandler('mythic_phone:server:EndCall', function(token)
     local char = exports['mythic_base']:getPlayerFromId(src).getChar()
     local cData = char.getCharData()
 
-    local tPlayer = exports['mythic_base']:getPlayerFromPhone(Calls[cData.phone].number)
-    if tPlayer ~= nil then
-        Calls[Calls[cData.phone].number] = nil
-        Calls[cData.phone] = nil
+    if Calls[cData.phone] ~= nil then
+        local tPlayer = exports['mythic_base']:getPlayerFromPhone(Calls[cData.phone].number)
+        if tPlayer ~= nil then
+            Calls[Calls[cData.phone].number] = nil
+            Calls[cData.phone] = nil
 
-        TriggerClientEvent('mythic_phone:client:EndCall', src)
-        TriggerClientEvent('mythic_phone:client:EndCall', tPlayer.getSource())
+            TriggerClientEvent('mythic_phone:client:EndCall', src)
+            TriggerClientEvent('mythic_phone:client:EndCall', tPlayer.getSource())
+        end
     end
 end)

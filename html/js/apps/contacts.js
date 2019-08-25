@@ -175,6 +175,11 @@
             }
         });
     });
+
+    $('.contacts-list').on('click', 'contact-actions .action-call', function(e) {
+        let data = $(this).parent().parent().data('contact');
+        CreateCall(data.number, false, false);
+    })
     
     $('.contacts-list').on('click', '.contact-actions .action-text', function(e) {
         let data = $(this).parent().parent().data('contact');

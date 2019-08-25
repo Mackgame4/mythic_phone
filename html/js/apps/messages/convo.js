@@ -112,6 +112,24 @@
                 }
             }
         }
+
+        if (messages == null) {
+            messages = GetData('messages');
+        }
+
+        if (myNumber == null) {
+            myNumber = GetData('myNumber');
+        }
+
+        messages.push({
+            sender: text.sender,
+            receiver: myNumber,
+            message: text.message,
+            sent_time: text.sent_time,
+            sender_read: 0,
+            receiver_read: 0
+        });
+        StoreData('messages', messages);
     }
 
     exports.SetupConvo = function(data) {
@@ -133,6 +151,7 @@
             $('.convo-top-number').html(data.number);
         }
 
+        $('.convo-texts-list').html('');
         $.each(texts, function(index, text) {
             var d = new Date(text.sent_time);
 

@@ -50,21 +50,7 @@
     $('[data-section=keypad').on('submit', '#call-number', function(e) {
         e.preventDefault();
         let data = $(this).serializeArray();
-
-        $.post(ROOT_ADDRESS + '/CreateCall', JSON.stringify({
-            number: data[1].value,
-            nonStandard: (data[0].value === '#' || data[0].value === '*')
-        }), function(status) {
-            if (status > 0) {
-                OpenApp('phone-call', { number: data[1].value, nonStandard: (data[0].value === '#' || data[0].value === '*'), receiver: false})
-            } else if (status == -2) {
-                M.toast({html:'Can\'t Call Yourself, Idiot'})   
-            }else if (status == -3) {
-                M.toast({html:'Number is Busy'})
-            } else {
-                M.toast({html:'Number Not Currently Active'})
-            }
-        });
+        CreateCall(data[1].value, (data[0].value === '#' || data[0].value === '*'), false);
     });
 
     $(document).mouseup(function(){
@@ -106,21 +92,10 @@
     $('[data-section=history').on('click', '.call-actions .call-action-call', function(e) {
         let data = $(this).parent().parent().data('data');
         let number = data.sender;
-
         if (data.sender == myNumber) {
             number = data.receiver;
         }
-
-        $.post(ROOT_ADDRESS + '/CreateCall', JSON.stringify({
-            number: number,
-            nonStandard: false
-        }), function(status) {
-            if (status) {
-                OpenApp('phone-call', { number: number, nonStandard: false, receiver: false})
-            } else {
-                M.toast({html:'Number Not Currently Active'})
-            }
-        });
+        CreateCall(number, false, false);
     });
 
     $('[data-section=history').on('click', '.call-actions .call-action-text', function(e) {
@@ -182,6 +157,11 @@
         }
     });
 
+    $('[data-section=contacts').on('click', '.call-actions .call-action-call', function(e) {
+        let data = $(this).parent().parent().data('data');
+        CreateCall(data.number, false, false);
+    });
+
     $('[data-section=contacts').on('click', '.call-actions .call-action-text', function(e) {
         let data = $(this).parent().parent().data('data');
         OpenApp('message-convo', { number: data.number });
@@ -223,14 +203,20 @@
         }
     }
 
-    function SetupCallContacts() {
-        $('[data-section=contacts').find('.contacts-list').html('');
-
-        contacts.sort(SortContacts);
-
-        $.each(contacts, function(index, contact) {
-            $('[data-section=contacts').find('.contacts-list').append('<div class="phone-contact"><div class="phone-avatar other-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div>' + contact.name + '<div class="call-actions"><i class="fas fa-phone-volume call-action-call"></i><i class="fas fa-sms call-action-text"></i></div></div>');
-            $('[data-section=contacts').find('.contacts-list').find('.phone-contact:last-child').data('data', contact);
+    exports.CreateCall = function(number, nonStandard, receiver) {    
+        $.post(ROOT_ADDRESS + '/CreateCall', JSON.stringify({
+            number: number,
+            nonStandard: nonStandard
+        }), function(status) {
+            if (status > 0) {
+                OpenApp('phone-call', { number: data[1].value, nonStandard: nonStandard, receiver: receiver})
+            } else if (status == -2) {
+                M.toast({html:'Can\'t Call Yourself, Idiot'})   
+            }else if (status == -3) {
+                M.toast({html:'Number is Busy'})
+            } else {
+                M.toast({html:'Number Not Currently Active'})
+            }
         });
     }
 
@@ -290,20 +276,15 @@
         setTimeout(function() { $('.keypad-top #number').get(0).focus(); }, 1500);
     }
 
-    exports.SetupCallContacts = function() {
+    function SetupCallContacts() {
+        $('[data-section=contacts').find('.contacts-list').html('');
 
-    }
+        contacts.sort(SortContacts);
 
-    exports.MakeCall = function() {
-
-    }
-
-    exports.StartCall = function() {
-        
-    }
-
-    exports.EndCall = function() {
-
+        $.each(contacts, function(index, contact) {
+            $('[data-section=contacts').find('.contacts-list').append('<div class="phone-contact"><div class="phone-avatar other-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div>' + contact.name + '<div class="call-actions"><i class="fas fa-phone-volume call-action-call"></i><i class="fas fa-sms call-action-text"></i></div></div>');
+            $('[data-section=contacts').find('.contacts-list').find('.phone-contact:last-child').data('data', contact);
+        });
     }
 
 })(window);

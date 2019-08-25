@@ -8,10 +8,6 @@
     var activeCallTimer = null;
     var activeCallDigits = new Object();
 
-    var callData = null;
-    var isCallActive = null;
-    var isInitiator = null;
-
     $('.call-action-mutesound').on('click', function(e) {
         let muted = $(this).data('active');
         if (muted) {
@@ -39,7 +35,6 @@
     });
 
     $('#answer-call').on('click', function(e) {
-        console.log("????????");
         $.post(ROOT_ADDRESS + '/AcceptCall', JSON.stringify({}));
     });
 
@@ -47,46 +42,43 @@
         this.clearInterval(callPending);
         $('.call-avatar').addClass('call-connected').removeClass('call-pending');
 
-        $('.phone-header').addClass('in-call');
+        $('.phone-header').removeClass('in-call');
 
-        activeCallDigits.seconds = 0;
-        activeCallDigits.minutes = 0;
-        activeCallDigits.hours = 0;
+        if (activeCallTimer == null) {
+            activeCallDigits.seconds = 0;
+            activeCallDigits.minutes = 0;
+            activeCallDigits.hours = 0;
+    
+            activeCallTimer = this.setInterval(function() {
+                if (activeCallDigits.seconds < 59) {
+                    activeCallDigits.seconds++;
+                } else if (activeCallDigits.minutes < 60) {
+                    activeCallDigits.seconds = 0;
+                    activeCallDigits.minutes++;
+                } else {
+                    activeCallDigits.seconds = 0;
+                    activeCallDigits.minutes = 0;
+                    activeCallDigits.hours++;
+                }
+    
+                let sec = activeCallDigits.seconds;
+                let min = activeCallDigits.minutes;
+    
+                if (sec < 10) { sec = '0' + sec }
+                if (min < 10) { min = '0' + min }
+    
+                $('.call-number .call-timer').html(activeCallDigits.hours + ':' + min + ':' + sec);
+    
+                
+                $('.phone-header .in-call').html(`<i class="fas fa-phone"></i> ${activeCallDigits.hours}:${min}:${sec}`);
+            }, 1000);
 
-        isCallActive = callData;
-        callData = null;
-
-        activeCallTimer = this.setInterval(function() {
-            if (activeCallDigits.seconds < 59) {
-                activeCallDigits.seconds++;
-            } else if (activeCallDigits.minutes < 60) {
-                activeCallDigits.seconds = 0;
-                activeCallDigits.minutes++;
-            } else {
-                activeCallDigits.seconds = 0;
-                activeCallDigits.minutes = 0;
-                activeCallDigits.hours++;
-            }
-
-            let sec = activeCallDigits.seconds;
-            let min = activeCallDigits.minutes;
-
-            if (sec < 10) { sec = '0' + sec }
-            if (min < 10) { min = '0' + min }
-
-            $('.call-number .call-timer').html(activeCallDigits.hours + ':' + min + ':' + sec);
-
-            
-            $('.phone-header .in-call').html(`<i class="fas fa-phone"></i> ${activeCallDigits.hours}:${min}:${sec}`);
-        }, 1000);
-
-        $('.phone-header .in-call').fadeIn();
+            $('.phone-header .in-call').fadeOut();
+        }
     }
 
     exports.CallHungUp = function() {
         $('.call-number .call-timer').html('ENDED');
-
-        isCallActive = null;
 
         this.clearInterval(activeCallTimer);
         this.clearInterval(callPending);
@@ -104,43 +96,10 @@
             $('.call-number .call-timer').html('Calling');
             $('.call-avatar').attr('class', 'call-avatar');
             GoBack();
+            this.setTimeout(function() {
+                $('#phone-call-container').attr('class', 'app-container');
+            }, 500)
         }, 2500);
-    }
-
-    exports.IncomingCallAccepted = function(data) {
-        contacts = GetData('contacts');
-
-        $('#phone-call-container').data('data', data);
-
-        let contact = contacts.filter(c => c.number == data.number)[0];
-
-        if (contact != null) {
-            $('#phone-call-container').addClass('other-' + contact.name[0].toString().toLowerCase());
-            $('.call-number .call-number-text').html(contact.name);
-            $('.call-number .call-subnumber').html(contact.number);
-            $('.call-header .call-avatar').html(contact.name[0])
-        } else {
-            $('.call-number .call-number-text').html(data.number);
-            $('.call-number .call-subnumber').html('');
-            $('.call-header .call-avatar').html('#')
-        }
-
-        callData = data
-
-        CallAnswered();
-    }
-
-    exports.RejectIncomingCall = function() {
-        if (callPending == null) return;
-        $('.call-avatar').addClass('call-disconnected').removeClass('call-connected').removeClass('call-pending');
-        $('.call-number .call-timer').html('NO ANSWER');
-
-        clearInterval(callPending);
-        callPending = null;
-
-        setTimeout(function() {
-            GoBack();
-        }, 1000);
     }
 
     exports.IsCallPending = function() {
@@ -148,7 +107,7 @@
     }
 
     exports.SetupCallActive = function(data){
-        if (isCallActive != null) CallAnswered();
+        if (activeCallTimer != null) CallAnswered();
         contacts = GetData('contacts');
 
         if (!data.receiver) {
@@ -181,8 +140,6 @@
     
                 $('.call-number .call-timer').html('Calling ' + dots);
             }, 500);
-    
-            callData = data
         } else {
             $('.call-button#answer-call').show();
             $('#phone-call-container').data('data', data);
@@ -213,24 +170,24 @@
     
                 $('.call-number .call-timer').html('Incoming ' + dots);
             }, 500);
-    
-            callData = data
         }
     }
 
     exports.CloseCallActive = function() {
-        if (isCallActive != null) return;
+        if (activeCallTimer != null) {
+            $('.phone-header').addClass('in-call');
+            $('.phone-header .in-call').fadeIn();
+            return;
+        }
 
-        /*if (callPending != null && is`C`allActive == null && callData != null) {
+        /*if (callPending != null && is`C`allActive == null) {
             $.post(ROOT_ADDRESS + '/CancelCall', JSON.stringify({
                 
             }));
         } */
 
         contacts = null;
-        callData = null;
 
-        this.clearInterval(activeCallTimer);
         this.clearInterval(callPending);
         callPending = null;
 

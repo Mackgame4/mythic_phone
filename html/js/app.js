@@ -66,12 +66,10 @@ window.addEventListener('message', function(event) {
             OpenApp('phone-call', { number: event.data.number, receiver: true }, false);
             break;
         case 'acceptCallSender':
-            this.console.log("pls " + JSON.stringify(event.data));
-            OpenApp('phone-call', null, true);
+            CallAnswered();
             break;
         case 'acceptCallReceiver':
-            this.console.log("asdfasdf");
-            OpenApp('phone-call', {number: event.data.number, reciever: true}, true);
+            CallAnswered();
             break;
         case 'endCall':
             CallHungUp();
@@ -195,6 +193,8 @@ function ClosePhone() {
 }
 
 function OpenApp(app, data = null, pop = false) {
+    if ($('#' + app + '-container').length == 0) return;
+    
     if (appTrail[appTrail.length - 1].app !== app) {
         if ($('#' + appTrail[appTrail.length - 1].app + '-container').length > 0) {
             $('#' + appTrail[appTrail.length - 1].app + '-container').fadeOut('fast', function() {
@@ -272,7 +272,6 @@ function OpenAppAction(app, data) {
             SetupConvo(data);
             break;
         case 'phone':
-            SetupCallContacts();
             SetupCallHistory();
             break;
         case 'phone-call':
@@ -292,7 +291,12 @@ function GoHome() {
 
 function GoBack() {
     if (appTrail[appTrail.length - 1].app !== 'home') {
-        OpenApp(appTrail[appTrail.length - 2].app, appTrail[appTrail.length - 2].data, true);
+        if (appTrail.length > 1) {
+            console.log(appTrail[appTrail.length - 2].app);
+            OpenApp(appTrail[appTrail.length - 2].app, appTrail[appTrail.length - 2].data, true);
+        } else {
+            GoHome();
+        }
     }
 }
 

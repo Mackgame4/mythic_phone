@@ -21,6 +21,7 @@ end)
 
 RegisterNetEvent('mythic_phone:client:AcceptCall')
 AddEventHandler('mythic_phone:client:AcceptCall', function(channel, initiator)
+    print('lolfuckmelifem8y')
     if Call.number ~= nil and Call.status == 0 then
         Call.status = 1
 
@@ -30,6 +31,7 @@ AddEventHandler('mythic_phone:client:AcceptCall', function(channel, initiator)
                 number = Call.number
             })
         else
+            exports['mythic_notify']:PersistentAlert('end', 'incoming-call')
             SendNUIMessage({
                 action = 'acceptCallReceiver',
                 number = Call.number
