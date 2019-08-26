@@ -211,3 +211,5 @@ var Tweets = [
         time: 1566263235000
     }
 ]
+
+export default { Contacts, Messages, Calls, Tweets }

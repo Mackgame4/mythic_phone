@@ -1,0 +1,17 @@
+{
+  "name": "mythic_phone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./js/build.js",
+  "scripts": {
+    "dev": "webpack js/src/app.js --output js/build.js --watch",
+    "build": "webpack js/src/app.js --output js/build.js"
+  },
+  "keywords": [],
+  "author": "Alzar",
+  "license": "GPL 3.0",
+  "devDependencies": {
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
+  }
+}

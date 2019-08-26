@@ -58,3 +58,5 @@ var Apps = [
         enabled: true
     }
 ];
+
+export default { ROOT_ADDRESS, Apps }

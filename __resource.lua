@@ -13,18 +13,9 @@ files {
 	'html/css/materialize.min.css',
 	'html/css/style.min.css',
     'html/libs/jquery-ui.min.css',
-
-	'html/js/config.js',
-	'html/js/app.js',
-
-    'html/js/apps/home.js',
-    'html/js/apps/contacts.js',
-    'html/js/apps/phone/phone.js',
-    'html/js/apps/phone/call.js',
-    'html/js/apps/messages/messages.js',
-    'html/js/apps/messages/convo.js',
-    'html/js/apps/twitter.js',
     
+    'html/js/build.js',
+
     'html/libs/all.min.css',
     'html/libs/jquery.min.js',
     'html/libs/jquery.mask.min.js',

@@ -1,5 +1,7 @@
 --====================================================================================
 -- #Author: Jonathan D @ Gannon
+-- All Credits To GCPhone For Most Of This Code. Only Small Edits By Myself To Work
+-- How I want it
 --====================================================================================
 
 local myPedId = nil

@@ -1,3 +1,13 @@
+import Config from './config';
+import Utils from './utils';
+import Home from './apps/home';
+import Contacts from './apps/contacts';
+import Phone from './apps/phone/phone';
+import Messages from './apps/messages/messages';
+import Twitter from './apps/twitter';
+
+import Test from './test';
+
 var appTrail = [{
     app: null,
     data: null
@@ -5,31 +15,31 @@ var appTrail = [{
 
 var navDisabled = false;
 
-$( function() {
-    window.localStorage.clear(); 
-});
-
-/*$( function() {
-    $('.wrapper').fadeIn();
-    SetupData([ 
-        { name: 'myNumber', data: '111-111-1111' },
-        { name: 'contacts', data: Contacts },
-        { name: 'messages', data: Messages },
-        { name: 'history', data: Calls },
-        { name: 'apps', data: Apps },
-        { name: 'muted', data: false },
-        { name: 'tweets', data: Tweets }
-    ]);
-
-    OpenApp('home', null, true);
-});*/
-
 moment.fn.fromNowOrNow = function (a) {
     if (Math.abs(moment().diff(this)) < 60000) {
         return 'just now';
     }
     return this.fromNow(a);
 }
+
+$( function() {
+    window.localStorage.clear(); 
+});
+
+$( function() {
+    $('.wrapper').fadeIn();
+    SetupData([ 
+        { name: 'myNumber', data: '111-111-1111' },
+        { name: 'contacts', data: Test.Contacts },
+        { name: 'messages', data: Test.Messages },
+        { name: 'history', data: Test.Calls },
+        { name: 'apps', data: Config.Apps },
+        { name: 'muted', data: false },
+        { name: 'tweets', data: Test.Tweets }
+    ]);
+
+    OpenApp('home', null, true);
+});
 
 window.addEventListener('message', function(event) {
     switch(event.data.action) {
@@ -54,25 +64,25 @@ window.addEventListener('message', function(event) {
             ClosePhone();
             break;
         case 'setmute':
-            SetMute(event.data.muted);
+            Utils.SetMute(event.data.muted);
             break;
         case 'updateTime':
-            UpdateClock(event.data.time);
+            Utils.UpdateClock(event.data.time);
             break;
         case 'receiveText':
-            ReceiveText(event.data.data.sender, event.data.data.text);
+            Messages.ReceiveText(event.data.data.sender, event.data.data.text);
             break;
         case 'receiveCall':
             OpenApp('phone-call', { number: event.data.number, receiver: true }, false);
             break;
         case 'acceptCallSender':
-            CallAnswered();
+            Phone.Call.CallAnswered();
             break;
         case 'acceptCallReceiver':
-            CallAnswered();
+            Phone.Call.CallAnswered();
             break;
         case 'endCall':
-            CallHungUp();
+            Phone.Call.CallHungUp();
             break;
     }
 });
@@ -139,48 +149,8 @@ $('.mute').on('click', function(e) {
     SetMute(!muted);
 });
 
-function dateSortNewest(a,b){
-    return a.time < b.time ? 1 : -1;  
-};
-
-function dateSortOldest(a,b){
-    return a.time > b.time ? 1 : -1;  
-};
-
-function UpdateClock(time) {
-    $('.time span').html(time)
-}
-
-function NotifyAltSim(status) {
-    if (status) {
-        $('.simcard').fadeIn();
-    } else {
-        $('.simcard').fadeOut();
-    }
-}
-
-function NotifyPayphone(status) {
-    if (status) {
-        $('.payphone').fadeIn();
-    } else {
-        $('.payphone').fadeOut();
-    }
-}
-
-function SetMute(status) {
-    if (status) {
-        $('.mute').html('<i class="fas fa-volume-mute"></i>');
-        $('.mute').removeClass('not-muted').addClass('muted');
-        StoreData('muted', true);
-    } else {
-        $('.mute').html('<i class="fas fa-volume-up"></i>');
-        $('.mute').removeClass('muted').addClass('not-muted');
-        StoreData('muted', false);
-    }
-}
-
 function ClosePhone() {
-    $.post(ROOT_ADDRESS + '/ClosePhone', JSON.stringify({}));
+    $.post(Config.ROOT_ADDRESS + '/ClosePhone', JSON.stringify({}));
     $('.wrapper').hide("slide", { direction: "down" }, 500, function() {
         $('#toast-container').remove();
         $('.material-tooltip').remove();
@@ -247,40 +217,40 @@ function RefreshApp() {
     OpenAppAction(appTrail[appTrail.length - 1].app, appTrail[appTrail.length - 1].data)
 }
 
-function CloseAppAction(app) {
+function OpenAppAction(app, data) {
     switch(app) {
+        case 'home':
+            Home.SetupHome();
+            break;
+        case 'contacts':
+            Contacts.SetupContacts();
+            break;
+        case 'message':
+            Messages.SetupMessages();
+            Messages.SetupNewMessage();
+            break;
         case 'message-convo':
-            CloseConvo();
+            Messages.Convo.SetupConvo(data);
+            break;
+        case 'phone':
+            Phone.SetupCallHistory();
             break;
         case 'phone-call':
-            CloseCallActive();
+            Phone.Call.SetupCallActive(data);
+            break;
+        case 'twitter':
+            Twitter.SetupTwitter();
             break;
     }
 }
 
-function OpenAppAction(app, data) {
+function CloseAppAction(app) {
     switch(app) {
-        case 'home':
-            SetupHome();
-            break;
-        case 'contacts':
-            SetupContacts();
-            break;
-        case 'message':
-            SetupMessages();
-            SetupNewMessage();
-            break;
         case 'message-convo':
-            SetupConvo(data);
-            break;
-        case 'phone':
-            SetupCallHistory();
+            Messages.Convo.CloseConvo();
             break;
         case 'phone-call':
-            SetupCallActive(data);
-            break;
-        case 'twitter':
-            SetupTwitter();
+            Phone.CloseCallActive();
             break;
     }
 }
@@ -316,3 +286,5 @@ function StoreData(name, data) {
 function GetData(name) {
     return JSON.parse(window.localStorage.getItem(name));
 }
+
+export default { SetupData, StoreData, GetData, GoHome, GoBack, OpenApp, RefreshApp, dateSortNewest, dateSortOldest }

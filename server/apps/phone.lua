@@ -60,7 +60,7 @@ AddEventHandler('mythic_phone:server:CreateCall', function(token, identifier, nu
 
     local tPlayer = exports['mythic_base']:getPlayerFromPhone(number)
     if tPlayer ~= nil then
-        if tPlayer.getSource ~= src then
+        if tPlayer.getSource() ~= src then
             if Calls[number] ~= nil then
                 TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, -3)
                 TriggerClientEvent('mythic_notify:client:SendAlert', tPlayer.getSource(), { type = 'inform', text = char.getFullName() .. ' Tried Calling You, Sending Busy Response'})
