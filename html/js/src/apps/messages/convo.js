@@ -1,5 +1,6 @@
 import App from '../../app';
 import Config from '../../config';
+import Data from '../../data';
 import Messages from './messages';
 
 var myNumber = null;
@@ -117,11 +118,11 @@ function ReceiveText(sender, text) {
     }
 
     if (messages == null) {
-        messages = App.GetData('messages');
+        messages = Data.GetData('messages');
     }
 
     if (myNumber == null) {
-        myNumber = App.GetData('myNumber');
+        myNumber = Data.GetData('myNumber');
     }
 
     messages.push({
@@ -132,13 +133,13 @@ function ReceiveText(sender, text) {
         sender_read: 0,
         receiver_read: 0
     });
-    App.StoreData('messages', messages);
+    Data.StoreData('messages', messages);
 }
 
 function SetupConvo(data) {
-    myNumber = App.GetData('myNumber');
-    contacts = App.GetData('contacts');
-    messages = App.GetData('messages');
+    myNumber = Data.GetData('myNumber');
+    contacts = Data.GetData('contacts');
+    messages = Data.GetData('messages');
 
     $('#message-convo-container').data('data', data);
 

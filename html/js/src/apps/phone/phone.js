@@ -1,6 +1,7 @@
 import App from '../../app';
 import Config from '../../config';
-import Utils from '../utils';
+import Utils from '../../utils';
+import Data from '../../data';
 import Call from './call';
 import Contacts from '../contacts';
 
@@ -225,9 +226,9 @@ function CreateCall(number, nonStandard, receiver) {
 }
 
 function SetupCallHistory() {
-    myNumber = App.GetData('myNumber');
-    contacts = App.GetData('contacts');
-    history = App.GetData('history');
+    myNumber = Data.GetData('myNumber');
+    contacts = Data.GetData('contacts');
+    history = Data.GetData('history');
 
     SetupCallContacts();
 

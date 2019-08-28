@@ -1,5 +1,6 @@
 import App from '../app';
 import Config from '../config';
+import Data from '../data';
 
 var contacts = null;
 var editingContact = null;
@@ -219,7 +220,7 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
 });
 
 function SetupContacts() {
-    contacts = App.GetData('contacts');
+    contacts = Data.GetData('contacts');
     contacts.sort(SortContacts);
     $('.contacts-list').html('');
     $.each(contacts, function(index, contact) {

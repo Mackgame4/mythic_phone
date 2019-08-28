@@ -1,4 +1,5 @@
 import App from '../app';
+import Data from '../data';
 
 var apps = null;
 
@@ -7,7 +8,7 @@ $('#home-container').on('click', '.app-button', function(event) {
 });
 
 function SetupHome() {
-    apps = App.GetData('apps');
+    apps = Data.GetData('apps');
     $('#home-container .inner-app').html('');
     $.each(apps, function(index, app) {
         //console.log(JSON.stringify(app));

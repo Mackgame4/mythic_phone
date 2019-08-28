@@ -1,6 +1,7 @@
 import App from '../app';
 import Config from '../config';
 import Utils from '../utils';
+import Data from '../data';
 
 var tweets = null;
 
@@ -73,7 +74,7 @@ $('.twitter-body').on('click', '.tweet .mention', function() {
 });
 
 function SetupTwitter() {
-    tweets = App.GetData('tweets');
+    tweets = Data.GetData('tweets');
 
     if (tweets == null) {
         tweets = new Array();

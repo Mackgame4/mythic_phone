@@ -1,4 +1,5 @@
 import Config from './config';
+import Data from './data';
 import Utils from './utils';
 import Home from './apps/home';
 import Contacts from './apps/contacts';
@@ -23,12 +24,9 @@ moment.fn.fromNowOrNow = function (a) {
 }
 
 $( function() {
-    window.localStorage.clear(); 
-});
-
-$( function() {
     $('.wrapper').fadeIn();
-    SetupData([ 
+    Data.ClearData();
+    Data.SetupData([ 
         { name: 'myNumber', data: '111-111-1111' },
         { name: 'contacts', data: Test.Contacts },
         { name: 'messages', data: Test.Messages },
@@ -44,12 +42,12 @@ $( function() {
 window.addEventListener('message', function(event) {
     switch(event.data.action) {
         case 'setup':
-            SetupData(event.data.data);
+            Data.SetupData(event.data.data);
             break;
         case 'show':
             $('.wrapper').show("slide", { direction: "down" }, 500);
 
-            if (!IsCallPending()) {
+            if (!Phone.Call.IsCallPending()) {
                 OpenApp('home', null, true);
             } else {
                 appTrail = [{
@@ -63,6 +61,9 @@ window.addEventListener('message', function(event) {
         case 'hide':
             ClosePhone();
             break;
+        case 'logout':
+            Data.ClearData();
+            break;
         case 'setmute':
             Utils.SetMute(event.data.muted);
             break;
@@ -70,7 +71,7 @@ window.addEventListener('message', function(event) {
             Utils.UpdateClock(event.data.time);
             break;
         case 'receiveText':
-            Messages.ReceiveText(event.data.data.sender, event.data.data.text);
+            Messages.Convo.ReceiveText(event.data.data.sender, event.data.data.text);
             break;
         case 'receiveCall':
             OpenApp('phone-call', { number: event.data.number, receiver: true }, false);
@@ -92,9 +93,7 @@ $(document).ready(function(){
     $('.dropdown-trigger').dropdown({
         constrainWidth: false
     });
-    $('.tabs').tabs({
-        swipeable: true
-    });
+    $('.tabs').tabs();
     $('.char-count-input').characterCounter();
     $('.phone-number').mask("000-000-0000", {placeholder: "###-###-####"});
 });
@@ -145,7 +144,7 @@ $('#remove-sim-card').on('click', function(e) {
 });
 
 $('.mute').on('click', function(e) {
-    let muted = GetData('muted');
+    let muted = Data.GetData('muted');
     SetMute(!muted);
 });
 
@@ -273,18 +272,4 @@ function GoBack() {
     }
 }
 
-function SetupData(data) {  
-    $.each(data, function(index, item) {
-        window.localStorage.setItem(item.name, JSON.stringify(item.data));
-    });
-}
-
-function StoreData(name, data) { 
-    window.localStorage.setItem(name, JSON.stringify(data));
-}
-
-function GetData(name) {
-    return JSON.parse(window.localStorage.getItem(name));
-}
-
-export default { SetupData, StoreData, GetData, GoHome, GoBack, OpenApp, RefreshApp, dateSortNewest, dateSortOldest }
+export default { GoHome, GoBack, OpenApp, RefreshApp }

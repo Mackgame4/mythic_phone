@@ -1,5 +1,6 @@
 import App from '../../app';
 import Config from '../../config'
+import Data from '../../data';
 
 // TODO : Need To Verify Flow Works As It Should Once Back-End Communication Is Setup
 var contacts = null;
@@ -108,7 +109,7 @@ function IsCallPending() {
 
 function SetupCallActive(data){
     if (activeCallTimer != null || data == null) CallAnswered();
-    contacts = App.GetData('contacts');
+    contacts = Data.GetData('contacts');
 
     if (!data.receiver) {
         $('.call-button#answer-call').hide();

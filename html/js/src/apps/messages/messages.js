@@ -1,6 +1,7 @@
 import App from '../../app';
 import Config from '../../config';
-import Utils from '../utils';
+import Utils from '../../utils';
+import Data from '../../data';
 import Convo from './convo';
 
 var myNumber = null;
@@ -33,9 +34,9 @@ $('#message-new-msg').on('submit', function(e) {
 });
 
 function SetupMessages() {
-    myNumber = App.GetData('myNumber');
-    contacts = App.GetData('contacts');
-    messages = App.GetData('messages');
+    myNumber = Data.GetData('myNumber');
+    contacts = Data.GetData('contacts');
+    messages = Data.GetData('messages');
 
     let convos = new Array();
 
