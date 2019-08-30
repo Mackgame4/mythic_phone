@@ -37,6 +37,9 @@ RegisterNetEvent('mythic_phone:client:AcceptCall')
 AddEventHandler('mythic_phone:client:AcceptCall', function(channel, initiator)
     if Call.number ~= nil and Call.status == 0 then
         Call.status = 1
+        Call.channel = channel
+
+        exports['tokovoip_script']:addPlayerToRadio(Call.channel, false)
 
         if initiator then
             SendNUIMessage({
@@ -60,6 +63,9 @@ AddEventHandler('mythic_phone:client:EndCall', function()
         action = 'endCall'
     })
     exports['mythic_notify']:PersistentAlert('end', 'incoming-call')
+
+    exports['tokovoip_script']:removePlayerToRadio(Call.channel)
+
     Call = {}
 
     if isPhoneOpen then
@@ -105,7 +111,7 @@ RegisterNUICallback( 'AcceptCall', function( data, cb )
 end)
 
 RegisterNUICallback( 'EndCall', function( data, cb )
-    TriggerServerEvent('mythic_phone:server:EndCall', securityToken)
+    TriggerServerEvent('mythic_phone:server:EndCall', securityToken, Call)
 end)
 
 RegisterNUICallback( 'DeleteCallRecord', function( data, cb )

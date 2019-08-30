@@ -1,8 +1,8 @@
 RegisterServerEvent('mythic_characters:server:CharacterSpawned')
 AddEventHandler('mythic_characters:server:CharacterSpawned', function()
     local src = source
-    local char = exports['mythic_base']:getPlayerFromId(src).getChar()
-    local cData = char.getCharData()
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
+    local cData = char:GetData()
 
 
     Citizen.CreateThread(function()
@@ -25,8 +25,8 @@ AddEventHandler('mythic_phone:server:CreateContact', function(token, identifier,
 		return false
     end
 
-    local char = exports['mythic_base']:getPlayerFromId(src).getChar()
-    local cData = char.getCharData()
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
+    local cData = char:GetData()
 
     exports['ghmattimysql']:execute('INSERT INTO phone_contacts (`charid`, `number`, `name`) VALUES(@charid, @number, @name)', { ['charid'] = cData.id, ['number'] = number, ['name'] = name }, function(status) 
         if status.affectedRows > 0 then
@@ -44,8 +44,8 @@ AddEventHandler('mythic_phone:server:EditContact', function(token, identifier, o
 		return false
     end
     
-    local char = exports['mythic_base']:getPlayerFromId(src).getChar()
-    local cData = char.getCharData()
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
+    local cData = char:GetData()
 
     print(originName, originNumber, name, number)
 
@@ -65,8 +65,8 @@ AddEventHandler('mythic_phone:server:DeleteContact', function(token, identifier,
 		return false
     end
     
-    local char = exports['mythic_base']:getPlayerFromId(src).getChar()
-    local cData = char.getCharData()
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
+    local cData = char:GetData()
 
     print(name, number)
 

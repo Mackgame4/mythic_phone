@@ -23,7 +23,7 @@ moment.fn.fromNowOrNow = function (a) {
     return this.fromNow(a);
 }
 
-$( function() {
+/*$( function() {
     $('.wrapper').fadeIn();
     Data.ClearData();
     Data.SetupData([ 
@@ -37,7 +37,7 @@ $( function() {
     ]);
 
     OpenApp('home', null, true);
-});
+});*/
 
 window.addEventListener('message', function(event) {
     switch(event.data.action) {

@@ -1,10 +1,14 @@
 Calls = {}
 
+function CreateCallRecord(sender, receiver, state)
+
+end
+
 RegisterServerEvent('mythic_characters:server:CharacterSpawned')
 AddEventHandler('mythic_characters:server:CharacterSpawned', function()
     local src = source
-    local char = exports['mythic_base']:getPlayerFromId(src).getChar()
-    local cData = char.getCharData()
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
+    local cData = char:GetData()
 
     Citizen.CreateThread(function()
         exports['ghmattimysql']:execute('SELECT * FROM phone_calls WHERE (sender = @number AND sender_deleted = 0) OR (receiver = @number AND receiver_deleted = 0)', { ['number'] = cData.phone }, function(history) 
@@ -20,8 +24,8 @@ AddEventHandler('mythic_phone:server:DeleteCallRecord', function(token, identifi
 		return false
     end
     
-    local char = exports['mythic_base']:getPlayerFromId(src).getChar()
-    local cData = char.getCharData()
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
+    local cData = char:GetData()
 
     exports['ghmattimysql']:execute('SELECT * FROM phone_calls WHERE id = @id', { ['id'] = id }, function(record)
         if record[1] ~= nil then
@@ -49,36 +53,49 @@ AddEventHandler('mythic_phone:server:DeleteCallRecord', function(token, identifi
 end)
 
 RegisterServerEvent('mythic_phone:server:CreateCall')
-AddEventHandler('mythic_phone:server:CreateCall', function(token, identifier, number)
+AddEventHandler('mythic_phone:server:CreateCall', function(token, identifier, number, nonStandard)
     local src = source
     if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
 		return false
     end
     
-    local char = exports['mythic_base']:getPlayerFromId(src).getChar()
-    local cData = char.getCharData()
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
+    local cData = char:GetData()
 
-    local tPlayer = exports['mythic_base']:getPlayerFromPhone(number)
+    local tPlayer = exports['mythic_base']:FetchComponent('Fetch').Phone(number)
     if tPlayer ~= nil then
-        if tPlayer.getSource() ~= src then
+        if tPlayer:GetData('source') ~= src then
             if Calls[number] ~= nil then
                 TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, -3)
-                TriggerClientEvent('mythic_notify:client:SendAlert', tPlayer.getSource(), { type = 'inform', text = char.getFullName() .. ' Tried Calling You, Sending Busy Response'})
+                TriggerClientEvent('mythic_notify:client:SendAlert', tPlayer:GetData('source'), { type = 'inform', text = char:getFullName() .. ' Tried Calling You, Sending Busy Response'})
             else
-                TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, 1)
+                exports['ghmattimysql']:execute('INSERT INTO phone_calls (sender, receiver, status, anon) VALUES(@sender, @receiver, @status, @anon)', { ['sender'] = cData.phone, ['receiver'] = number, ['status'] = 0, ['anon'] = nonStandard}, function(status)
+                    if status.affectedRows > 0 then
+                        TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, 1)
+        
+                        TriggerClientEvent('mythic_phone:client:CreateCall', src, cData.phone)
 
-                TriggerClientEvent('mythic_phone:client:CreateCall', src, cData.phone)
-                TriggerClientEvent('mythic_phone:client:ReceiveCall', tPlayer.getSource(), cData.phone)
-
-                TriggerClientEvent('mythic_notify:client:PersistentAlert', tPlayer.getSource(), { id = 'incoming-call', action = 'start', type = 'inform', text = char.getFullName() .. ' Is Calling You'})
-                Calls[cData.phone] = {
-                    number = number,
-                    status = 0
-                }
-                Calls[number] = {
-                    number = cData.phone,
-                    status = 0
-                }
+                        if nonStandard then
+                            TriggerClientEvent('mythic_phone:client:ReceiveCall', tPlayer:GetData('source'), 'Anonymous Caller')
+                        else
+                            TriggerClientEvent('mythic_phone:client:ReceiveCall', tPlayer:GetData('source'), cData.phone)
+                        end
+        
+                        TriggerClientEvent('mythic_notify:client:PersistentAlert', tPlayer:GetData('source'), { id = 'incoming-call', action = 'start', type = 'inform', text = char:getFullName() .. ' Is Calling You'})
+                        Calls[cData.phone] = {
+                            number = number,
+                            status = 0,
+                            record = status.insertId
+                        }
+                        Calls[number] = {
+                            number = cData.phone,
+                            status = 0,
+                            record = status.insertId
+                        }
+                    else
+                        TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, -1)
+                    end
+                end)
             end
         else
             TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, -2)
@@ -95,10 +112,10 @@ AddEventHandler('mythic_phone:server:AcceptCall', function(token)
 		return false
     end
     
-    local char = exports['mythic_base']:getPlayerFromId(src).getChar()
-    local cData = char.getCharData()
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
+    local cData = char:GetData()
 
-    local tPlayer = exports['mythic_base']:getPlayerFromPhone(Calls[cData.phone].number)
+    local tPlayer = exports['mythic_base']:FetchComponent('Fetch').Phone(Calls[cData.phone].number)
     print(tPlayer ~= nil)
     if tPlayer ~= nil then
         if (Calls[cData.phone].number ~= nil) and (Calls[Calls[cData.phone].number].number ~= nil) then
@@ -107,13 +124,13 @@ AddEventHandler('mythic_phone:server:AcceptCall', function(token)
 
             print('end my life jesus christ')
 
-            TriggerClientEvent('mythic_phone:client:AcceptCall', src, tPlayer.getSource(), false)
-            TriggerClientEvent('mythic_phone:client:AcceptCall', tPlayer.getSource(), tPlayer.getSource(), true)
+            TriggerClientEvent('mythic_phone:client:AcceptCall', src, tPlayer:GetData('source'), false)
+            TriggerClientEvent('mythic_phone:client:AcceptCall', tPlayer:GetData('source'), tPlayer:GetData('source'), true)
         else
             Calls[Calls[cData.phone].number] = nil
             Calls[cData.phone] = nil
             TriggerClientEvent('mythic_phone:client:EndCall', src)
-            TriggerClientEvent('mythic_phone:client:EndCall', tPlayer.getSource())
+            TriggerClientEvent('mythic_phone:client:EndCall', tPlayer:GetData('source'))
         end
     else
         TriggerClientEvent('mythic_phone:client:EndCall', src)
@@ -124,17 +141,17 @@ RegisterServerEvent('mythic_phone:server:EndCall')
 AddEventHandler('mythic_phone:server:EndCall', function(token)
     local src = source
     
-    local char = exports['mythic_base']:getPlayerFromId(src).getChar()
-    local cData = char.getCharData()
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
+    local cData = char:GetData()
 
     if Calls[cData.phone] ~= nil then
-        local tPlayer = exports['mythic_base']:getPlayerFromPhone(Calls[cData.phone].number)
+        local tPlayer = exports['mythic_base']:FetchComponent('Fetch').Phone(Calls[cData.phone].number)
         if tPlayer ~= nil then
             Calls[Calls[cData.phone].number] = nil
             Calls[cData.phone] = nil
 
             TriggerClientEvent('mythic_phone:client:EndCall', src)
-            TriggerClientEvent('mythic_phone:client:EndCall', tPlayer.getSource())
+            TriggerClientEvent('mythic_phone:client:EndCall', tPlayer:GetData('source'))
         end
     end
 end)
