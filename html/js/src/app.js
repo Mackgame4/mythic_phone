@@ -249,7 +249,7 @@ function CloseAppAction(app) {
             Messages.Convo.CloseConvo();
             break;
         case 'phone-call':
-            Phone.CloseCallActive();
+            Phone.Call.CloseCallActive();
             break;
     }
 }

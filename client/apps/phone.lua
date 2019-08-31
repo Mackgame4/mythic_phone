@@ -64,7 +64,7 @@ AddEventHandler('mythic_phone:client:EndCall', function()
     })
     exports['mythic_notify']:PersistentAlert('end', 'incoming-call')
 
-    exports['tokovoip_script']:removePlayerToRadio(Call.channel)
+    exports['tokovoip_script']:removePlayerFromRadio(Call.channel)
 
     Call = {}
 

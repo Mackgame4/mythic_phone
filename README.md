@@ -24,6 +24,8 @@ Due to the scope of this project expanding I've ended up adding in some various 
 ],
 ```
 
+> Note: Would love to get this added into the webpack for below, but little experience with webpack so haven't been able to actually get it to work. If you're aware of how to do that feel free to make the change and submit a PR. I'll love you forever lol.
+
 * JS - Due to how I have the JavaScript structured I have opted to setup webpack to minify the files into a single file. This makes it far easier to add content in the future and not have to mess around with importing as well as ensures the file that's being included in the manifest file will always be the one that has all the data for it. Not sure if there's any sort of major performance issues, but meh. Should be able to just run npm install (or yarn install) and assuming you have npm/yarn it'll install the packages needed to build. CD into the html directory and use npm run build and it will build the minified JS file.
 
 > Note: You can in theory just change the manifest to include the regular JS files as well as add them being included in the HTML file and it'll work. But I will not give any guarantee that it'll work doing so. It's also using ES6 modules so you may end up with errors because of that.

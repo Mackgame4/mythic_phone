@@ -40,7 +40,7 @@ $('#answer-call').on('click', function(e) {
 });
 
 function CallAnswered() {
-    this.clearInterval(callPending);
+    clearInterval(callPending);
     $('.call-avatar').addClass('call-connected').removeClass('call-pending');
 
     $('.phone-header').removeClass('in-call');
@@ -50,7 +50,7 @@ function CallAnswered() {
         activeCallDigits.minutes = 0;
         activeCallDigits.hours = 0;
 
-        activeCallTimer = this.setInterval(function() {
+        activeCallTimer = setInterval(function() {
             if (activeCallDigits.seconds < 59) {
                 activeCallDigits.seconds++;
             } else if (activeCallDigits.minutes < 60) {
@@ -81,8 +81,8 @@ function CallAnswered() {
 function CallHungUp() {
     $('.call-number .call-timer').html('ENDED');
 
-    this.clearInterval(activeCallTimer);
-    this.clearInterval(callPending);
+    clearInterval(activeCallTimer);
+    clearInterval(callPending);
     activeCallTimer = null;
     callPending = null;
 
@@ -93,11 +93,11 @@ function CallHungUp() {
         $('.phone-header .in-call').html(`<i class="fas fa-phone"></i>`);
     });
 
-    this.setTimeout(function() {
+    setTimeout(function() {
         $('.call-number .call-timer').html('Calling');
         $('.call-avatar').attr('class', 'call-avatar');
-        GoBack();
-        this.setTimeout(function() {
+        App.GoBack();
+        setTimeout(function() {
             $('#phone-call-container').attr('class', 'app-container');
         }, 500)
     }, 2500);
@@ -108,7 +108,11 @@ function IsCallPending() {
 }
 
 function SetupCallActive(data){
-    if (activeCallTimer != null || data == null) CallAnswered();
+    console.log(activeCallTimer != null);
+    if (activeCallTimer != null || data == null) {
+        CallAnswered();
+        return;
+    }
     contacts = Data.GetData('contacts');
 
     if (!data.receiver) {
@@ -132,7 +136,7 @@ function SetupCallActive(data){
 
         let dots = '';
         clearInterval(callPending);
-        callPending = this.setInterval(function() {
+        callPending = setInterval(function() {
             if (dots === '...') {
                 dots = '';
             } else {
@@ -162,7 +166,7 @@ function SetupCallActive(data){
 
         let dots = '';
         clearInterval(callPending);
-        callPending = this.setInterval(function() {
+        callPending = setInterval(function() {
             if (dots === '...') {
                 dots = '';
             } else {
@@ -189,7 +193,7 @@ function CloseCallActive() {
 
     contacts = null;
 
-    this.clearInterval(callPending);
+    clearInterval(callPending);
     callPending = null;
 
     $('#phone-call-container').attr('class', 'app-container');

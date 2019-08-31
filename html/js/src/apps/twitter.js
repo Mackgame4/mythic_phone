@@ -27,7 +27,7 @@ $('#new-tweet').on('submit', function(e) {
     }
 
     tweets.push(tweet);
-    App.StoreData('tweets', tweets);
+    Data.StoreData('tweets', tweets);
 
     var pattern = /\B@[a-z0-9_-]+/gi;
     let highlight = tweet.message.match(pattern);

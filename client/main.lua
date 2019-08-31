@@ -44,16 +44,17 @@ function CalculateTimeToDisplay()
   return obj
 end
 
+local Core = nil
+AddEventHandler('mythic_base:shared:ExportsReady', function()
+	Core = exports['mythic_base']:FetchComponent('Core')
+end)
+
 function hasPhone(cb)
-  TriggerEvent('mythic_inventory:client:CheckItemCount', 'phone-check', { { item = 'phone', count = 1 } }, function(hasPhone)
-    cb(hasPhone)
-  end)
+  Core:ServerCallback('mythic_inventory:server:CheckItem', { { item = 'phone', count = 1 } }, cb)
 end
-  
+
 function hasDecrypt(cb)
-  TriggerEvent('mythic_inventory:client:CheckItemCount', 'irc-check', { { item = 'decryptor', count = 1 } }, function(hasDecrypt)
-    cb(hasDecrypt)
-  end)
+  Core:ServerCallback('mythic_inventory:server:CheckItem', { { item = 'decryptor', count = 1 } }, cb)
 end
   
 function toggleIrc(status)
@@ -68,11 +69,11 @@ function ShowNoPhoneWarning()
   exports['mythic_notify']:SendAlert('error', 'You Don\'t Have a Phone')
 end
 
-AddEventHandler('mythic_characters:client:Logout', function()
+AddEventHandler('mythic_base:client:Logout', function()
   isLoggedIn = false
 end)
 
-AddEventHandler('mythic_characters:client:CharacterSpawned', function()
+AddEventHandler('mythic_base:client:CharacterSpawned', function()
   isLoggedIn = true
 
   local counter = 0
@@ -101,16 +102,17 @@ end)
 function TogglePhone()
   if not openingCd or isPhoneOpen then
     isPhoneOpen = not isPhoneOpen
-    SetNuiFocus(isPhoneOpen, isPhoneOpen)
     if isPhoneOpen == true then
       PhonePlayIn()
-      if PendingCall ~= nil then
-        SendNUIMessage( { action = 'show', number = PendingCall.number } )
+      SetNuiFocus(true, true)
+      if Call ~= nil then
+        SendNUIMessage( { action = 'show', number = Call.number } )
       else
         SendNUIMessage( { action = 'show' } )
       end
       DisableControls()
     else
+      SetNuiFocus(false, false)
       if not IsInCall() then
         PhonePlayOut()
       end
