@@ -46,6 +46,7 @@ end
 
 local Core = nil
 AddEventHandler('mythic_base:shared:ExportsReady', function()
+  print('Client Exports Ready')
 	Core = exports['mythic_base']:FetchComponent('Core')
 end)
 
@@ -103,14 +104,20 @@ function TogglePhone()
   if not openingCd or isPhoneOpen then
     isPhoneOpen = not isPhoneOpen
     if isPhoneOpen == true then
-      PhonePlayIn()
-      SetNuiFocus(true, true)
-      if Call ~= nil then
-        SendNUIMessage( { action = 'show', number = Call.number } )
-      else
-        SendNUIMessage( { action = 'show' } )
-      end
-      DisableControls()
+      hasPhone(function(hasPhone)
+        if hasPhone then
+          PhonePlayIn()
+          SetNuiFocus(true, true)
+          if Call ~= nil then
+            SendNUIMessage( { action = 'show', number = Call.number } )
+          else
+            SendNUIMessage( { action = 'show' } )
+          end
+          DisableControls()
+        else
+          isPhoneOpen = false
+        end
+      end)
     else
       SetNuiFocus(false, false)
       if not IsInCall() then
