@@ -44,18 +44,17 @@ function CalculateTimeToDisplay()
   return obj
 end
 
-local Core = nil
+local Callbacks = nil
 AddEventHandler('mythic_base:shared:ExportsReady', function()
-  print('Client Exports Ready')
-	Core = exports['mythic_base']:FetchComponent('Core')
+	Callbacks = exports['mythic_base']:FetchComponent('Callbacks')
 end)
 
 function hasPhone(cb)
-  Core:ServerCallback('mythic_inventory:server:CheckItem', { { item = 'phone', count = 1 } }, cb)
+  Callbacks:ServerCallback('mythic_inventory:server:CheckItem', { { item = 'phone', count = 1 } }, cb)
 end
 
 function hasDecrypt(cb)
-  Core:ServerCallback('mythic_inventory:server:CheckItem', { { item = 'decryptor', count = 1 } }, cb)
+  Callbacks:ServerCallback('mythic_inventory:server:CheckItem', { { item = 'decryptor', count = 1 } }, cb)
 end
   
 function toggleIrc(status)
@@ -80,7 +79,7 @@ AddEventHandler('mythic_base:client:CharacterSpawned', function()
   local counter = 0
   Citizen.CreateThread(function()
     while isLoggedIn do
-      if IsControlJustReleased(1, 170) then
+      if IsDisabledControlJustReleased(1, 170) then
         TogglePhone()
       end
 
