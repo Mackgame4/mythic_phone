@@ -1,4 +1,5 @@
 Call = {}
+local isLoggedIn = false
 
 function IsInCall()
     return (Call.number ~= nil and Call.status == 1) or (Call.number ~= nil and Call.status == 0 and Call.initiator)
@@ -46,8 +47,10 @@ AddEventHandler('mythic_phone:client:AcceptCall', function(channel, initiator)
                 action = 'acceptCallSender',
                 number = Call.number
             })
+            exports['mythic_notify']:PersistentAlert('start', 'active-call', 'inform', 'You\'re In A Call', { ['background-color'] = '#ff8555', ['color'] = '#000000' })
         else
-            exports['mythic_notify']:PersistentAlert('end', 'incoming-call')
+            exports['mythic_notify']:PersistentAlert('end', Config.IncomingNotifId)
+            exports['mythic_notify']:PersistentAlert('start', 'active-call', 'inform', 'You\'re In A Call', { ['background-color'] = '#ff8555', ['color'] = '#000000' })
             PhonePlayCall(false)
             SendNUIMessage({
                 action = 'acceptCallReceiver',
@@ -62,8 +65,9 @@ AddEventHandler('mythic_phone:client:EndCall', function()
     SendNUIMessage({
         action = 'endCall'
     })
-    exports['mythic_notify']:PersistentAlert('end', 'incoming-call')
-
+    exports['mythic_notify']:SendAlert('inform', 'Call Ended', 2500, { ['background-color'] = '#ff8555', ['color'] = '#000000' })
+    exports['mythic_notify']:PersistentAlert('end', Config.IncomingNotifId)
+    exports['mythic_notify']:PersistentAlert('end', 'active-call')
     exports['tokovoip_script']:removePlayerFromRadio(Call.channel)
 
     Call = {}
@@ -117,4 +121,43 @@ end)
 RegisterNUICallback( 'DeleteCallRecord', function( data, cb )
     actionCb['DeleteCallRecord'] = cb
     TriggerServerEvent('mythic_phone:server:DeleteCallRecord', securityToken, 'DeleteCallRecord', data.id)
+end)
+
+RegisterNetEvent('mythic_base:client:Logout')
+AddEventHandler('mythic_base:client:Logout', function()
+    isLoggedIn = false
+end)
+
+AddEventHandler('mythic_base:client:CharacterSpawned', function()
+    isLoggedIn = true
+
+    Citizen.CreateThread(function()
+        while isLoggedIn do
+            if IsInCall() then
+                if not Call.OtherHold then
+                    if not Call.Hold then
+                        DrawUIText("~r~[E] ~s~Hold ~r~| [G] ~s~Hangup", 4, 1, 0.5, 1.0, 0.5, 255, 255, 255, 255)
+                    else
+                        DrawUIText("~r~[E] ~s~Resume ~r~| [G] ~s~Hangup", 4, 1, 0.5, 1.0, 0.5, 255, 255, 255, 255)
+                    end
+                else
+                    if not Call.Hold then
+                        DrawUIText("~r~[E] ~s~Hold ~r~| [G] ~s~Hangup ~r~| ~s~On Hold", 4, 1, 0.5, 1.0, 0.5, 255, 255, 255, 255)
+                    else
+                        DrawUIText("~r~[E] ~s~Resume ~r~| [G] ~s~Hangup ~r~| ~s~On Hold", 4, 1, 0.5, 1.0, 0.5, 255, 255, 255, 255)
+                    end
+                end
+
+                if IsControlJustReleased(1, 51) then
+                    Call.Hold = not Call.Hold
+                elseif IsControlJustREleased(1, 47) then
+                    TriggerServerEvent('mythic_phone:server:EndCall', securityToken, Call)
+                end
+
+                Citizen.Wait(1)
+            else
+                Citizen.Wait(250)
+            end
+        end
+    end)
 end)

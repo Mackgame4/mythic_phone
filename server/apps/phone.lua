@@ -90,7 +90,7 @@ AddEventHandler('mythic_phone:server:CreateCall', function(token, identifier, nu
                             TriggerClientEvent('mythic_phone:client:ReceiveCall', tPlayer:GetData('source'), cData.phone)
                         end
         
-                        TriggerClientEvent('mythic_notify:client:PersistentAlert', tPlayer:GetData('source'), { id = 'incoming-call', action = 'start', type = 'inform', text = char:getFullName() .. ' Is Calling You'})
+                        TriggerClientEvent('mythic_notify:client:PersistentAlert', tPlayer:GetData('source'), { id = Config.IncomingNotifId, action = 'start', type = 'inform', text = char:getFullName() .. ' Is Calling You', style = { ['background-color'] = '#ff8555', ['color'] = '#000000' } })
                         
                         Calls[cData.phone] = {
                             number = number,
