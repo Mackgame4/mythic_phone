@@ -1,0 +1,5 @@
+RegisterNUICallback( 'NewTweet', function( data, cb )
+    Callbacks:ServerCallback('mythic_phone:server:NewTweet', { message = data.message, mentions = data.mentions, hashtags = data.hashtags }, function(status)
+        print('truuuuu')
+    end)
+end)

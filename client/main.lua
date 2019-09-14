@@ -1,5 +1,6 @@
 local isLoggedIn = false
 
+Callbacks = nil
 actionCb = {}
 isPhoneOpen = false
 
@@ -59,8 +60,7 @@ function CalculateTimeToDisplay()
   return obj
 end
 
-local Callbacks = nil
-AddEventHandler('mythic_base:shared:ExportsReady', function()
+AddEventHandler('mythic_base:shared:ComponentsReady', function()
 	Callbacks = exports['mythic_base']:FetchComponent('Callbacks')
 end)
 
@@ -109,7 +109,7 @@ AddEventHandler('mythic_base:client:CharacterSpawned', function()
         counter = counter - 1
       end
 
-      Citizen.Wait(1)
+      Citizen.Wait(-1)
     end
   end)
 end)

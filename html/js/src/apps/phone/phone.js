@@ -232,7 +232,7 @@ function SetupCallHistory() {
 
     SetupCallContacts();
 
-    history.sort(Utils.DateSortNewest);
+    history.sort(Utils.DateSortOldest);
 
     $('[data-section=history').html('');
     $.each(history, function(index, call) {

@@ -1,9 +1,17 @@
 function DateSortNewest(a,b){
-    return a.time < b.time ? 1 : -1;  
+    if (a.time != null) {
+        return a.time < b.time ? 1 : -1;  
+    } else {
+        return a.date < b.date ? 1 : -1;  
+    }
 };
 
 function DateSortOldest(a,b){
-    return a.time > b.time ? 1 : -1;  
+    if (a.time != null) {
+        return a.time > b.time ? 1 : -1;   
+    } else {
+        return a.date > b.date ? 1 : -1;   
+    }
 };
 
 function UpdateClock(time) {

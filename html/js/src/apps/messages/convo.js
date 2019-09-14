@@ -30,7 +30,7 @@ $('#convo-add-contact').on('submit', function(e) {
             }
 
             contacts.push({ name: name, number: number, index: contacts.length });
-            App.StoreData('contacts', contacts);
+            Data.StoreData('contacts', contacts);
 
             var modal = M.Modal.getInstance($('#convo-add-contact-modal'));
             modal.close();

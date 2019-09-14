@@ -124,7 +124,7 @@ function SendNewText(data, cb) {
                 receiver_read: 0
             });
 
-            App.StoreData('messages', messages);
+            Data.StoreData('messages', messages);
 
             cb(true);
         } else {

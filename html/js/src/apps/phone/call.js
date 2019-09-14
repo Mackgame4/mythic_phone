@@ -96,10 +96,13 @@ function CallHungUp() {
     setTimeout(function() {
         $('.call-number .call-timer').html('Calling');
         $('.call-avatar').attr('class', 'call-avatar');
-        App.GoBack();
-        setTimeout(function() {
-            $('#phone-call-container').attr('class', 'app-container');
-        }, 500)
+        
+        if (App.GetCurrentApp() == 'phone-call') {
+            App.GoBack();
+            setTimeout(function() {
+                $('#phone-call-container').attr('class', 'app-container');
+            }, 500)
+        }
     }, 2500);
 }
 

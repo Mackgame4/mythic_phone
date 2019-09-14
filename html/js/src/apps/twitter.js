@@ -10,16 +10,6 @@ $('#new-tweet').on('submit', function(e) {
 
     let data = $(this).serializeArray();
 
-    $.post(Config.ROOT_ADDRESS + '/NewTweet', JSON.stringify({
-        message: data[0].value
-    }), function(status) {
-        if (status) {
-
-        } else {
-            
-        }
-    })
-
     let tweet = {
         author: 'PleaseWork',
         message: data[0].value,
@@ -30,16 +20,28 @@ $('#new-tweet').on('submit', function(e) {
     Data.StoreData('tweets', tweets);
 
     var pattern = /\B@[a-z0-9_-]+/gi;
-    let highlight = tweet.message.match(pattern);
-    $.each(highlight, function(index2, mention) {
+    let mentions = tweet.message.match(pattern);
+    $.each(mentions, function(index2, mention) {
         tweet.message = tweet.message.replace(mention, `<span class="mention" data-mention="${mention.replace('@', '')}">${mention}</span>`);
     });
 
     pattern = /\B#[a-z0-9_-]+/gi;
-    highlight = tweet.message.match(pattern);
-    $.each(highlight, function(index2, hashtag) {
+    let hashtags = tweet.message.match(pattern);
+    $.each(hashtags, function(index2, hashtag) {
         tweet.message = tweet.message.replace(hashtag, `<span class="hashtag" data-hashtag="${hashtag.replace('#', '')}">${hashtag}</span>`);
     });
+
+    $.post(Config.ROOT_ADDRESS + '/NewTweet', JSON.stringify({
+        message: data[0].value,
+        mentions: mentions,
+        hashtags: hashtags
+    }), function(status) {
+        if (status) {
+
+        } else {
+            
+        }
+    })
 
     $('.twitter-body').prepend(`
         <div class="tweet">
@@ -80,7 +82,7 @@ function SetupTwitter() {
         tweets = new Array();
     }
 
-    tweets.sort(Utils.DateSortNewest);
+    tweets.sort(Utils.DateSortOldest);
 
     $('.twitter-body').html('');
     $.each(tweets, function(index, tweet) {

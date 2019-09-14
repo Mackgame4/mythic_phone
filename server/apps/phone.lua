@@ -4,6 +4,20 @@ function CreateCallRecord(sender, receiver, state)
 
 end
 
+AddEventHandler('playerDropped', function()
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(source):GetData('character')
+    local cData = char:GetData()
+    if Calls[cData.phone] ~= nil then
+        local tPlayer = exports['mythic_base']:FetchComponent('Fetch'):Phone(Calls[cData.phone].number)
+        if tPlayer ~= nil then
+            TriggerClientEvent('mythic_phone:client:EndCall', tPlayer:GetData('source'))
+        else
+            Calls[Calls[cData.phone].number]= nil
+        end
+        Calls[cData.phone] = nil
+    end
+end)
+
 RegisterServerEvent('mythic_base:server:CharacterSpawned')
 AddEventHandler('mythic_base:server:CharacterSpawned', function()
     local src = source
@@ -63,11 +77,8 @@ AddEventHandler('mythic_phone:server:CreateCall', function(token, identifier, nu
     local cData = char:GetData()
 
     local tPlayer = exports['mythic_base']:FetchComponent('Fetch'):Phone(number)
-    print('fuck')
     if tPlayer ~= nil then
-        print('me')
         if tPlayer:GetData('source') ~= nil then
-            print('bro')
             if Calls[number] ~= nil then
                 TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, -3)
                 TriggerClientEvent('mythic_notify:client:SendAlert', tPlayer:GetData('source'), { type = 'inform', text = char:getFullName() .. ' Tried Calling You, Sending Busy Response'})
@@ -78,7 +89,6 @@ AddEventHandler('mythic_phone:server:CreateCall', function(token, identifier, nu
                     ['status'] = 0,
                     ['anon'] = nonStandard
                 }, function(status)
-                    print(json.encode(status))
                     if status.affectedRows > 0 then
                         TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, 1)
         
@@ -86,11 +96,11 @@ AddEventHandler('mythic_phone:server:CreateCall', function(token, identifier, nu
 
                         if nonStandard then
                             TriggerClientEvent('mythic_phone:client:ReceiveCall', tPlayer:GetData('source'), 'Anonymous Caller')
+                            TriggerClientEvent('mythic_notify:client:PersistentAlert', tPlayer:GetData('source'), { id = Config.IncomingNotifId, action = 'start', type = 'inform', text = 'Recieve A Call From A Hidden Number', style = { ['background-color'] = '#ff8555', ['color'] = '#ffffff' } })
                         else
                             TriggerClientEvent('mythic_phone:client:ReceiveCall', tPlayer:GetData('source'), cData.phone)
+                            TriggerClientEvent('mythic_notify:client:PersistentAlert', tPlayer:GetData('source'), { id = Config.IncomingNotifId, action = 'start', type = 'inform', text = char:getFullName() .. ' Is Calling You', style = { ['background-color'] = '#ff8555', ['color'] = '#ffffff' } })
                         end
-        
-                        TriggerClientEvent('mythic_notify:client:PersistentAlert', tPlayer:GetData('source'), { id = Config.IncomingNotifId, action = 'start', type = 'inform', text = char:getFullName() .. ' Is Calling You', style = { ['background-color'] = '#ff8555', ['color'] = '#000000' } })
                         
                         Calls[cData.phone] = {
                             number = number,
@@ -133,8 +143,6 @@ AddEventHandler('mythic_phone:server:AcceptCall', function(token)
             if (Calls[cData.phone].number ~= nil) and (Calls[Calls[cData.phone].number].number ~= nil) then
                 Calls[Calls[cData.phone].number].status = 1
                 Calls[cData.phone].status = 1
-
-                print('end my life jesus christ')
 
                 TriggerClientEvent('mythic_phone:client:AcceptCall', src, (tPlayer:GetData('source') + 100), false)
                 TriggerClientEvent('mythic_phone:client:AcceptCall', tPlayer:GetData('source'), (tPlayer:GetData('source') + 100), true)

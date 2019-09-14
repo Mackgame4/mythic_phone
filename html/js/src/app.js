@@ -272,4 +272,8 @@ function GoBack() {
     }
 }
 
-export default { GoHome, GoBack, OpenApp, RefreshApp }
+function GetCurrentApp() {
+    return appTrail[appTrail.length - 1].app
+}
+
+export default { GoHome, GoBack, OpenApp, RefreshApp, GetCurrentApp }
