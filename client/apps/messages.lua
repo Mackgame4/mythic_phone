@@ -10,6 +10,11 @@ AddEventHandler('mythic_phone:client:ReceiveText', function(sender, text)
             text = text
         }
     })
+
+    if not isPhoneOpen then
+        let app = GetAppData('messages')
+        UpdateAppUnread('messages', app.unread + 1)
+    end
 end)
 
 RegisterNUICallback( 'SendText', function( data, cb )

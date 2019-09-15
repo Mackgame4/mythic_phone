@@ -28,7 +28,7 @@ AddEventHandler('mythic_phone:server:SendText', function(token, identifier, rece
                     if text[1] ~= nil then
                         TriggerClientEvent('mythic_phone:client:ActionCallback', src, identifier, text[1])
 
-                        local tPlayer = exports['mythic_base']:FetchComponent('Fetch').Phone(receiver)
+                        local tPlayer = exports['mythic_base']:FetchComponent('Fetch'):Phone(receiver)
                         if tPlayer ~= nil then
                             local tChar = tPlayer:GetData('character'):GetData()
                             exports['ghmattimysql']:execute('SELECT * FROM phone_contacts WHERE number = @number AND charid = @charid', { ['number'] = cData.phone, ['charid'] = tChar.id }, function(contact)

@@ -18,21 +18,25 @@ AddEventHandler('mythic_phone:client:CreateCall', function(number)
 
     PhonePlayCall(false)
 
-    TriggerServerEvent('mythic_sounds:server:LoopOnSource', 'dialtone', 0.2)
+    Citizen.CreateThread(function()
+        while Call.status == 0 do
+            TriggerServerEvent('mythic_sounds:server:PlayOnSource', 'dialtone', 0.1)
+            Citizen.Wait(100)
+        end
+    end)
 
     local count = 0
     Citizen.CreateThread(function()
         while Call.status == 0 do
             if count >= 30 then
                 TriggerServerEvent('mythic_phone:server:EndCall', securityToken)
+                TriggerEvent('mythic_sounds:client:StopOnOne', 'dialtone')
 
                 if isPhoneOpen then
                     PhoneCallToText()
                 else
                     PhonePlayOut()
                 end
-
-                TriggerEvent('mythic_sounds:client:StopOnOne', 'dialtone')
 
                 Call = {}
             else
@@ -48,11 +52,11 @@ AddEventHandler('mythic_phone:client:AcceptCall', function(channel, initiator)
     if Call.number ~= nil and Call.status == 0 then
         Call.status = 1
         Call.channel = channel
+        Call.initiator = initiator
 
         exports['tokovoip_script']:addPlayerToRadio(Call.channel, false)
 
         if initiator then
-            TriggerEvent('mythic_sounds:client:StopOnOne', 'dialtone')
             SendNUIMessage({
                 action = 'acceptCallSender',
                 number = Call.number
@@ -67,6 +71,8 @@ AddEventHandler('mythic_phone:client:AcceptCall', function(channel, initiator)
                 number = Call.number
             })
         end
+
+        TriggerEvent('mythic_sounds:client:StopOnOne', 'dialtone')
         TriggerServerEvent('mythic_sounds:server:StopWithinDistance', 'ringtone2')
     end
 end)

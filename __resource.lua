@@ -55,6 +55,7 @@ client_script {
     "client/main.lua",
     "client/animation.lua",
     
+	"client/apps/home.lua",
 	"client/apps/contacts.lua",
 	"client/apps/phone.lua",
 	"client/apps/messages.lua",

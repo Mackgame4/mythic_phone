@@ -11,7 +11,6 @@ function SetupHome() {
     apps = Data.GetData('apps');
     $('#home-container .inner-app').html('');
     $.each(apps, function(index, app) {
-        //console.log(JSON.stringify(app));
         if (app.enabled) {
             if (app.unread > 0) {
                 $('#home-container .inner-app').append('<div class="app-button" data-tooltip="' + app.name + '"><div class="app-icon" id="' + app.container + '-app" style="background-color: ' + app.color + '"> ' + app.icon + '<div class="badge pulse">' + app.unread + '</div></div></div>')
@@ -43,4 +42,20 @@ function ToggleApp(name, status) {
     }
 }
 
-export default { SetupHome, ToggleApp }
+function UpdateUnread(name, unread) {
+    if (apps == null) {
+        apps = Data.GetData('apps');
+    }
+
+    $.each(apps, function(index, app) {
+        console.log(JSON.stringify(app));
+        if (app.container === name) {
+            app.unread = unread
+            Data.SetData('apps', apps);
+            SetupHome();
+            return false;
+        }
+    });
+}
+
+export default { SetupHome, ToggleApp, UpdateUnread }

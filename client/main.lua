@@ -84,12 +84,14 @@ function ShowNoPhoneWarning()
   exports['mythic_notify']:SendAlert('error', 'You Don\'t Have a Phone')
 end
 
+RegisterNetEvent('mythic_base:client:Logout')
 AddEventHandler('mythic_base:client:Logout', function()
   isLoggedIn = false
 end)
 
 AddEventHandler('mythic_base:client:CharacterSpawned', function()
   isLoggedIn = true
+
 
   local counter = 0
   Citizen.CreateThread(function()
@@ -123,7 +125,7 @@ function TogglePhone()
           PhonePlayIn()
           SetNuiFocus(true, true)
           if Call ~= nil then
-            SendNUIMessage( { action = 'show', number = Call.number } )
+            SendNUIMessage( { action = 'show', number = Call.number, initiator = Call.initiator } )
           else
             SendNUIMessage( { action = 'show' } )
           end
@@ -194,4 +196,8 @@ end
 
 RegisterNUICallback( "ClosePhone", function( data, cb )
   TogglePhone()
+end)
+
+RegisterNUICallback( 'ClearUnread', function( data, cb )
+    UpdateAppUnread('messages', 0)
 end)

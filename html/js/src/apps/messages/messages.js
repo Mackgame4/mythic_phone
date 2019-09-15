@@ -38,6 +38,10 @@ function SetupMessages() {
     contacts = Data.GetData('contacts');
     messages = Data.GetData('messages');
 
+    $.post(Config.ROOT_ADDRESS + '/ClearUnread', JSON.stringify({
+        app: 'messages'
+    }));
+
     let convos = new Array();
 
     $.each(messages, function(index, message) {

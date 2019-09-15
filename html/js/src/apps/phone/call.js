@@ -96,7 +96,7 @@ function CallHungUp() {
     setTimeout(function() {
         $('.call-number .call-timer').html('Calling');
         $('.call-avatar').attr('class', 'call-avatar');
-        
+
         if (App.GetCurrentApp() == 'phone-call') {
             App.GoBack();
             setTimeout(function() {
@@ -107,11 +107,10 @@ function CallHungUp() {
 }
 
 function IsCallPending() {
-    return (callPending != null)
+    return (callPending != null || activeCallTimer != null)
 }
 
 function SetupCallActive(data){
-    console.log(activeCallTimer != null);
     if (activeCallTimer != null || data == null) {
         CallAnswered();
         return;

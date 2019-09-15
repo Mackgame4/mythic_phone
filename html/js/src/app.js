@@ -54,7 +54,7 @@ window.addEventListener('message', function(event) {
                     app: 'home',
                     data: null
                 }];
-                OpenApp('phone-call', { number: event.data.number, receiver: true }, false);
+                OpenApp('phone-call', { number: event.data.number, receiver: !event.data.initiator }, false);
             }
 
             break;
@@ -69,6 +69,9 @@ window.addEventListener('message', function(event) {
             break;
         case 'updateTime':
             Utils.UpdateClock(event.data.time);
+            break;
+        case 'updateUnread':
+            Home.UpdateUnread(event.data.app, event.data.unread);
             break;
         case 'receiveText':
             Messages.Convo.ReceiveText(event.data.data.sender, event.data.data.text);
