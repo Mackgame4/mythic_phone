@@ -1,4 +1,4 @@
-var ROOT_ADDRESS = 'http://mythic_phone2'
+var ROOT_ADDRESS = 'http://mythic_phone2';
 
 var Apps = [
     {
@@ -59,4 +59,4 @@ var Apps = [
     }
 ];
 
-export default { ROOT_ADDRESS, Apps }
+export default { ROOT_ADDRESS, Apps };

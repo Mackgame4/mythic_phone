@@ -25,9 +25,9 @@ $('#message-new-msg').on('submit', function(e) {
         if (sent) {
             var modal = M.Modal.getInstance($('#messages-new-modal'));
             modal.close();
-        
-            M.toast({html: 'Message Sent'});
-        
+
+            M.toast({ html: 'Message Sent' });
+
             RefreshApp();
         }
     });
@@ -38,9 +38,12 @@ function SetupMessages() {
     contacts = Data.GetData('contacts');
     messages = Data.GetData('messages');
 
-    $.post(Config.ROOT_ADDRESS + '/ClearUnread', JSON.stringify({
-        app: 'messages'
-    }));
+    $.post(
+        Config.ROOT_ADDRESS + '/ClearUnread',
+        JSON.stringify({
+            app: 'messages'
+        })
+    );
 
     let convos = new Array();
 
@@ -56,20 +59,20 @@ function SetupMessages() {
         obj.message = message.message;
         obj.receiver = message.receiver;
         obj.sender = message.sender;
-        
+
         obj.time = new Date(message.sent_time);
 
-        let convo = convos.filter(c => c.number === obj.number)[0]
-        
+        let convo = convos.filter(c => c.number === obj.number)[0];
+
         if (convo == null) {
             convos.push(obj);
         } else {
-            if ( obj.time > convo.time ) {
+            if (obj.time > convo.time) {
                 $.each(convos, function(index, c) {
                     if (c == convo) {
                         convos[index] = obj;
                     }
-                })
+                });
                 convos[convo.number] = obj;
             }
         }
@@ -87,9 +90,29 @@ function SetupMessages() {
 
         // Not A Contact
         if (contact == null) {
-            $('#message-container .inner-app .messages-list').append('<div class="message waves-effect"><div class="text-avatar">#</div><div class="text-name">' + message.number + '</div><div class="text-message">' + message.message + '</div><div class="text-time">' + moment(message.time).fromNowOrNow() + '</div></div>');
+            $('#message-container .inner-app .messages-list').append(
+                '<div class="message waves-effect"><div class="text-avatar">#</div><div class="text-name">' +
+                    message.number +
+                    '</div><div class="text-message">' +
+                    message.message +
+                    '</div><div class="text-time">' +
+                    moment(message.time).fromNowOrNow() +
+                    '</div></div>'
+            );
         } else {
-            $('#message-container .inner-app .messages-list').append('<div class="message waves-effect"><div class="text-avatar other-' + contact.name[0].toString().toLowerCase() + '">' + contact.name[0] + '</div><div class="text-name">' + contact.name + '</div><div class="text-message"> ' + message.message + '</div><div class="text-time">' + moment(message.time).fromNowOrNow() + '</div></div>')
+            $('#message-container .inner-app .messages-list').append(
+                '<div class="message waves-effect"><div class="text-avatar other-' +
+                    contact.name[0].toString().toLowerCase() +
+                    '">' +
+                    contact.name[0] +
+                    '</div><div class="text-name">' +
+                    contact.name +
+                    '</div><div class="text-message"> ' +
+                    message.message +
+                    '</div><div class="text-time">' +
+                    moment(message.time).fromNowOrNow() +
+                    '</div></div>'
+            );
         }
 
         $('.messages-list .message:last-child').data('message', message);
@@ -98,9 +121,19 @@ function SetupMessages() {
 
 function SetupNewMessage() {
     $('#message-new-contact').html('');
-    $('#message-new-contact').append('<option value="">Choose Contact</option>');
+    $('#message-new-contact').append(
+        '<option value="">Choose Contact</option>'
+    );
     $.each(contacts, function(index, contact) {
-        $('#message-new-contact').append('<option value="' + contact.number + '">' + contact.name + ' (' + contact.number +')</option>');
+        $('#message-new-contact').append(
+            '<option value="' +
+                contact.number +
+                '">' +
+                contact.name +
+                ' (' +
+                contact.number +
+                ')</option>'
+        );
     });
 
     $('#message-new-number').val('');
@@ -110,33 +143,37 @@ function SetupNewMessage() {
 }
 
 function SendNewText(data, cb) {
-    $.post(Config.ROOT_ADDRESS + '/SendText', JSON.stringify({
-        receiver: data[0].value,
-        message: data[1].value,
-    }), function(textData) {
-        if (textData != null) {
-            if (messages == null) {
-                messages = new Array();
+    $.post(
+        Config.ROOT_ADDRESS + '/SendText',
+        JSON.stringify({
+            receiver: data[0].value,
+            message: data[1].value
+        }),
+        function(textData) {
+            if (textData != null) {
+                if (messages == null) {
+                    messages = new Array();
+                }
+
+                messages.push({
+                    sender: myNumber,
+                    receiver: textData.receiver,
+                    message: textData.message,
+                    sent_time: textData.sent_time,
+                    sender_read: 0,
+                    receiver_read: 0
+                });
+
+                Data.StoreData('messages', messages);
+
+                cb(true);
+            } else {
+                M.toast({ html: 'Unable To Send Text' });
+
+                cb(false);
             }
-
-            messages.push({
-                sender: myNumber,
-                receiver: textData.receiver,
-                message: textData.message,
-                sent_time: textData.sent_time,
-                sender_read: 0,
-                receiver_read: 0
-            });
-
-            Data.StoreData('messages', messages);
-
-            cb(true);
-        } else {
-            M.toast({html: 'Unable To Send Text'});
-
-            cb(false);
         }
-    });
+    );
 }
 
-export default { SetupMessages, SetupNewMessage, SendNewText, Convo }
+export default { SetupMessages, SetupNewMessage, SendNewText, Convo };

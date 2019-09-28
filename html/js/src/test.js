@@ -1,17 +1,17 @@
 var Contacts = [
     {
-        name: "Dickhole",
-        number: "555-555-5556"
+        name: 'Dickhole',
+        number: '555-555-5556'
     },
     {
-        name: "Contact 1",
-        number: "555-555-5555"
+        name: 'Contact 1',
+        number: '555-555-5555'
     },
     {
-        name: "ABC",
-        number: "155-555-5555"
-    },
-]
+        name: 'ABC',
+        number: '155-555-5555'
+    }
+];
 
 var Messages = [
     {
@@ -77,8 +77,8 @@ var Messages = [
         sent_time: 1566263235000,
         isRead: 0,
         owner: 0
-    },
-]
+    }
+];
 
 var Calls = [
     {
@@ -176,8 +176,8 @@ var Calls = [
         time: 1566263235000,
         status: 2,
         anon: 1
-    },
-]
+    }
+];
 
 var Tweets = [
     {
@@ -187,7 +187,8 @@ var Tweets = [
     },
     {
         author: 'PleaseWork199',
-        message: 'asdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;a1',
+        message:
+            'asdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;aasdfasdfasdfasdfa;sdjk;fakjdf;a1',
         time: 1566263235000
     },
     {
@@ -210,6 +211,6 @@ var Tweets = [
         message: 'Please Work 199',
         time: 1566263235000
     }
-]
+];
 
-export default { Contacts, Messages, Calls, Tweets }
+export default { Contacts, Messages, Calls, Tweets };

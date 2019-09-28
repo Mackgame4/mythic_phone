@@ -1,10 +1,10 @@
-function SetupData(data) {  
+function SetupData(data) {
     $.each(data, function(index, item) {
         window.localStorage.setItem(item.name, JSON.stringify(item.data));
     });
 }
 
-function StoreData(name, data) { 
+function StoreData(name, data) {
     window.localStorage.setItem(name, JSON.stringify(data));
 }
 
@@ -13,7 +13,7 @@ function GetData(name) {
 }
 
 function ClearData() {
-    window.localStorage.clear(); 
+    window.localStorage.clear();
 }
 
-export default { SetupData, StoreData, GetData, ClearData }
+export default { SetupData, StoreData, GetData, ClearData };

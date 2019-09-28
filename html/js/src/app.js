@@ -9,24 +9,26 @@ import Twitter from './apps/twitter';
 
 import Test from './test';
 
-var appTrail = [{
-    app: null,
-    data: null
-}];
+var appTrail = [
+    {
+        app: null,
+        data: null
+    }
+];
 
 var navDisabled = false;
 
-moment.fn.fromNowOrNow = function (a) {
+moment.fn.fromNowOrNow = function(a) {
     if (Math.abs(moment().diff(this)) < 60000) {
         return 'just now';
     }
     return this.fromNow(a);
-}
+};
 
-/*$( function() {
+$(function() {
     $('.wrapper').fadeIn();
     Data.ClearData();
-    Data.SetupData([ 
+    Data.SetupData([
         { name: 'myNumber', data: '111-111-1111' },
         { name: 'contacts', data: Test.Contacts },
         { name: 'messages', data: Test.Messages },
@@ -37,24 +39,33 @@ moment.fn.fromNowOrNow = function (a) {
     ]);
 
     OpenApp('home', null, true);
-});*/
+});
 
 window.addEventListener('message', function(event) {
-    switch(event.data.action) {
+    switch (event.data.action) {
         case 'setup':
             Data.SetupData(event.data.data);
             break;
         case 'show':
-            $('.wrapper').show("slide", { direction: "down" }, 500);
+            $('.wrapper').show('slide', { direction: 'down' }, 500);
 
             if (!Phone.Call.IsCallPending()) {
                 OpenApp('home', null, true);
             } else {
-                appTrail = [{
-                    app: 'home',
-                    data: null
-                }];
-                OpenApp('phone-call', { number: event.data.number, receiver: !event.data.initiator }, false);
+                appTrail = [
+                    {
+                        app: 'home',
+                        data: null
+                    }
+                ];
+                OpenApp(
+                    'phone-call',
+                    {
+                        number: event.data.number,
+                        receiver: !event.data.initiator
+                    },
+                    false
+                );
             }
 
             break;
@@ -74,10 +85,17 @@ window.addEventListener('message', function(event) {
             Home.UpdateUnread(event.data.app, event.data.unread);
             break;
         case 'receiveText':
-            Messages.Convo.ReceiveText(event.data.data.sender, event.data.data.text);
+            Messages.Convo.ReceiveText(
+                event.data.data.sender,
+                event.data.data.text
+            );
             break;
         case 'receiveCall':
-            OpenApp('phone-call', { number: event.data.number, receiver: true }, false);
+            OpenApp(
+                'phone-call',
+                { number: event.data.number, receiver: true },
+                false
+            );
             break;
         case 'acceptCallSender':
             Phone.Call.CallAnswered();
@@ -88,22 +106,25 @@ window.addEventListener('message', function(event) {
         case 'endCall':
             Phone.Call.CallHungUp();
             break;
+        case 'ReceiveNewTweet':
+            Twitter.ReceiveNewTweet(event.data.tweet);
+            break;
     }
 });
 
-$(document).ready(function(){
+$(document).ready(function() {
     $('.modal').modal();
     $('.dropdown-trigger').dropdown({
         constrainWidth: false
     });
     $('.tabs').tabs();
     $('.char-count-input').characterCounter();
-    $('.phone-number').mask("000-000-0000", {placeholder: "###-###-####"});
+    $('.phone-number').mask('000-000-0000', { placeholder: '###-###-####' });
 });
 
-$( function() {
-    document.onkeyup = function ( data ) {
-        if ( data.which == 114 || data.which == 27 ) {
+$(function() {
+    document.onkeyup = function(data) {
+        if (data.which == 114 || data.which == 27) {
             ClosePhone();
         }
     };
@@ -136,14 +157,14 @@ $('.home-button').on('click', function(e) {
 });
 
 $('.close-button').on('click', function(e) {
-    ClosePhone()
+    ClosePhone();
 });
 
 $('#remove-sim-card').on('click', function(e) {
     var modal = M.Modal.getInstance($('#remove-sim-conf'));
     modal.close();
     NotifyAltSim(false);
-    M.toast({html: 'Sim Removed'});
+    M.toast({ html: 'Sim Removed' });
 });
 
 $('.mute').on('click', function(e) {
@@ -153,61 +174,63 @@ $('.mute').on('click', function(e) {
 
 function ClosePhone() {
     $.post(Config.ROOT_ADDRESS + '/ClosePhone', JSON.stringify({}));
-    $('.wrapper').hide("slide", { direction: "down" }, 500, function() {
+    $('.wrapper').hide('slide', { direction: 'down' }, 500, function() {
         $('#toast-container').remove();
         $('.material-tooltip').remove();
         $('.app-container').hide();
-        appTrail = [{
-            app: null,
-            data: null
-        }];
+        appTrail = [
+            {
+                app: null,
+                data: null
+            }
+        ];
     });
 }
 
 function OpenApp(app, data = null, pop = false) {
-    if ($('#' + app + '-container').length == 0 || appTrail.length == 0) return;    
+    if ($('#' + app + '-container').length == 0 || appTrail.length == 0) return;
 
     if (appTrail[appTrail.length - 1].app !== app) {
         if ($('.active-container').length > 0) {
             $('.active-container').fadeOut('fast', function() {
                 $('.active-container').removeClass('active-container');
-                
+
                 $('#' + app + '-container').fadeIn('fast', function() {
                     $('.active-container').removeClass('active-container');
                     $('#' + app + '-container').addClass('active-container');
-        
+
                     CloseAppAction(appTrail[appTrail.length - 1].app);
                     if (pop) {
                         appTrail.pop();
                         appTrail.pop();
                     }
-                    
+
                     appTrail.push({
                         app: app,
                         data: data
                     });
                 });
-        
+
                 $('.material-tooltip').remove();
                 OpenAppAction(app, data);
             });
-        } else {  
+        } else {
             $('#' + app + '-container').fadeIn('fast', function() {
                 $('.active-container').removeClass('active-container');
                 $('#' + app + '-container').addClass('active-container');
-    
+
                 CloseAppAction(appTrail[appTrail.length - 1].app);
                 if (pop) {
                     appTrail.pop();
                     appTrail.pop();
                 }
-                
+
                 appTrail.push({
                     app: app,
                     data: data
                 });
             });
-    
+
             $('.material-tooltip').remove();
             OpenAppAction(app, data);
         }
@@ -216,11 +239,14 @@ function OpenApp(app, data = null, pop = false) {
 
 function RefreshApp() {
     $('.material-tooltip').remove();
-    OpenAppAction(appTrail[appTrail.length - 1].app, appTrail[appTrail.length - 1].data)
+    OpenAppAction(
+        appTrail[appTrail.length - 1].app,
+        appTrail[appTrail.length - 1].data
+    );
 }
 
 function OpenAppAction(app, data) {
-    switch(app) {
+    switch (app) {
         case 'home':
             Home.SetupHome();
             break;
@@ -247,7 +273,7 @@ function OpenAppAction(app, data) {
 }
 
 function CloseAppAction(app) {
-    switch(app) {
+    switch (app) {
         case 'message-convo':
             Messages.Convo.CloseConvo();
             break;
@@ -268,7 +294,11 @@ function GoHome() {
 function GoBack() {
     if (appTrail[appTrail.length - 1].app !== 'home') {
         if (appTrail.length > 1) {
-            OpenApp(appTrail[appTrail.length - 2].app, appTrail[appTrail.length - 2].data, true);
+            OpenApp(
+                appTrail[appTrail.length - 2].app,
+                appTrail[appTrail.length - 2].data,
+                true
+            );
         } else {
             GoHome();
         }
@@ -276,7 +306,7 @@ function GoBack() {
 }
 
 function GetCurrentApp() {
-    return appTrail[appTrail.length - 1].app
+    return appTrail[appTrail.length - 1].app;
 }
 
-export default { GoHome, GoBack, OpenApp, RefreshApp, GetCurrentApp }
+export default { GoHome, GoBack, OpenApp, RefreshApp, GetCurrentApp };
