@@ -197,7 +197,3 @@ end
 RegisterNUICallback( "ClosePhone", function( data, cb )
   TogglePhone()
 end)
-
-RegisterNUICallback( 'ClearUnread', function( data, cb )
-    UpdateAppUnread('messages', 0)
-end)
