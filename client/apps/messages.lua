@@ -12,7 +12,7 @@ AddEventHandler('mythic_phone:client:ReceiveText', function(sender, text)
     })
 
     if not isPhoneOpen then
-        let app = GetAppData('messages')
+        local app = GetAppData('messages')
         UpdateAppUnread('messages', app.unread + 1)
     end
 end)
