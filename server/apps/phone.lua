@@ -5,16 +5,19 @@ function CreateCallRecord(sender, receiver, state)
 end
 
 AddEventHandler('playerDropped', function()
-    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(source):GetData('character')
-    local cData = char:GetData()
-    if Calls[cData.phone] ~= nil then
-        local tPlayer = exports['mythic_base']:FetchComponent('Fetch'):Phone(Calls[cData.phone].number)
-        if tPlayer ~= nil then
-            TriggerClientEvent('mythic_phone:client:EndCall', tPlayer:GetData('source'))
-        else
-            Calls[Calls[cData.phone].number]= nil
+    local mPlayer = exports['mythic_base']:FetchComponent('Fetch'):Source(source)
+    if mPlayer ~= nil then
+        local char = mPlayer:GetData('character')
+        local cData = char:GetData()
+        if Calls[cData.phone] ~= nil then
+            local tPlayer = exports['mythic_base']:FetchComponent('Fetch'):Phone(Calls[cData.phone].number)
+            if tPlayer ~= nil then
+                TriggerClientEvent('mythic_phone:client:EndCall', tPlayer:GetData('source'))
+            else
+                Calls[Calls[cData.phone].number]= nil
+            end
+            Calls[cData.phone] = nil
         end
-        Calls[cData.phone] = nil
     end
 end)
 
@@ -134,8 +137,6 @@ AddEventHandler('mythic_phone:server:AcceptCall', function(token)
     
     local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
     local cData = char:GetData()
-
-    print(cData.phone)
 
     if Calls[cData.phone] ~= nil then
         local tPlayer = exports['mythic_base']:FetchComponent('Fetch'):Phone(Calls[cData.phone].number)
