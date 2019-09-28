@@ -21,7 +21,7 @@ function UpdateAppUnread(app, unread)
             break
         end
     end
-
+    
     SendNUIMessage({
         action = 'updateUnread',
         app = app,
