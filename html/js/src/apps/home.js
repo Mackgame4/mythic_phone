@@ -13,7 +13,6 @@ function SetupHome() {
     $.each(apps, function(index, app) {
         if (app.enabled) {
             if (app.unread > 0) {
-                console.log(app.container + ' ' + app.unread);
                 $('#home-container .inner-app').append(
                     '<div class="app-button" data-tooltip="' +
                         app.name +
