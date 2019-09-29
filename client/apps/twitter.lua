@@ -1,10 +1,13 @@
 RegisterNetEvent('mythic_phone:client:ReceiveNewTweet')
 AddEventHandler('mythic_phone:client:ReceiveNewTweet', function(tweet)
-    print(tweet.author)
-    SendNUIMessage({
-        action = 'ReceiveNewTweet',
-        tweet = tweet
-    })
+    local myname = CharData:GetData('firstName') .. '_' .. CharData:GetData('lastName')
+
+    if tweet.author ~= myname then
+        SendNUIMessage({
+            action = 'ReceiveNewTweet',
+            tweet = tweet
+        })
+    end
 end)
 
 RegisterNetEvent('mythic_phone:client:MentionedInTweet')
