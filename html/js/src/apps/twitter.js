@@ -85,32 +85,6 @@ $('#new-tweet').on('submit', function (e) {
             }
         }
     );
-
-    $('.twitter-body').prepend(`
-                    <div class="tweet">
-                        <div class="avatar other-${tweet.author[0]
-            .toString()
-            .toLowerCase()}">${tweet.author[0]}</div>
-                        <div class="author">${tweet.author}</div>
-                        <div class="body">${tweet.message}</div>
-                        <div class="time" data-tooltip="${moment().format(
-                'MM/DD/YYYY'
-            )} ${moment().format('hh:mmA')}">${moment().fromNowOrNow()}</div>
-                    </div>`);
-
-    $('.twitter-body .tweet:first-child .time').tooltip({
-        enterDelay: 0,
-        exitDelay: 0,
-        inDuration: 0
-    });
-
-    $('.twitter-body .tweet:first-child').data('data', tweet);
-
-    var modal = M.Modal.getInstance($('#send-tweet-modal'));
-    modal.close();
-    $('#new-tweet-msg').val('');
-
-    M.toast({ html: 'Tweet Sent' });
 });
 
 $('.twitter-body').on('click', '.tweet .mention', function () {
