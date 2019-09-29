@@ -28,7 +28,7 @@ $('#message-new-msg').on('submit', function(e) {
 
             M.toast({ html: 'Message Sent' });
 
-            RefreshApp();
+            App.RefreshApp();
         }
     });
 });

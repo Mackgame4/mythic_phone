@@ -1,9 +1,22 @@
+RegisterServerEvent('mythic_base:server:CharacterSpawned')
+AddEventHandler('mythic_base:server:CharacterSpawned', function()
+    local src = source
+    Citizen.CreateThread(function()
+        exports['ghmattimysql']:execute('SELECT * FROM phone_tweets ORDER BY time DESC', {}, function(tweets) 
+            TriggerClientEvent('mythic_phone:client:SetupData', src, { { name = 'tweets', data = tweets } })
+        end)
+    end)
+end)
+
 AddEventHandler('mythic_base:shared:ComponentsReady', function()
     while Callbacks == nil do
         Citizen.Wait(100)
     end
 
     Callbacks:RegisterServerCallback('mythic_phone:server:NewTweet', function(source, event, data)
+        local returnVal = nil
+        local tweet = {}
+
         Citizen.CreateThread(function()
             local returnData = nil
             local char = exports['mythic_base']:FetchComponent('Fetch'):Source(source):GetData('character')
@@ -13,30 +26,38 @@ AddEventHandler('mythic_base:shared:ComponentsReady', function()
             local hashtags = data.hashtags
             local users = exports['mythic_base']:FetchComponent('Fetch'):All()
 
-            for k, v in pairs(mentions) do
-                for k2, v2 in pairs(users) do
-                    local cData = v2:GetData('character'):GetData()
-    
-                    if (cData.firstName .. '_' .. cData.lastName) == v then
-                        TriggerClientEvent('mythic_notify:client:SendAlert', v2:GetData('source'), { type = 'inform', text = 'You Were Mentioned In A Tweet' })
+            if mentions ~= nil then
+                for k, v in pairs(mentions) do
+                    for k2, v2 in pairs(users) do
+                        local mPlayer = exports['mythic_base']:FetchComponent('Fetch'):Source(v2)
+                        local c2 = mPlayer:GetData('character')
+                        if ('@' .. c2:GetData('firstName') .. '_' .. c2:GetData('lastName')) == v then
+                            TriggerClientEvent('mythic_phone:client:MentionedInTweet', mPlayer:GetData('source'), author)
+                        end
                     end
                 end
             end
     
-            exports['ghmattimysql']:execute('INSERT INTO phone_tweets (`author`, `message`) VALUES(@author, @message)', { ['author'] = author, ['message'] = message }, function(status)
+            exports['ghmattimysql']:execute('INSERT INTO phone_tweets (`author_id`, `author`, `message`) VALUES(@id, @author, @message)', { ['id'] = char:GetData('id'), ['author'] = author, ['message'] = message }, function(status)
                 if status.affectedRows > 0 then
-                    TriggerClientEvent('mythic_phone:client:RecieveNewTweet', -1, { author = author, message = message, mentions = mentions, hashtags = hashtags })
-                    returnData = true
+                    tweet.author = author
+                    tweet.message = message
+
+                    returnVal = tweet
                 else
-                    returnData = false
+                    returnVal = false
                 end
             end)
-
-            while returnData == nil do
-                Citizen.Wait(100)
-            end
-
-            return returnData
         end)
+
+        while returnVal == nil do
+            Citizen.Wait(100)
+        end
+
+        if tweet.message ~= nil then
+            TriggerClientEvent('mythic_phone:client:ReceiveNewTweet', -1, tweet)
+        end
+
+        return tweet
     end)
 end)

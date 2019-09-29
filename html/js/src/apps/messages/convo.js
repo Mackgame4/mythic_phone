@@ -46,7 +46,7 @@ $('#convo-add-contact').on('submit', function(e) {
                 $('#convo-add-contact-number').val('555-555-5555');
 
                 M.toast({ html: 'Contact Added' });
-                RefreshApp();
+                App.RefreshApp();
             } else {
                 M.toast({ html: 'Error Adding Contact' });
             }

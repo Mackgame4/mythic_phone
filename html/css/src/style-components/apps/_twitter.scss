@@ -1,7 +1,31 @@
+.twitter-alert {
+    display: none;
+    width: 415px;
+    min-width: 415px;
+    max-width: 415px;
+    background: #039be5;
+    border-radius: 10px;
+    color: #ffffff;
+    position: absolute;
+    bottom: 5%;
+    right: 1.5%;
+
+    .twitter-alert-header {
+        padding: 15px;
+        font-size: 20px;
+    }
+
+    .twitter-alert-body {
+        padding: 15px;
+        font-size: 14px;
+        border-top: 1px solid #ffffff;
+    }
+}
+
 #twitter-container {
     background: #eaeaea;
     .inner-app {
-        .twitter-header{
+        .twitter-header {
             padding: 10px 0;
             width: 100%;
             text-align: center;
