@@ -60,11 +60,16 @@ FOR THE FINAL TIME, THIS IS A WIP RESOURCE THAT IS NOT INTENDED FOR ANYONE TO AC
 ![Contacts App](https://i.imgur.com/2sBWhZY.gif)
 
 ### Phone
-![Phone App](https://i.imgur.com/6zo2A7x.png)
-![Phone App](https://i.imgur.com/EQLigc1.png)
+![Phone App](https://i.imgur.com/asgy0QI.png)
+![Phone App](https://i.imgur.com/cMtdIzM.png)
+![Phone App](https://i.imgur.com/rzzUKX4.png)
 
 ### Messages
 ![Messages App](https://i.imgur.com/H2lae7o.png)
 ![Messages App](https://i.imgur.com/FSVIusg.png)
 ![Messages App](https://i.imgur.com/t3CSGm2.png)
 ![Messages App](https://i.imgur.com/8OaYbbY.gif)
+
+### Twitter
+![Twitter App](https://i.imgur.com/X8pFTY4.png)
+![Twitter App](https://i.imgur.com/ENaF9Mu.gif)
