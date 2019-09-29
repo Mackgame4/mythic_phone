@@ -1,5 +1,5 @@
 #contacts-container {
-    background: #eaeaea;
+    background: $background;
 
     .inner-app {
         .add-contact {
@@ -7,9 +7,9 @@
             padding: 10px;
             text-align: center;
             background: color("materialize-red", "darken-4");
-            color: #ffffff;
+            color: $primary;
             font-weight: bold;
-            border-bottom: 1px solid #1e1e1e;
+            border-bottom: 1px solid $border-color;
 
             i {
                 margin-left: 10px;
@@ -27,11 +27,11 @@
             overflow-x: hidden;
 
             .contact {
-                border-bottom: 1px solid #1e1e1e;
+                border-bottom: 1px solid $border-color;
                 padding: 10px;
                 display: block;
-                color: #1e1e1e;
-                background: #ffffff;
+                color: $border-color;
+                background: $primary;
 
                 .contact-avatar {
                     font-size: 20px;
@@ -49,7 +49,7 @@
                     -webkit-transform: translate(0%, 0%);
                     transform: translate(0%, 0%);
                     background: #8b1014;
-                    color: #ffffff;
+                    color: $primary;
                     pointer-events: none;
                 }
 
@@ -74,7 +74,7 @@
 
                 &:hover {
                     transition: all ease-in 0.15s;
-                    background: #c4c4c4;
+                    background: $primary-hover;
                 }
 
                 .contact-actions {
@@ -106,7 +106,7 @@
         }
 
         .search-contact {
-            border-top: 1px solid #1e1e1e;
+            border-top: 1px solid $border-color;
 
             input {
                 height: 5%;

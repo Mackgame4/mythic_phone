@@ -1,11 +1,13 @@
+$twitter: #039be5;
+
 .twitter-alert {
     display: none;
     width: 415px;
     min-width: 415px;
     max-width: 415px;
-    background: #039be5;
+    background: $twitter;
     border-radius: 10px;
-    color: #ffffff;
+    color: $primary;
     position: absolute;
     bottom: 5%;
     right: 1.5%;
@@ -18,12 +20,12 @@
     .twitter-alert-body {
         padding: 15px;
         font-size: 14px;
-        border-top: 1px solid #ffffff;
+        border-top: 1px solid $primary;
     }
 }
 
 #twitter-container {
-    background: #eaeaea;
+    background: $background;
     .inner-app {
         .twitter-header {
             padding: 10px 0;
@@ -31,7 +33,7 @@
             text-align: center;
             font-size: 30px;
             background: color('light-blue', 'darken-1');
-            color: #ffffff;
+            color: $primary;
 
             .fa-plus {
                 position: absolute;
@@ -54,12 +56,12 @@
         bottom: 0;
         overflow-y: auto;
         overflow-x: hidden;
-        border-top: 1px solid #1e1e1e;
+        border-top: 1px solid $border-color;
 
         .tweet {
-            background: #ffffff;
-            border-bottom: 1px solid #1e1e1e;
-            color: #1e1e1e;
+            background: $primary;
+            border-bottom: 1px solid $border-color;
+            color: $border-color;
             font-size: 17;
 
             .avatar {
@@ -78,7 +80,7 @@
                 -webkit-transform: translate(0%, 0%);
                 transform: translate(0%, 0%);
                 background: color('materialize-red', 'darken-4');
-                color: #ffffff;
+                color: $primary;
                 pointer-events: none;
             }
 

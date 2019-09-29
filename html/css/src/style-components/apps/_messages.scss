@@ -1,14 +1,14 @@
 #message-container {
-    background: #eaeaea;
+    background: $background;
 
     .inner-app {
         .messages-list {
             .message {
-                border-bottom: 1px solid #1e1e1e;
+                border-bottom: 1px solid $border-color;
                 height: 65px;
                 display: block;
-                background: #ffffff;
-                color: #1e1e1e;
+                background: $primary;
+                color: $border-color;
     
                 .text-avatar {
                     font-size: 20px;
@@ -26,7 +26,7 @@
                     -webkit-transform: translate(0%, 0%);
                     transform: translate(0%, 0%);
                     background: color("materialize-red", "darken-4");
-                    color: #ffffff;
+                    color: $primary;
                 }
     
                 .text-name {
@@ -56,7 +56,7 @@
     
                 &:hover {
                     transition: all ease-in 0.15s;
-                    background: #c4c4c4;
+                    background: $primary-hover;
                 }
             }
         }
@@ -85,14 +85,14 @@
 }
 
 #message-convo-container {
-    background: #eaeaea;
+    background: $background;
     z-index: 5;
 
     .inner-app {
         .convo-top-bar {
             padding: 10px;
             font-size: 15px;
-            color: #ffffff;
+            color: $primary;
             font-weight: bold;
             background: color("materialize-red", "darken-4");
 
@@ -143,7 +143,7 @@
                 width: fit-content;
                 display: block;
                 padding: 0 20px;
-                color: #ffffff;
+                color: $primary;
 
                 &:first-child {
                     margin-top: 10px;
@@ -160,7 +160,7 @@
                 p {
                     padding: 0;
                     margin: 0;
-                    color: #1e1e1e;
+                    color: $border-color;
                     font-size: 10px;
                     opacity: 0;
                 }
@@ -176,7 +176,7 @@
                     margin-left: auto;
 
                     span {
-                        background: #1e1e1e;
+                        background: $border-color;
                     }
 
                     p {
@@ -196,7 +196,7 @@
 
         .convo-text-input {
             height: 5%;
-            border-top: 1px solid #1e1e1e;
+            border-top: 1px solid $border-color;
 
             #convo-new-text {
                 -webkit-margin-after: 0;

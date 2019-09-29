@@ -1,5 +1,5 @@
 #phone-container {
-    background: #eaeaea;
+    background: $background;
 
     .inner-app {
         .phone-app-top {
@@ -16,7 +16,7 @@
                 }
 
                 &[data-section="keypad"] {
-                    color: #1e1e1e;
+                    color: $border-color;
 
                     .keypad-top {
                         height: 37%;
@@ -80,8 +80,8 @@
                     }
 
                     .keypad-keys {
-                        background: #ffffff;
-                        border-top: 1px solid #1e1e1e;
+                        background: $primary;
+                        border-top: 1px solid $border-color;
                         position: absolute;
                         width: 100%;
                         bottom: 8.5%;
@@ -97,7 +97,7 @@
                             &:hover {
                                 transition: all ease-in 0.15s;
                                 filter: brightness(85%);
-                                background: #c4c4c4;
+                                background: $primary-hover;
                             }
 
                             &.key-call {
@@ -116,7 +116,7 @@
                                     width: 85px;
                                     background: #1B5E20;
                                     border-radius: 100px;
-                                    color: #ffffff;
+                                    color: $primary;
                                     font-size: 35px;
                                 }
                             }
@@ -127,9 +127,9 @@
                 &[data-section="history"] {
                     .call {
                         padding: 10px;
-                        background: #ffffff;
-                        color: #1e1e1e;
-                        border-bottom: 1px solid #1e1e1e;
+                        background: $primary;
+                        color: $border-color;
+                        border-bottom: 1px solid $border-color;
 
                         &:hover {
                             background: #c4c4c4;
@@ -207,9 +207,9 @@
                         
                         .phone-contact {
                             padding: 10px;
-                            background: #ffffff;
-                            color: #1e1e1e;
-                            border-bottom: 1px solid #1e1e1e;
+                            background: $primary;
+                            color: $border-color;
+                            border-bottom: 1px solid $border-color;
                             line-height: 35px;
 
                             &:hover {
@@ -230,7 +230,7 @@
                                 -webkit-transform: translate(0%, 0%);
                                 transform: translate(0%, 0%);
                                 background: #8b1014;
-                                color: #ffffff;
+                                color: $primary;
                                 pointer-events: none;
                             }
                         
@@ -262,7 +262,7 @@
                     }
                     
                     .contact-search {
-                        border-top: 1px solid #1e1e1e;
+                        border-top: 1px solid $border-color;
                         width: 100%;
                         position: absolute;
                         bottom: 8.58%;
@@ -279,10 +279,10 @@
         .inner-phone-nav {
             position: absolute;
             bottom: 0;
-            color: #1e1e1e;
+            color: $border-color;
             width: 100%;
-            background: #ffffff;
-            border-top: 1px solid #1e1e1e;
+            background: $primary;
+            border-top: 1px solid $border-color;
 
             .phone-nav-button {
                 display: inline-block;
@@ -309,13 +309,13 @@
 }
 
 #phone-call-container {
-    background: #1e1e1e;
+    background: $border-color;
 
     .inner-app {
         .call-header {
             text-align: center;
             height: 50%;
-            color: #ffffff;
+            color: $primary;
             font-weight: bold;
             font-size: 20px;
 
@@ -328,8 +328,8 @@
                 margin-right: auto;
                 border-radius: 100px;
                 margin-top: 30%;
-                background: #ffffff;
-                color: #1e1e1e;
+                background: $primary;
+                color: $border-color;
 
                 &.call-pending {
                     transition: all ease-in 0.3s;
@@ -343,7 +343,7 @@
 
                 &.call-disconnected {
                     transition: all ease-in 0.3s;
-                    color: #ffffff;
+                    color: $primary;
                     background: color('materialize-red', 'darken-4');
                 }
             }
@@ -356,7 +356,7 @@
         .call-buttons {
             height: 30%;
             font-size: 55px;
-            color: #ffffff;
+            color: $primary;
             position: absolute;
             bottom: 15%;
             left: 0;
@@ -377,7 +377,7 @@
                     &:hover {
                         transition: all ease-in 0.15s;
                         filter: brightness(85%);
-                        background: #1e1e1e;
+                        background: $border-color;
                     }
 
                     span {
@@ -401,7 +401,7 @@
                             width: 85px;
                             background: color('materialize-red', 'darken-4');
                             border-radius: 100px;
-                            color: #ffffff;
+                            color: $primary;
                             font-size: 35px;
                         }
                     }
@@ -420,7 +420,7 @@
                             width: 85px;
                             background: color('green', 'darken-4');
                             border-radius: 100px;
-                            color: #ffffff;
+                            color: $primary;
                             font-size: 35px;
                         }
                     }
