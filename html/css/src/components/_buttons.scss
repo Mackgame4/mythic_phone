@@ -72,7 +72,7 @@
   transition: background-color .2s ease-out;
   cursor: pointer;
   &:hover {
-    background-color: $button-raised-background-hover;
+    filter: brightness(85%);
     @extend .z-depth-1-half;
   }
 }
