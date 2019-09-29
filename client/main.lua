@@ -1,8 +1,23 @@
 local isLoggedIn = false
 
+CharData = nil
 Callbacks = nil
 actionCb = {}
 isPhoneOpen = false
+
+AddEventHandler('mythic_base:shared:ComponentsReady', function()
+	Citizen.CreateThread(function()
+		while CharData == nil do
+			CharData = exports['mythic_base']:FetchComponent('Character')
+			Citizen.Wait(250)
+    end
+	end)
+end)
+
+RegisterNetEvent('mythic_base:client:CharacterDataChanged')
+AddEventHandler('mythic_base:client:CharacterDataChanged', function(charData)
+    CharData = charData
+end)
 
 RegisterNetEvent('mythic_phone:client:ActionCallback')
 AddEventHandler('mythic_phone:client:ActionCallback', function(identifier, data)
