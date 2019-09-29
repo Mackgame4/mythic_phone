@@ -6,6 +6,7 @@ import Contacts from './apps/contacts';
 import Phone from './apps/phone/phone';
 import Messages from './apps/messages/messages';
 import Twitter from './apps/twitter';
+import Adverts from './apps/yp';
 
 import Test from './test';
 
@@ -29,13 +30,16 @@ $(function() {
     $('.wrapper').fadeIn();
     Data.ClearData();
     Data.SetupData([
+        { name: 'myId', data: '199' },
+        { name: 'myName', data: 'Please Work' },
         { name: 'myNumber', data: '111-111-1111' },
         { name: 'contacts', data: Test.Contacts },
         { name: 'messages', data: Test.Messages },
         { name: 'history', data: Test.Calls },
         { name: 'apps', data: Config.Apps },
         { name: 'muted', data: false },
-        { name: 'tweets', data: Test.Tweets }
+        { name: 'tweets', data: Test.Tweets },
+        { name: 'adverts', data: Test.Adverts }
     ]);
 
     OpenApp('home', null, true);
@@ -163,13 +167,13 @@ $('.close-button').on('click', function(e) {
 $('#remove-sim-card').on('click', function(e) {
     var modal = M.Modal.getInstance($('#remove-sim-conf'));
     modal.close();
-    NotifyAltSim(false);
+    Utils.NotifyAltSim(false);
     M.toast({ html: 'Sim Removed' });
 });
 
 $('.mute').on('click', function(e) {
     let muted = Data.GetData('muted');
-    SetMute(!muted);
+    Utils.SetMute(!muted);
 });
 
 function ClosePhone() {
@@ -268,6 +272,9 @@ function OpenAppAction(app, data) {
             break;
         case 'twitter':
             Twitter.SetupTwitter();
+            break;
+        case 'ads':
+            Adverts.SetupAdverts();
             break;
     }
 }
