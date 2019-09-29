@@ -21,13 +21,10 @@ AddEventHandler('mythic_base:shared:ComponentsReady', function()
             local returnData = nil
             local char = exports['mythic_base']:FetchComponent('Fetch'):Source(source):GetData('character')
             local author = char:GetData('firstName') .. '_' .. char:GetData('lastName')
-            local message = data.message
-            local mentions = data.mentions
-            local hashtags = data.hashtags
             local users = exports['mythic_base']:FetchComponent('Fetch'):All()
 
-            if mentions ~= nil then
-                for k, v in pairs(mentions) do
+            if data.mentions ~= nil then
+                for k, v in pairs(data.mentions) do
                     for k2, v2 in pairs(users) do
                         local mPlayer = exports['mythic_base']:FetchComponent('Fetch'):Source(v2)
                         local c2 = mPlayer:GetData('character')
@@ -38,10 +35,11 @@ AddEventHandler('mythic_base:shared:ComponentsReady', function()
                 end
             end
     
-            exports['ghmattimysql']:execute('INSERT INTO phone_tweets (`author_id`, `author`, `message`) VALUES(@id, @author, @message)', { ['id'] = char:GetData('id'), ['author'] = author, ['message'] = message }, function(status)
+            exports['ghmattimysql']:execute('INSERT INTO phone_tweets (`author_id`, `author`, `message`) VALUES(@id, @author, @message)', { ['id'] = char:GetData('id'), ['author'] = author, ['message'] = data.message }, function(status)
                 if status.affectedRows > 0 then
                     tweet.author = author
-                    tweet.message = message
+                    tweet.message = data.message
+                    tweet.time = data.time
 
                     returnVal = tweet
                 else
