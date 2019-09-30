@@ -156,10 +156,20 @@ function SetupTwitter() {
 function ReceiveNewTweet(tweet) {
     if (notif != null) { clearTimeout(notif); }
 
+    if (tweets == null) {
+        tweets = Data.GetData('tweets');
+    }
+
+    tweets.push({
+        author: tweet.author,
+        message: tweet.message,
+        time: tweet.time
+    });
+    Data.StoreData('tweets', tweets);
+
     $('.twitter-alert-header')
         .find('span')
         .html(tweet.author);
-
     $('.twitter-alert-body').html(tweet.message);
     $('.twitter-alert').fadeIn();
     notif = setTimeout(function () {
