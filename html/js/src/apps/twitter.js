@@ -160,11 +160,7 @@ function ReceiveNewTweet(tweet) {
         tweets = Data.GetData('tweets');
     }
 
-    tweets.push({
-        author: tweet.author,
-        message: tweet.message,
-        time: tweet.time
-    });
+    tweets.push(tweet);
     Data.StoreData('tweets', tweets);
 
     $('.twitter-alert-header')
