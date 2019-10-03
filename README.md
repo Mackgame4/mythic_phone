@@ -40,11 +40,6 @@ Due to the scope of this project expanding I've ended up adding in some various 
 
 ------
 
-# Issues
-FOR THE FINAL TIME, THIS IS A WIP RESOURCE THAT IS NOT INTENDED FOR ANYONE TO ACTUALLY USE. If you decide to ignore the numerous warnings and make issues asking why shit doesn't work it'll just end up deleted. You'll also be blocked which applies [these](https://help.github.com/en/articles/blocking-a-user-from-your-organization) effects. So let's not, yeah?
-
-------
-
 # Screenshots
 
 ### Home
