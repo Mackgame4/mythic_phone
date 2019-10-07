@@ -303,6 +303,7 @@ function SetupCallType() {
 }
 
 function CreateCall(number, nonStandard, receiver) {
+    console.log(number);
     $.post(
         Config.ROOT_ADDRESS + '/CreateCall',
         JSON.stringify({
@@ -328,7 +329,7 @@ function CreateCall(number, nonStandard, receiver) {
 }
 
 function SetupCallHistory() {
-    myNumber = Data.GetData('myNumber');
+    myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     history = Data.GetData('history');
 

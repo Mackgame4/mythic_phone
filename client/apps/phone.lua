@@ -135,6 +135,7 @@ AddEventHandler('mythic_phone:client:ReceiveCall', function(number)
 end)
 
 RegisterNUICallback( 'CreateCall', function( data, cb )
+    print(data.number)
     actionCb['CreateCall'] = cb
     TriggerServerEvent('mythic_phone:server:CreateCall', securityToken, 'CreateCall', data.number, data.nonStandard)
 end)

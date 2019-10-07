@@ -11,9 +11,11 @@ AddEventHandler('mythic_base:server:CharacterSpawned', function()
     local cData = char:GetData()
 
     TriggerClientEvent('mythic_phone:client:SetupData', src, {
-        { name = 'myId', data = cData.id },
-        { name = 'myName', data = cData.firstName .. ' ' .. cData.lastName },
-        { name = 'myNumber', data = cData.phone },
+        { name = 'myData', data = {
+            id = cData.id,
+            name = cData.firstName .. ' ' .. cData.lastName,
+            phone = cData.phone
+        }},
         { name = 'apps', data = Config.Apps }
     })
 end)

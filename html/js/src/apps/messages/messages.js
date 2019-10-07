@@ -34,7 +34,7 @@ $('#message-new-msg').on('submit', function(e) {
 });
 
 function SetupMessages() {
-    myNumber = Data.GetData('myNumber');
+    myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     messages = Data.GetData('messages');
 

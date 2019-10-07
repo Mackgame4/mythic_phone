@@ -52,14 +52,15 @@ client_script {
     'config/apps.lua',
     'config/contacts.lua',
 
-    "client/main.lua",
-    "client/animation.lua",
+    'client/main.lua',
+    'client/animation.lua',
     
-	"client/apps/home.lua",
-	"client/apps/contacts.lua",
-	"client/apps/phone.lua",
-	"client/apps/messages.lua",
-	"client/apps/twitter.lua",
+	'client/apps/home.lua',
+	'client/apps/contacts.lua',
+	'client/apps/phone.lua',
+	'client/apps/messages.lua',
+	'client/apps/twitter.lua',
+	'client/apps/yp.lua',
 }
 
 server_script {
@@ -68,13 +69,14 @@ server_script {
     'config/apps.lua',
     'config/contacts.lua',
 
-    "server/main.lua",
-    "server/commands.lua",
+    'server/main.lua',
+    'server/commands.lua',
     
-	"server/apps/contacts.lua",
-	"server/apps/phone.lua",
-	"server/apps/messages.lua",
-	"server/apps/twitter.lua",
+	'server/apps/contacts.lua',
+	'server/apps/phone.lua',
+	'server/apps/messages.lua',
+	'server/apps/twitter.lua',
+	'server/apps/yp.lua',
 }
 
 dependencies {

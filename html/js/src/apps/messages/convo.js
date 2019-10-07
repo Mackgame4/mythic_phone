@@ -166,7 +166,7 @@ function ReceiveText(sender, text) {
     }
 
     if (myNumber == null) {
-        myNumber = Data.GetData('myNumber');
+        myNumber = Data.GetData('myData').phone;
     }
 
     messages.push({
@@ -181,7 +181,7 @@ function ReceiveText(sender, text) {
 }
 
 function SetupConvo(data) {
-    myNumber = Data.GetData('myNumber');
+    myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     messages = Data.GetData('messages');
 

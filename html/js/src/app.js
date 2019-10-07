@@ -30,9 +30,7 @@ $(function() {
     $('.wrapper').fadeIn();
     Data.ClearData();
     Data.SetupData([
-        { name: 'myId', data: '199' },
-        { name: 'myName', data: 'Please Work' },
-        { name: 'myNumber', data: '111-111-1111' },
+        { name: 'myData', data: Test.PlayerDetails },
         { name: 'contacts', data: Test.Contacts },
         { name: 'messages', data: Test.Messages },
         { name: 'history', data: Test.Calls },

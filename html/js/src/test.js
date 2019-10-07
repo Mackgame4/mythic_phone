@@ -1,3 +1,9 @@
+var PlayerDetails = {
+    id: 199,
+    name: 'Please Work',
+    phone: '111-111-1111'
+};
+
 var Contacts = [
     {
         name: 'Dickhole',
@@ -213,4 +219,31 @@ var Tweets = [
     }
 ];
 
-export default { Contacts, Messages, Calls, Tweets };
+var Adverts = [
+    {
+        author: 'sdf Work',
+        phone: '111-111-1111',
+        date: 1516263235000,
+        title: 'Advert Title',
+        message: 'This Is An Advert Lol',
+
+    },
+    {
+        author: 'Test Work',
+        phone: '555-555-5555',
+        date: 1566263235000,
+        title: 'Advert Title',
+        message: 'This Is An Advert Lol',
+
+    },
+    {
+        author: 'Rawr Work',
+        phone: '555-555-5555',
+        date: 1566263235000,
+        title: 'Advert Title',
+        message: 'This Is An Advert Lol',
+
+    },
+];
+
+export default { PlayerDetails, Contacts, Messages, Calls, Tweets, Adverts };

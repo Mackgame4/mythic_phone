@@ -1,6 +1,7 @@
 import App from '../app';
 import Config from '../config';
 import Data from '../data';
+import Phone from './phone/phone';
 
 var contacts = null;
 var editingContact = null;
@@ -271,7 +272,7 @@ $('.contacts-list').on('click', 'contact-actions .action-call', function(e) {
         .parent()
         .parent()
         .data('contact');
-    CreateCall(data.number, false, false);
+    Phone.CreateCall(data.number, false, false);
 });
 
 $('.contacts-list').on('click', '.contact-actions .action-text', function(e) {
