@@ -276,7 +276,7 @@ function OpenAppAction(app, data) {
             Adverts.SetupAdverts();
             break;
         case 'tuner':
-            Tuner.SetupTuner();
+            Tuner.SetupTuner(true);
             break;
     }
 }

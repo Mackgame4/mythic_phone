@@ -7,8 +7,6 @@ $('.tuner-nav').on('click', function(e) {
     if ($(this).data('disabled')) return;
 
     let app = $(this).data('section');
-    $('.no-chip-error').fadeOut('fast');
-    $('.tuner-nav').removeData('disabled');
     App.OpenApp(`tuner-${app}`, null);
 });
 
@@ -16,14 +14,17 @@ $('#no-chip-quit').on('click', function() {
     App.GoBack();
 })
 
-function SetupTuner() {
-    $('.no-chip-error').show('scale', function() {
-        $('.tuner-nav').data('disabled', true);
-    });
+function SetupTuner(tunerActive) {
+    if (!tunerActive) {
+        $('.no-chip-error').show('scale', function() {
+            $('.tuner-nav').data('disabled', true);
+        });
+    }
 }
 
 function CloseApp() {
-
+    $('.no-chip-error').hide();
+    $('.tuner-nav').removeData('disabled');
 }
 
 export default { SetupTuner, CloseApp }

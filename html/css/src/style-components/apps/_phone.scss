@@ -74,7 +74,7 @@
                             
                             &:hover {
                                 transition: all ease-in 0.15s;
-                                color: color("materialize-red", "darken-4");
+                                color: $main-color;
                             }
                         }
                     }
@@ -114,7 +114,7 @@
                                 i {
                                     padding: 24px;
                                     width: 85px;
-                                    background: #1B5E20;
+                                    background: color('green', 'darken-4');
                                     border-radius: 100px;
                                     color: $primary;
                                     font-size: 35px;
@@ -132,7 +132,7 @@
                         border-bottom: 1px solid $border-color;
 
                         &:hover {
-                            background: #c4c4c4;
+                            background: $primary-hover;
                         }
 
                         i {
@@ -141,11 +141,11 @@
                             pointer-events: none;
 
                             &.icon-outgoing {
-                                color: #ff0000;
+                                color: $main-color;
                             }
     
                             &.icon-incoming {
-                                color: #1e8100;
+                                color: color('green', 'darken-4');
                             }
                         }
                         
@@ -185,14 +185,14 @@
                         
                             &:hover {
                                 transition: all ease-in 0.15s;
-                                color: color("materialize-red", "darken-4");
+                                color: $main-color;
                             }
 
                             &.action-disabled {
-                                color: #3f3f3f !important;
+                                color: $disabled !important;
         
                                 &:hover {
-                                    color: #3f3f3f !important;
+                                    color: $disabled !important;
                                 }
                             }
                         }
@@ -214,7 +214,7 @@
 
                             &:hover {
                                 transform: all ease-in 0.15s;
-                                background: #c4c4c4;
+                                background: $primary-hover;
                             }
 
                             .phone-avatar {
@@ -229,7 +229,7 @@
                                 text-align: center;
                                 -webkit-transform: translate(0%, 0%);
                                 transform: translate(0%, 0%);
-                                background: #8b1014;
+                                background: $main-color;
                                 color: $primary;
                                 pointer-events: none;
                             }
@@ -246,14 +246,14 @@
                                 
                                     &:hover {
                                         transition: all ease-in 0.15s;
-                                        color: color("materialize-red", "darken-4");
+                                        color: $main-color;
                                     }
         
                                     &.action-disabled {
-                                        color: #3f3f3f !important;
+                                        color: $disabled !important;
                 
                                         &:hover {
-                                            color: #3f3f3f !important;
+                                            color: $disabled !important;
                                         }
                                     }
                                 }
@@ -294,14 +294,14 @@
                 border-bottom: 5px solid transparent;
 
                 &.active-nav {
-                    border-bottom: 5px solid color("materialize-red", "darken-4");
+                    border-bottom: 5px solid $main-color;
                 }
 
                 &:hover {
                     cursor: pointer;
                     transition: all ease-in 0.3s;
-                    color: color("materialize-red", "darken-4");
-                    border-bottom: 5px solid color("materialize-red", "darken-4");
+                    color: $main-color;
+                    border-bottom: 5px solid $main-color;
                 }
             }
         }
@@ -344,7 +344,7 @@
                 &.call-disconnected {
                     transition: all ease-in 0.3s;
                     color: $primary;
-                    background: color('materialize-red', 'darken-4');
+                    background: $main-color;
                 }
             }
 
@@ -399,7 +399,7 @@
                         i {
                             padding: 24px;
                             width: 85px;
-                            background: color('materialize-red', 'darken-4');
+                            background: $main-color;
                             border-radius: 100px;
                             color: $primary;
                             font-size: 35px;

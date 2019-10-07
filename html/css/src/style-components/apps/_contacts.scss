@@ -6,7 +6,7 @@
             width: 100%;
             padding: 10px;
             text-align: center;
-            background: color("materialize-red", "darken-4");
+            background: $main-color;
             color: $primary;
             font-weight: bold;
             border-bottom: 1px solid $border-color;
@@ -17,7 +17,7 @@
 
             &:hover {
                 transition: all ease-in 0.15s;
-                background: color("materialize-red", "darken-2");
+                filter: brightness(85%);
             }
         }
 
@@ -48,7 +48,7 @@
                     top: 15%;
                     -webkit-transform: translate(0%, 0%);
                     transform: translate(0%, 0%);
-                    background: #8b1014;
+                    background: $main-color;
                     color: $primary;
                     pointer-events: none;
                 }
@@ -90,14 +90,14 @@
                     
                         &:hover {
                             transition: all ease-in 0.15s;
-                            color: color("materialize-red", "darken-4");
+                            color: $main-color;
                         }
 
                         &.action-disabled {
-                            color: #3f3f3f !important;
+                            color: $disabled !important;
     
                             &:hover {
-                                color: #3f3f3f !important;
+                                color: $disabled !important;
                             }
                         }
                     }

@@ -79,7 +79,7 @@ $twitter: #039be5;
                 top: 15%;
                 -webkit-transform: translate(0%, 0%);
                 transform: translate(0%, 0%);
-                background: color('materialize-red', 'darken-4');
+                background: $main-color;
                 color: $primary;
                 pointer-events: none;
             }
@@ -116,7 +116,7 @@ $twitter: #039be5;
                 }
 
                 .hashtag {
-                    color: color('materialize-red', 'darken-4');
+                    color: $main-color;
                     font-weight: bold;
 
                     &:hover {

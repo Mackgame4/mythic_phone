@@ -25,7 +25,7 @@
                     top: 15%;
                     -webkit-transform: translate(0%, 0%);
                     transform: translate(0%, 0%);
-                    background: color("materialize-red", "darken-4");
+                    background: $main-color;
                     color: $primary;
                 }
     
@@ -94,7 +94,7 @@
             font-size: 15px;
             color: $primary;
             font-weight: bold;
-            background: color("materialize-red", "darken-4");
+            background: $main-color;
 
             i.back-button {
                 float: left;
@@ -154,7 +154,7 @@
                     display: inline-block;
                     padding: 10px 20px 10px 20px;
                     border-radius: 10px;
-                    background: color("materialize-red", "darken-4");
+                    background: $main-color;
                 }
 
                 p {
@@ -231,7 +231,7 @@
                     
                     &:hover {
                         transition: all ease-in 0.15s;
-                        color: color("materialize-red", "darken-4");
+                        color: $main-color;
                     }
                 }
             }
