@@ -7,6 +7,7 @@ import Phone from './apps/phone/phone';
 import Messages from './apps/messages/messages';
 import Twitter from './apps/twitter';
 import Adverts from './apps/yp';
+import Tuner from './apps/tuner';
 
 import Test from './test';
 
@@ -274,6 +275,9 @@ function OpenAppAction(app, data) {
         case 'ads':
             Adverts.SetupAdverts();
             break;
+        case 'tuner':
+            Tuner.SetupTuner();
+            break;
     }
 }
 
@@ -284,6 +288,9 @@ function CloseAppAction(app) {
             break;
         case 'phone-call':
             Phone.Call.CloseCallActive();
+            break;
+        case 'tuner':
+            Tuner.CloseApp();
             break;
     }
 }
