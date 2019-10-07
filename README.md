@@ -34,6 +34,7 @@ Due to the scope of this project expanding I've ended up adding in some various 
 * [jQuery](https://jquery.com/)
 * [jQuery Inputmask](http://igorescobar.github.io/jQuery-Mask-Plugin/)
 * [jQuery UI](https://jqueryui.com/)
+* [noUiSlider](https://github.com/leongersen/noUiSlider)
 * [Materialize](https://materializecss.com/)
 * [Moment.js](https://momentjs.com/)
 * [FontAwesome](https://fontawesome.com/)
