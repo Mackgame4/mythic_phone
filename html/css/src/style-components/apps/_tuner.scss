@@ -96,3 +96,30 @@
         }
     }
 }
+
+#tuner-quick-container {
+    background: $background;
+
+    .inner-app {
+        .tuner-header {
+            text-align: center;
+            font-family: monospace;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid $border-color;
+
+            h3 {
+                color: $main-color;
+                font-size: 35px;
+                font-weight: bold;
+            }
+
+            h5 {
+                color: $alt-text;
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
+    }
+}
