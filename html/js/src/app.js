@@ -14,7 +14,8 @@ import Test from './test';
 var appTrail = [
     {
         app: null,
-        data: null
+        data: null,
+        fade: null
     }
 ];
 
@@ -58,7 +59,8 @@ window.addEventListener('message', function(event) {
                 appTrail = [
                     {
                         app: 'home',
-                        data: null
+                        data: null,
+                        fade: false
                     }
                 ];
                 OpenApp(
@@ -184,39 +186,64 @@ function ClosePhone() {
         appTrail = [
             {
                 app: null,
-                data: null
+                data: null,
+                fade: null
             }
         ];
     });
 }
 
-function OpenApp(app, data = null, pop = false) {
+function OpenApp(app, data = null, pop = false, disableFade = false) {
     if ($('#' + app + '-container').length == 0 || appTrail.length == 0) return;
 
     if (appTrail[appTrail.length - 1].app !== app) {
         if ($('.active-container').length > 0) {
-            $('.active-container').fadeOut('fast', function() {
+            if (disableFade) {
+                $('.active-container').hide();
                 $('.active-container').removeClass('active-container');
+                $('#' + app + '-container').show()
+                $('#' + app + '-container').addClass('active-container');
 
-                $('#' + app + '-container').fadeIn('fast', function() {
-                    $('.active-container').removeClass('active-container');
-                    $('#' + app + '-container').addClass('active-container');
+                CloseAppAction(appTrail[appTrail.length - 1].app);
+                if (pop) {
+                    appTrail.pop();
+                    disableFade = appTrail[appTrail.length - 1].fade;
+                    appTrail.pop();
+                }
 
-                    CloseAppAction(appTrail[appTrail.length - 1].app);
-                    if (pop) {
-                        appTrail.pop();
-                        appTrail.pop();
-                    }
-
-                    appTrail.push({
-                        app: app,
-                        data: data
-                    });
+                appTrail.push({
+                    app: app,
+                    data: data,
+                    fade: disableFade
                 });
 
                 $('.material-tooltip').remove();
                 OpenAppAction(app, data);
-            });
+            } else {
+                $('.active-container').fadeOut('fast', function() {
+                    $('.active-container').removeClass('active-container');
+    
+                    $('#' + app + '-container').fadeIn('fast', function() {
+                        $('.active-container').removeClass('active-container');
+                        $('#' + app + '-container').addClass('active-container');
+    
+                        CloseAppAction(appTrail[appTrail.length - 1].app);
+                        if (pop) {
+                            appTrail.pop();
+                            appTrail.pop();
+                        }
+    
+                        appTrail.push({
+                            app: app,
+                            data: data,
+                            fade: disableFade
+                        });
+                    });
+    
+                    $('.material-tooltip').remove();
+                    OpenAppAction(app, data);
+                });
+            }
         } else {
             $('#' + app + '-container').fadeIn('fast', function() {
                 $('.active-container').removeClass('active-container');
@@ -230,7 +257,8 @@ function OpenApp(app, data = null, pop = false) {
 
                 appTrail.push({
                     app: app,
-                    data: data
+                    data: data,
+                    fade: disableFade
                 });
             });
 
@@ -309,7 +337,8 @@ function GoBack() {
             OpenApp(
                 appTrail[appTrail.length - 2].app,
                 appTrail[appTrail.length - 2].data,
-                true
+                true,
+                appTrail[appTrail.length - 1].fade
             );
         } else {
             GoHome();

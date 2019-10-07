@@ -7,7 +7,7 @@ $('.tuner-nav').on('click', function(e) {
     if ($(this).data('disabled')) return;
 
     let app = $(this).data('section');
-    App.OpenApp(`tuner-${app}`, null);
+    App.OpenApp(`tuner-${app}`, null, false, true);
 });
 
 $('#no-chip-quit').on('click', function() {
