@@ -11,4 +11,4 @@ function CloseApp() {
     $('#tuner-quick').fadeOut();
 }
 
-export default { OpenApp }
+export default { OpenApp, CloseApp }

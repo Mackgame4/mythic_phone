@@ -102,6 +102,8 @@
                     }
 
                     &.tuner-nav {
+                        display: none;
+                        
                         span {
                             display: block;
                             height: fit-content;
@@ -172,7 +174,7 @@
 
         #tuner-quick {
             display: none;
-            
+
             .tuner-quick-body {
                 height: 81.2%;
                 background-color: $alt-text;

@@ -24,9 +24,15 @@ function OpenApp(tunerActive) {
             $('.tuner-nav').data('disabled', true);
         });
     } else {
-        timer = setTimeout(function() {
-            $('#tuner-home-screen').fadeIn('normal');
-        }, 5000)
+        $('#tuner-home-screen').fadeIn('normal');
+
+        $('.tuner-nav').each(function() {
+            let element = this;
+            setTimeout(function() {
+                console.log("??");
+                $(element).fadeIn('normal');
+            }, 1000);
+        });
     }
 }
 
