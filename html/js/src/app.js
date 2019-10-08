@@ -7,7 +7,7 @@ import Phone from './apps/phone/phone';
 import Messages from './apps/messages/messages';
 import Twitter from './apps/twitter';
 import Adverts from './apps/yp';
-import Tuner from './apps/tuner';
+import Tuner from './apps/tuner/home';
 
 import Test from './test';
 
@@ -279,32 +279,35 @@ function RefreshApp() {
 function OpenAppAction(app, data) {
     switch (app) {
         case 'home':
-            Home.SetupHome();
+            Home.OpenApp();
             break;
         case 'contacts':
-            Contacts.SetupContacts();
+            Contacts.OpenApp();
             break;
         case 'message':
-            Messages.SetupMessages();
+            Messages.OpenApp();
             Messages.SetupNewMessage();
             break;
         case 'message-convo':
-            Messages.Convo.SetupConvo(data);
+            Messages.Convo.OpenApp(data);
             break;
         case 'phone':
-            Phone.SetupCallHistory();
+            Phone.OpenApp();
             break;
         case 'phone-call':
-            Phone.Call.SetupCallActive(data);
+            Phone.Call.OpenApp(data);
             break;
         case 'twitter':
-            Twitter.SetupTwitter();
+            Twitter.OpenApp();
             break;
         case 'ads':
-            Adverts.SetupAdverts();
+            Adverts.OpenApp();
             break;
         case 'tuner':
-            Tuner.SetupTuner(true);
+            Tuner.OpenApp(true);
+            break;
+        case 'tuner-quick':
+            Tuner.Quick.OpenApp();
             break;
     }
 }
@@ -312,13 +315,16 @@ function OpenAppAction(app, data) {
 function CloseAppAction(app) {
     switch (app) {
         case 'message-convo':
-            Messages.Convo.CloseConvo();
+            Messages.Convo.CloseApp();
             break;
         case 'phone-call':
-            Phone.Call.CloseCallActive();
+            Phone.Call.CloseApp();
             break;
         case 'tuner':
             Tuner.CloseApp();
+            break;
+        case 'tuner-quick':
+            Tuner.Quick.CloseApp();
             break;
     }
 }

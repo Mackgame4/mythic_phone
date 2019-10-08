@@ -328,7 +328,7 @@ function CreateCall(number, nonStandard, receiver) {
     );
 }
 
-function SetupCallHistory() {
+function OpenApp() {
     myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     history = Data.GetData('history');
@@ -474,4 +474,4 @@ function SetupCallContacts() {
     });
 }
 
-export default { SetupCallHistory, CreateCall, Call };
+export default { OpenApp, CreateCall, Call };

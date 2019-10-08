@@ -7,7 +7,7 @@ $('#home-container').on('click', '.app-button', function(event) {
     App.OpenApp($(this).data('container'));
 });
 
-function SetupHome() {
+function OpenApp() {
     apps = Data.GetData('apps');
     $('#home-container .inner-app').html('');
     $.each(apps, function(index, app) {
@@ -82,4 +82,4 @@ function UpdateUnread(name, unread) {
     SetupHome();
 }
 
-export default { SetupHome, ToggleApp, UpdateUnread };
+export default { OpenApp, ToggleApp, UpdateUnread };

@@ -150,7 +150,7 @@ function DeleteAdvertData(id) {
     });
 }
 
-function SetupAdverts() {
+function OpenApp() {
     let phone = Data.GetData('myData').phone;
     ads = Data.GetData('adverts');
 
@@ -187,4 +187,4 @@ function DeleteAdvert(id) {
     }
 }
 
-export default { SetupAdverts, ReceiveNewAdvert, DeleteAdvert };
+export default { OpenApp, ReceiveNewAdvert, DeleteAdvert };

@@ -33,7 +33,7 @@ $('#message-new-msg').on('submit', function(e) {
     });
 });
 
-function SetupMessages() {
+function OpenApp() {
     myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     messages = Data.GetData('messages');
@@ -176,4 +176,4 @@ function SendNewText(data, cb) {
     );
 }
 
-export default { SetupMessages, SetupNewMessage, SendNewText, Convo };
+export default { OpenApp, SetupNewMessage, SendNewText, Convo };

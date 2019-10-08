@@ -332,7 +332,7 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
     );
 });
 
-function SetupContacts() {
+function OpenApp() {
     contacts = Data.GetData('contacts');
     contacts.sort(SortContacts);
     $('.contacts-list').html('');
@@ -359,4 +359,4 @@ function SortContacts(a, b) {
     return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
 }
 
-export default { SetupContacts, SortContacts };
+export default { OpenApp, SortContacts };

@@ -130,7 +130,7 @@ function IsCallPending() {
     return callPending != null || activeCallTimer != null;
 }
 
-function SetupCallActive(data) {
+function OpenApp(data) {
     if (activeCallTimer != null || data == null) {
         CallAnswered();
         return;
@@ -204,7 +204,7 @@ function SetupCallActive(data) {
     }
 }
 
-function CloseCallActive() {
+function CloseApp() {
     if (activeCallTimer != null) {
         $('.phone-header').addClass('in-call');
         $('.phone-header .in-call').fadeIn();
@@ -238,8 +238,8 @@ function CloseCallActive() {
 }
 
 export default {
-    SetupCallActive,
-    CloseCallActive,
+    OpenApp,
+    CloseApp,
     IsCallPending,
     CallAnswered,
     CallHungUp

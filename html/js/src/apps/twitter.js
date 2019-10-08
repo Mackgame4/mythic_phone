@@ -138,7 +138,7 @@ function AddTweet(tweet) {
     $('.twitter-body .tweet:first-child').data('data', tweet);
 }
 
-function SetupTwitter() {
+function OpenApp() {
     tweets = Data.GetData('tweets');
 
     if (tweets == null) {
@@ -185,4 +185,4 @@ function ReceiveNewTweet(tweet) {
     }
 }
 
-export default { SetupTwitter, ReceiveNewTweet };
+export default { OpenApp, ReceiveNewTweet };

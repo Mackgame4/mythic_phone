@@ -180,7 +180,7 @@ function ReceiveText(sender, text) {
     Data.StoreData('messages', messages);
 }
 
-function SetupConvo(data) {
+function OpenApp(data) {
     myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     messages = Data.GetData('messages');
@@ -274,7 +274,7 @@ function SetupConvo(data) {
     }
 }
 
-function CloseConvo() {
+function CloseApp() {
     myNumber = null;
     contacts = null;
     messages = null;
@@ -283,4 +283,4 @@ function CloseConvo() {
     $('.convo-top-bar').attr('class', 'convo-top-bar');
 }
 
-export default { SetupConvo, CloseConvo, ReceiveText };
+export default { OpenApp, CloseApp, ReceiveText };
