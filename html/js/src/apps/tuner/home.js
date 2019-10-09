@@ -1,7 +1,4 @@
 import App from '../../app';
-import Config from '../../config';
-import Utils from '../../utils';
-import Data from '../../data';
 import Quick from './quick';
 import Custom from './custom';
 import Legal from './legal';

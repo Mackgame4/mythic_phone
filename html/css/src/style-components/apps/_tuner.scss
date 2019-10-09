@@ -228,22 +228,51 @@ $tuner-color: color('teal', 'darken-4');
     }
 
     #custom-tunes-popup {
-        .tuner-options {
-            margin-bottom: 10px;
-        
-            &:last-child {
-                margin-bottom: 0;
+        .tabs {
+            .tab {
+                a {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: $alt-text;
+
+                    &:hover, &.active {
+                        color: $tuner-color;
+                        background: transparent;
+                    }
+                }
             }
 
-            .quick-tune-button {
-                width: 80%;
-                margin: 0;
-                margin-right: -10px;
+            .indicator {
+                background-color: $tuner-color;
             }
+        }
+        #car-only, #generic {
+            margin-top: 10px;
+            
+            .tuner-options {
+                margin-bottom: 10px;
+            
+                &:last-child {
+                    margin-bottom: 0;
+                }
+    
+                .quick-tune-button {
+                    width: 80%;
+                    margin: 0;
+                    margin-right: -10px;
+                }
+    
+                .quick-tune-delete {
+                    width: 20%;
+                    margin: 0;
 
-            .quick-tune-delete {
-                width: 20%;
-                margin: 0;
+                    &.disabled {
+                        background-color: $alt-text !important;
+                        color: $primary !important;
+                        border-radius: 0 !important;
+                        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2) !important;
+                    }
+                }
             }
         }
     }

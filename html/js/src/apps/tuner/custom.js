@@ -1,8 +1,6 @@
 import App from '../../app';
 import Config from '../../config';
-import Utils from '../../utils';
 import Data from '../../data';
-import Saved from './saved';
 
 var sliders = {
     boost: document.getElementById('slider-boost'),
@@ -19,7 +17,7 @@ $(function() {
             start: [50],
             connect: [true, false],
             step: 10,
-            orientation: 'horizontal', // 'horizontal' or 'vertical'
+            orientation: 'horizontal',
             range: {
                 'min': 0,
                 'max': 100
@@ -36,49 +34,57 @@ $(function() {
 $('#new-tune').on('submit', function(e) {
     e.preventDefault();
     let data = $(this).serializeArray();
-    let tune = {
+    let tunes = Data.GetData('custom-tunes');
+
+    $.post(Config.ROOT_ADDRESS + 'TunerNew', JSON.stringify({
         label: data[0].value,
-        carOnly: data[1].value === "on" ? true : false,
+        carOnly: data[1] != null ? true : false,
         carModel: null,
         boost: sliders.boost.noUiSlider.get(),
         throttle: sliders.throttle.noUiSlider.get(),
         tranny: sliders.tranny.noUiSlider.get(),
         brakes: sliders.brakes.noUiSlider.get(),
         dt: sliders.dt.noUiSlider.get()
-    }
-
-    Data.AddData('custom-tunes', {
-        id: tunes[tunes.length - 1].id + 1,
-        label: tune.label,
-        carOnly: tune.carOnly,
-        carModel: tune.carModel,
-        boost: tune.boost,
-        throttle: tune.throttle,
-        tranny: tune.tranny,
-        brakes: tune.brakes,
-        dt: tune.dt
+    }), function(tune) {
+        if (tune != null) {
+            Data.AddData('custom-tunes', tune);
+            M.toast({ html: 'Tune Saved' });
+            let modal = M.Modal.getInstance($('#save-tune-popup'));
+            modal.close();
+        } else {
+            M.toast({ html: 'Error Saving Tune' });
+        }
     });
-
-    let modal = M.Modal.getInstance($('#save-tune-popup'));
-    modal.close();
 })
 
 $('#tuner-custom-saved').on('click', function() {
     //App.OpenApp('tuner-saved', null, false, true);
 
     let tunes = Data.GetData('custom-tunes');
-    $('#custom-tunes-popup').find('.modal-content').html('');
-    $('#custom-tunes-popup').find('.modal-content').append('<h5>Your Saved Tunes</h5>');
-    $.each(tunes, function(index, tune) {
-        $('#custom-tunes-popup').find('.modal-content').append(`
-            <div class="tuner-options">
-                <button type="button" class="btn waves-effect waves-light teal darken-4 quick-tune-button">${tune.label}</button>
-                <button type="button" class="btn waves-effect waves-light materialize-red darken-4 quick-tune-delete"><i class="fas fa-trash-alt"></i></button>
-            </div>
-        `);
+    let factory = Data.GetData('factory-tunes');
+    $('#custom-tunes-popup').find('#car-only').html('');
+    $('#custom-tunes-popup').find('#generic').html('');
 
-        $('#custom-tunes-popup .tuner-options:last-child').find('.quick-tune-button').data('tune', tune);
+    let testModel = 'RUINER'; // TODO : Update to pull current car model
+    let carOnly = tunes.filter(function(tune) {
+        return tune.carOnly && tune.carModel === testModel;
     });
+
+    let generic = tunes.filter(function(tune) {
+        return !tune.carOnly;
+    });
+
+    if (carOnly.length > 0) {
+        CreateSavedTuneList($('#custom-tunes-popup').find('#car-only'), carOnly);
+    } else {
+        $('#tab-car-only').removeClass('active');
+        $('#tab-generic').addClass('active');
+        let tabs = M.Tabs.getInstance($('#custom-tunes-tabs'));
+        tabs.updateTabIndicator();
+    }
+
+    CreateSavedTuneList($('#custom-tunes-popup').find('#generic'), factory, true);
+    CreateSavedTuneList($('#custom-tunes-popup').find('#generic'), generic);
 
     let modal = M.Modal.getInstance($('#custom-tunes-popup'));
     modal.open();
@@ -86,7 +92,6 @@ $('#tuner-custom-saved').on('click', function() {
 
 $('#custom-tunes-popup').on('click', '.quick-tune-button', function(e) {
     let tune = $(this).data('tune');
-    console.log(tune);
     sliders.boost.noUiSlider.set(tune.boost);
     sliders.throttle.noUiSlider.set(tune.throttle);
     sliders.tranny.noUiSlider.set(tune.tranny);
@@ -97,7 +102,25 @@ $('#custom-tunes-popup').on('click', '.quick-tune-button', function(e) {
 
     let modal = M.Modal.getInstance($('#custom-tunes-popup'));
     modal.close();
-})
+});
+
+$('#custom-tunes-popup').on('click', '.quick-tune-delete', function(e) {
+    let tune = $(this).parent().find('.quick-tune-button').data('tune');
+
+    $.post(Config.ROOT_ADDRESS + '/TunerDelete', JSON.stringify({
+        id: tune.id
+    }), function(status) {
+        if (status) {
+            Data.RemoveObjectData('custom-tunes', 'id', tune.id);
+            $(this).parent().fadeOut('fast', function() {
+                $(this).remove();
+            });
+            M.toast({ html: 'Tune Deleted' });
+        } else {
+
+        }
+    })
+});
 
 $('#tuner-custom-quick').on('click', function() {
     App.OpenApp('tuner-quick', null, false, true);
@@ -106,6 +129,19 @@ $('#tuner-custom-quick').on('click', function() {
 $('#tuner-custom-apply').on('click', function() {
     ApplyTune();
 });
+
+function CreateSavedTuneList(element, tunes, removeDelete = false) {
+    $.each(tunes, function(index, tune) {
+        element.append(`
+            <div class="tuner-options">
+                <button type="button" class="btn waves-effect waves-light teal darken-4 quick-tune-button">${tune.label}</button>
+                <button type="button" class="btn waves-effect waves-light materialize-red darken-4 quick-tune-delete${removeDelete ? ' disabled' : ''}"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        `);
+
+        element.find('.tuner-options:last-child .quick-tune-button').data('tune', tune);
+    });
+}
 
 function ApplyTune(tune) {
     let boost = sliders.boost.noUiSlider.get();

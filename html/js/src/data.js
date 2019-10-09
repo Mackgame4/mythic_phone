@@ -22,6 +22,16 @@ function RemoveData(name, index) {
     StoreData(name, arr);
 }
 
+function RemoveObjectData(name, key, value) {
+    let arr = GetData(name);
+    $.each(arr, function(index, item) {
+        if (item[key] == value) {
+            RemoveData(name, index);
+            return false;
+        }
+    });
+}
+
 function UpdateData(name, index, data) {
     let arr = GetData(name);
     arr[index] = data;
@@ -51,4 +61,4 @@ function ClearData() {
     window.localStorage.clear();
 }
 
-export default { SetupData, StoreData, AddData, RemoveData, UpdateData, GetData, ClearData, StoreDataLua, GetDataLua };
+export default { SetupData, StoreData, AddData, RemoveData, RemoveObjectData, UpdateData, GetData, ClearData, StoreDataLua, GetDataLua };
