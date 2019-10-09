@@ -309,6 +309,12 @@ function OpenAppAction(app, data) {
         case 'tuner-quick':
             Tuner.Quick.OpenApp();
             break;
+        case 'tuner-custom':
+            Tuner.Custom.OpenApp();
+            break;
+        case 'tuner-legal':
+            Tuner.Legal.OpenApp();
+            break;
     }
 }
 
@@ -325,6 +331,12 @@ function CloseAppAction(app) {
             break;
         case 'tuner-quick':
             Tuner.Quick.CloseApp();
+            break;
+        case 'tuner-custom':
+            Tuner.Custom.CloseApp();
+            break;
+        case 'tuner-legal':
+            Tuner.Legal.CloseApp();
             break;
     }
 }

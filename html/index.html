@@ -6,6 +6,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="libs/all.min.css" />
         <link rel="stylesheet" type="text/css" href="libs/jquery-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="libs/nouislider.min.css" />
         <link rel="stylesheet" type="text/css" href="css/materialize.min.css" />
         <link rel="stylesheet" type="text/css" href="css/style.min.css" />
     </head>
@@ -347,9 +348,6 @@
                                         <div class="error-body">
                                             No tuner chip detected, if you believe this is an error please contact the authorized dealer that installed the chip.
                                         </div>
-                                        <div class="error-button">
-                                            <button type="button" class="btn waves-effect waves-light materialize-red darken-4" id="no-chip-quit">Quit App</button>
-                                        </div>
                                     </div>
                                 </div>
                                 <div id="tuner-home-screen">
@@ -358,27 +356,46 @@
                                         <h5>Making Your Shitcan Go Fast</h5>
                                     </div>
                                     <div class="tuner-section" id="tuner-home">
-                                        <div class="tuner-button tuner-nav waves-effect waves-light" data-section="quick">
+                                        <div class="btn waves-effect waves-light tuner-button tuner-nav waves-effect waves-light" data-section="quick">
                                             <span>
                                                 <i class="fas fa-cog"></i>
                                                 Quick Tunes
                                             </span>
                                         </div>
-                                        <div class="tuner-button tuner-nav waves-effect waves-light" data-section="custom">
+                                        <div class="btn waves-effect waves-light tuner-button tuner-nav waves-effect waves-light" data-section="custom">
                                             <span>
                                                 <i class="fas fa-wrench"></i>
                                                 Custom Tune
                                             </span>
                                         </div>
-                                        <div class="tuner-button tuner-nav waves-effect waves-light" data-section="info">
+                                        <div class="btn waves-effect waves-light tuner-button tuner-nav waves-effect waves-light" data-section="info">
                                             <span>
                                                 <i class="fas fa-car"></i>
                                                 Vehicle Info
                                             </span>
                                         </div>
-                                        <div class="disclaimer">
-                                                This application & any underlying hardware is provided as is without any guarantees or warranty. In association with the product, Mythic Automotive Group makes no warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, of title, or of noninfringement of third party rights. Mythic Automotive Group holds absolutely no liability for legal implications of using this application or the Mythic Tuning Chip. Use of the product by a user is at the user’s risk.
+                                        <div class="btn waves-effect waves-light tuner-button tuner-nav waves-effect waves-light" data-section="legal">
+                                            <span>
+                                                <i class="fas fa-balance-scale"></i>
+                                                Legal Disclaimer
+                                            </span>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="app-container" id="tuner-legal-container">
+                            <div class="inner-app">
+                                <div class="tuner-header">
+                                    <h3>Mythic Tuner</h3>
+                                    <h5>Making Your Shitcan Go Fast</h5>
+                                </div>
+                                <div class="legal-notice-wrapper">
+                                    <div class="disclaimer-header">
+                                        <h3>Mythic Auto Group Legal Disclaimer</h3>
+                                    </div>
+                                    <div class="disclaimer">
+                                        This application & any underlying hardware is provided as is without any guarantees or warranty. In association with the product, Mythic Automotive Group makes no warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, of title, or of noninfringement of third party rights. Mythic Automotive Group holds absolutely no liability for legal implications of using this application or the Mythic Tuning Chip. Use of the product by a user is at the user’s risk.
                                     </div>
                                 </div>
                             </div>
@@ -410,9 +427,52 @@
                                             </div>
                                         </div>
                                         <div class="tuner-quick-custom-btn">
-                                            <button type="button" class="btn waves-effect waves-light materialize-red darken-4">Create Custom Tune</button>
+                                            <button type="button" class="btn waves-effect waves-light materialize-red darken-4" id="quick-custom-open">Create Custom Tune</button>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="app-container" id="tuner-custom-container">
+                            <div class="inner-app">
+                                <div class="tuner-header">
+                                    <h3>Mythic Tuner</h3>
+                                    <h5>Making Your Shitcan Go Fast</h5>
+                                </div>
+                                <div class="sub-section" id="custom-top">
+                                    <div class="tuner-option">
+                                        <label>Boost</label>
+                                        <small>Normal | High</small>
+                                        <div class="tuner-slider"></div>
+                                    </div>
+                                    <div class="tuner-option">
+                                        <label>Throttle</label>
+                                        <small>Normal | Faster</small>
+                                        <div class="tuner-slider"></div>
+                                    </div>
+                                    <div class="tuner-option">
+                                        <label>Transmission</label>
+                                        <small>Normal | Faster</small>
+                                        <div class="tuner-slider"></div>
+                                    </div>
+                                    <div class="tuner-option">
+                                        <label>Brakes</label>
+                                        <small>Rear | Front</small>
+                                        <div class="tuner-slider"></div>
+                                    </div>
+                                    <div class="tuner-option">
+                                        <label>Drive Train</label>
+                                        <small>Rear | Front</small>
+                                        <div class="tuner-slider"></div>
+                                    </div>
+                                </div>
+                                <div class="sub-section" id="custom-bottom">
+                                    <button type="button" class="btn waves-effect waves-light grey darken-3" id="tuner-custom-saved">Saved Tunes</button>
+                                    <button type="button" class="btn waves-effect waves-light grey darken-3" id="tuner-custom-quick">Quick Tunes</button>
+                                    <button type="button" class="btn waves-effect waves-light grey darken-3" id="tuner-custom-save">Save Tune</button>
+                                    <button type="button" class="btn waves-effect waves-light materialize-red darken-4" id="tuner-custom-reset">Reset</button>
+                                    <button type="button" class="btn waves-effect waves-light materialize-red darken-4" id="tuner-custom-apply">Apply Tune</button>
                                 </div>
                             </div>
                         </div>
@@ -448,6 +508,7 @@
         <script src="libs/jquery-ui.min.js" type="text/javascript"></script>
         <script src="libs/materialize.min.js" type="text/javascript"></script>
         <script src="libs/moment.min.js" type="text/javascript"></script>
+        <script src="libs/nouislider.min.js" type="text/javascript"></script>
 
         <script src="./js/build.js" type="text/javascript"></script>
     </body>

@@ -3,6 +3,8 @@ import Config from '../../config';
 import Utils from '../../utils';
 import Data from '../../data';
 import Quick from './quick';
+import Custom from './custom';
+import Legal from './legal';
 import anime from 'animejs/lib/anime.es.js';
 
 var timer = null;
@@ -25,14 +27,6 @@ function OpenApp(tunerActive) {
         });
     } else {
         $('#tuner-home-screen').fadeIn('normal');
-
-        $('.tuner-nav').each(function() {
-            let element = this;
-            setTimeout(function() {
-                console.log("??");
-                $(element).fadeIn('normal');
-            }, 1000);
-        });
     }
 }
 
@@ -43,4 +37,4 @@ function CloseApp() {
     $('#tuner-home-screen').fadeOut('normal');
 }
 
-export default { OpenApp, CloseApp, Quick }
+export default { OpenApp, CloseApp, Quick, Custom, Legal }

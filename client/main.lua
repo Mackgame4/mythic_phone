@@ -105,8 +105,9 @@ AddEventHandler('mythic_base:client:Logout', function()
 end)
 
 AddEventHandler('mythic_base:client:CharacterSpawned', function()
-  isLoggedIn = true
-
+  
+end)
+isLoggedIn = true
 
   local counter = 0
   Citizen.CreateThread(function()
@@ -126,16 +127,16 @@ AddEventHandler('mythic_base:client:CharacterSpawned', function()
         counter = counter - 1
       end
 
-      Citizen.Wait(-1)
+      Citizen.Wait(1)
     end
   end)
-end)
 
 function TogglePhone()
   if not openingCd or isPhoneOpen then
     isPhoneOpen = not isPhoneOpen
     if isPhoneOpen == true then
       hasPhone(function(hasPhone)
+        print(hasPhone)
         if hasPhone then
           PhonePlayIn()
           SetNuiFocus(true, true)

@@ -1,14 +1,14 @@
 @charset "UTF-8";
  
 // Colors
-$background: #eaeaea;
+$background: color('grey', 'lighten-2');
 $main-color: color('materialize-red', 'darken-4');
-$primary: #ffffff;
+$primary: color('shades', 'white');
 $disabled: #3f3f3f;
 $primary-hover: #c4c4c4;
-$text: #ffffff;
-$alt-text: #1e1e1e;
-$border-color: #1e1e1e;
+$text: color('shades', 'white');
+$alt-text: color('grey', 'darken-4');
+$border-color: color('grey', 'darken-4');
 
 
 

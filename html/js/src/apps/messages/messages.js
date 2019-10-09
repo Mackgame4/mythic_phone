@@ -9,7 +9,7 @@ var contacts = null;
 var messages = null;
 
 $('.messages-list').on('click', '.message', function(e) {
-    App.OpenApp('message-convo', $(this).data('message'));
+    App.OpenApp('message-convo', $(this).data('message'), false, true);
 });
 
 $('#message-new-contact').on('change', function(e) {

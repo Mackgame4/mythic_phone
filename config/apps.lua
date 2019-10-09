@@ -54,5 +54,13 @@ Config.Apps = {
         color = '#1de9b6',
         unread = 55,
         enabled = true
+    },
+    {
+        name = 'Tuner',
+        container = 'tuner',
+        icon = '<i class="fas fa-tools"></i>',
+        color = '#404040',
+        unread = 0,
+        enabled = true 
     }
 }
