@@ -160,6 +160,7 @@ $tuner-color: color('teal', 'darken-4');
                     position: absolute;
                     bottom: 0;
                     border-top: 5px solid $border-color;
+                    z-index: 1;
 
                     button {
                         width: 100%;
@@ -217,6 +218,27 @@ $tuner-color: color('teal', 'darken-4');
 
                 width: 45%;
                 margin-bottom: 10px;
+            }
+        }
+    }
+
+    #custom-tunes-popup {
+        .tuner-options {
+            margin-bottom: 10px;
+        
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            .quick-tune-button {
+                width: 80%;
+                margin: 0;
+                margin-right: -10px;
+            }
+
+            .quick-tune-delete {
+                width: 20%;
+                margin: 0;
             }
         }
     }

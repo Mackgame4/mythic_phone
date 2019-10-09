@@ -20,7 +20,7 @@ $('#new-tweet').on('submit', function (e) {
     tweets.push(tweet);
     Data.StoreData('tweets', tweets);
 
-    var pattern = /\B@[a-z0-9_-]+/gi;
+    let pattern = /\B@[a-z0-9_-]+/gi;
     let mentions = tweet.message.match(pattern);
     $.each(mentions, function (index2, mention) {
         tweet.message = tweet.message.replace(
@@ -60,7 +60,7 @@ $('#new-tweet').on('submit', function (e) {
 
                 AddTweet(tweet);
 
-                var modal = M.Modal.getInstance($('#send-tweet-modal'));
+                let modal = M.Modal.getInstance($('#send-tweet-modal'));
                 modal.close();
                 $('#new-tweet-msg').val('');
 
@@ -75,7 +75,7 @@ $('.twitter-body').on('click', '.tweet .mention', function () {
 
     $('#new-tweet-msg').val('@' + user + ' ');
 
-    var modal = M.Modal.getInstance($('#send-tweet-modal'));
+    let modal = M.Modal.getInstance($('#send-tweet-modal'));
     modal.open();
 });
 
@@ -84,12 +84,12 @@ $('.twitter-body').on('click', '.author', function () {
 
     $('#new-tweet-msg').val('@' + user + ' ');
 
-    var modal = M.Modal.getInstance($('#send-tweet-modal'));
+    let modal = M.Modal.getInstance($('#send-tweet-modal'));
     modal.open();
 });
 
 function AddTweet(tweet) {
-    var pattern = /\B@[a-z0-9_-]+/gi;
+    let pattern = /\B@[a-z0-9_-]+/gi;
     let data = tweet.message.match(pattern);
     $.each(data, function (index2, mention) {
         tweet.message = tweet.message.replace(

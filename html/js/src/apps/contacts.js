@@ -141,7 +141,7 @@ $('#contacts-add-contact').on('submit', function(e) {
         }),
         function(status) {
             if (status) {
-                var modal = M.Modal.getInstance($('#add-contact-modal'));
+                let modal = M.Modal.getInstance($('#add-contact-modal'));
                 modal.close();
 
                 if (contacts == null) {
@@ -220,7 +220,7 @@ $('#contacts-edit-contact').on('submit', function(e) {
         }),
         function(status) {
             if (status) {
-                var modal = M.Modal.getInstance($('#edit-contact-modal'));
+                let modal = M.Modal.getInstance($('#edit-contact-modal'));
                 modal.close();
 
                 contacts[editingData.index] = {

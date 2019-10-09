@@ -87,7 +87,7 @@ $('#new-advert').on('submit', function (e) {
             message: message
         });
 
-        var modal = M.Modal.getInstance($('#create-advert-modal'));
+        let modal = M.Modal.getInstance($('#create-advert-modal'));
         modal.close();
         $('#new-advert').trigger('reset');
 

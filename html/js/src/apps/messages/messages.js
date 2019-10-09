@@ -23,7 +23,7 @@ $('#message-new-msg').on('submit', function(e) {
 
     SendNewText(data, function(sent) {
         if (sent) {
-            var modal = M.Modal.getInstance($('#messages-new-modal'));
+            let modal = M.Modal.getInstance($('#messages-new-modal'));
             modal.close();
 
             M.toast({ html: 'Message Sent' });

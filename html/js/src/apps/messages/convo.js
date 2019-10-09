@@ -39,7 +39,7 @@ $('#convo-add-contact').on('submit', function(e) {
                 });
                 Data.StoreData('contacts', contacts);
 
-                var modal = M.Modal.getInstance($('#convo-add-contact-modal'));
+                let modal = M.Modal.getInstance($('#convo-add-contact-modal'));
                 modal.close();
 
                 $('#convo-add-contact-name').val('');
@@ -208,7 +208,7 @@ function OpenApp(data) {
 
     $('.convo-texts-list').html('');
     $.each(texts, function(index, text) {
-        var d = new Date(text.sent_time);
+        let d = new Date(text.sent_time);
 
         if (text.sender == myNumber) {
             $('.convo-texts-list').append(

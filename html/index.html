@@ -409,22 +409,13 @@
                                 </div>
                                 <div class="tuner-section" id="tuner-quick">
                                     <div class="tuner-quick-body">
-                                        <div class="tuner-quick-section">
+                                        <div class="tuner-quick-section" id="factory">
                                             Factory Tunes
-                                            <div class="tuner-quick-buttons">
-                                                <button type="button" class="btn waves-effect waves-light teal darken-4">Sport</button>
-                                            </div>
+                                            <div class="tuner-quick-buttons"></div>
                                         </div>
-                                        <div class="tuner-quick-section">
+                                        <div class="tuner-quick-section" id="custom">
                                             Your Tunes
-                                            <div class="tuner-quick-buttons">
-                                                <button type="button" class="btn waves-effect waves-light teal darken-4">Custom</button>
-                                                <button type="button" class="btn waves-effect waves-light teal darken-4">Custom</button>
-                                                <button type="button" class="btn waves-effect waves-light teal darken-4">Custom</button>
-                                                <button type="button" class="btn waves-effect waves-light teal darken-4">Custom</button>
-                                                <button type="button" class="btn waves-effect waves-light teal darken-4">Custom</button>
-                                                <button type="button" class="btn waves-effect waves-light teal darken-4">Custom</button>
-                                            </div>
+                                            <div class="tuner-quick-buttons"></div>
                                         </div>
                                         <div class="tuner-quick-custom-btn">
                                             <button type="button" class="btn waves-effect waves-light teal darken-4" id="quick-custom-open">Create Custom Tune</button>
@@ -443,36 +434,44 @@
                                 <div class="sub-section" id="custom-top">
                                     <div class="tuner-option">
                                         <label>Boost</label>
-                                        <small>Normal | High</small>
-                                        <div class="tuner-slider"></div>
+                                        <small>Lower | High</small>
+                                        <div class="tuner-slider" id="slider-boost"></div>
                                     </div>
                                     <div class="tuner-option">
                                         <label>Throttle</label>
-                                        <small>Normal | Faster</small>
-                                        <div class="tuner-slider"></div>
+                                        <small>Slower | Faster</small>
+                                        <div class="tuner-slider" id="slider-throttle"></div>
                                     </div>
                                     <div class="tuner-option">
                                         <label>Transmission</label>
-                                        <small>Normal | Faster</small>
-                                        <div class="tuner-slider"></div>
+                                        <small>Slower | Faster</small>
+                                        <div class="tuner-slider" id="slider-tranny"></div>
                                     </div>
                                     <div class="tuner-option">
                                         <label>Brakes</label>
                                         <small>Rear | Front</small>
-                                        <div class="tuner-slider"></div>
+                                        <div class="tuner-slider" id="slider-brakes"></div>
                                     </div>
                                     <div class="tuner-option">
                                         <label>Drive Train</label>
                                         <small>Rear | Front</small>
-                                        <div class="tuner-slider"></div>
+                                        <div class="tuner-slider" id="slider-dt"></div>
                                     </div>
                                 </div>
                                 <div class="sub-section" id="custom-bottom">
-                                    <button type="button" class="btn waves-effect waves-light grey darken-3" id="tuner-custom-saved">Saved Tunes</button>
+                                    <button type="button" class="btn waves-effect waves-light grey darken-3" id="tuner-custom-saved" data-target="custom-tunes-popup">Saved Tunes</button>
                                     <button type="button" class="btn waves-effect waves-light grey darken-3" id="tuner-custom-quick">Quick Tunes</button>
                                     <button type="button" class="btn waves-effect waves-light grey darken-3" id="tuner-custom-save">Save Tune</button>
                                     <button type="button" class="btn waves-effect waves-light teal darken-4" id="tuner-custom-reset">Reset</button>
                                     <button type="button" class="btn waves-effect waves-light teal darken-4" id="tuner-custom-apply">Apply Tune</button>
+                                </div>
+                            </div>
+
+                            <div id="custom-tunes-popup" class="modal">
+                                <div class="modal-content">
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="modal-close waves-effect waves-light btn teal darken-4">Close</a>
                                 </div>
                             </div>
                         </div>
