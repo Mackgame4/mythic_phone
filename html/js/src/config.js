@@ -61,6 +61,14 @@ var Apps = [
         name: 'Tuner',
         container: 'tuner',
         icon: '<i class="fas fa-tools"></i>',
+        color: '#004d40',
+        unread: 0,
+        enabled: true
+    },
+    {
+        name: 'Settings',
+        container: 'settings',
+        icon: '<i class="fas fa-cogs"></i>',
         color: '#404040',
         unread: 0,
         enabled: true

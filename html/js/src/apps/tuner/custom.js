@@ -8,7 +8,7 @@ $(function() {
     $.each(sliders, function(index, slider) {
         noUiSlider.create(slider, {
             start: [50],
-            connect: true,
+            connect: [true, false],
             step: 10,
             orientation: 'horizontal', // 'horizontal' or 'vertical'
             range: {
