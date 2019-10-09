@@ -1,3 +1,5 @@
+import Data from './data';
+
 function DateSortNewest(a, b) {
     if (a.time != null) {
         return a.time < b.time ? 1 : -1;
@@ -40,13 +42,13 @@ function SetMute(status) {
         $('.mute')
             .removeClass('not-muted')
             .addClass('muted');
-        StoreData('muted', true);
+        Data.StoreData('muted', true);
     } else {
         $('.mute').html('<i class="fas fa-volume-up"></i>');
         $('.mute')
             .removeClass('muted')
             .addClass('not-muted');
-        StoreData('muted', false);
+        Data.StoreData('muted', false);
     }
 }
 

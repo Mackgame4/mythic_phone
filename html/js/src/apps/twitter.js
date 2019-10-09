@@ -17,8 +17,7 @@ $('#new-tweet').on('submit', function (e) {
         time: Date.now()
     };
 
-    tweets.push(tweet);
-    Data.StoreData('tweets', tweets);
+    Data.AddData('tweets', tweet);
 
     let pattern = /\B@[a-z0-9_-]+/gi;
     let mentions = tweet.message.match(pattern);
@@ -160,8 +159,7 @@ function ReceiveNewTweet(tweet) {
         tweets = Data.GetData('tweets');
     }
 
-    tweets.push(tweet);
-    Data.StoreData('tweets', tweets);
+    Data.AddData('tweets', tweet);
 
     $('.twitter-alert-header')
         .find('span')

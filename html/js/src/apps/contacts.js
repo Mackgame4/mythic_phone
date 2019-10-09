@@ -148,12 +148,11 @@ $('#contacts-add-contact').on('submit', function(e) {
                     contacts = new Array();
                 }
 
-                contacts.push({
+                App.AddData('contacts', {
                     name: name,
                     number: number,
                     index: contacts.length
                 });
-                App.StoreData('contacts', contacts);
 
                 $('.contacts-list').append(
                     '<div class="contact waves-effect"><div class="contact-avatar other-' +
@@ -223,12 +222,11 @@ $('#contacts-edit-contact').on('submit', function(e) {
                 let modal = M.Modal.getInstance($('#edit-contact-modal'));
                 modal.close();
 
-                contacts[editingData.index] = {
+                Data.UpdateData('contacts', editingData.index, {
                     name: name,
                     number: number,
                     index: editingData.index
-                };
-                App.StoreData('contacts', contacts);
+                });
 
                 $(editingContact).html(
                     '<div class="contact-avatar other-' +
@@ -323,8 +321,7 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
 
                 M.toast({ html: 'Contact Deleted' });
 
-                contacts.splice(data.index, 1);
-                App.StoreData('contacts', contacts);
+                App.RemoveData('contacts', data.index);
             } else {
                 M.toast({ html: 'Error Deleting Contact' });
             }

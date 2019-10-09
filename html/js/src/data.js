@@ -10,6 +10,24 @@ function StoreData(name, data) {
     window.localStorage.setItem(name, JSON.stringify(data));
 }
 
+function AddData(name, value) {
+    let arr = GetData(name);
+    arr.push(value);
+    StoreData(name, arr);
+}
+
+function RemoveData(name, index) {
+    let arr = GetData(name);
+    arr.splice(index, 1);
+    StoreData(name, arr);
+}
+
+function UpdateData(name, index, data) {
+    let arr = GetData(name);
+    arr[index] = data;
+    StoreData(name, arr);
+}
+
 function GetData(name) {
     return JSON.parse(window.localStorage.getItem(name));
 }
@@ -33,4 +51,4 @@ function ClearData() {
     window.localStorage.clear();
 }
 
-export default { SetupData, StoreData, GetData, ClearData, StoreDataLua, GetDataLua };
+export default { SetupData, StoreData, AddData, RemoveData, UpdateData, GetData, ClearData, StoreDataLua, GetDataLua };

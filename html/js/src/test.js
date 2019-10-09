@@ -246,4 +246,20 @@ var Adverts = [
     },
 ];
 
-export default { PlayerDetails, Contacts, Messages, Calls, Tweets, Adverts };
+var FactoryTunes = [
+    { label: 'Sport', boost: 100, throttle: 100, tranny: 100, brakes: 100, dt: 100 },
+]
+
+var Tunes = [
+    { id: 1, label: 'Custom Tune', carOnly: false, carModel: null, boost: 10, throttle: 20, tranny: 30, brakes: 40, dt: 50 },
+    { id: 2, label: 'Custom Tune', carOnly: false, carModel: null, boost: 100, throttle: 90, tranny: 80, brakes: 70, dt: 60 },
+    { id: 3, label: 'Custom Tune', carOnly: false, carModel: null, boost: 100, throttle: 100, tranny: 100, brakes: 100, dt: 100 },
+    { id: 4, label: 'Custom Tune', carOnly: false, carModel: null, boost: 100, throttle: 100, tranny: 100, brakes: 100, dt: 100 },
+    { id: 5, label: 'Custom Tune', carOnly: false, carModel: null, boost: 100, throttle: 100, tranny: 100, brakes: 100, dt: 100 },
+    { id: 6, label: 'Custom Tune', carOnly: false, carModel: null, boost: 100, throttle: 100, tranny: 100, brakes: 100, dt: 100 },
+    { id: 7, label: 'Custom Tune', carOnly: false, carModel: null, boost: 100, throttle: 100, tranny: 100, brakes: 100, dt: 100 },
+    { id: 8, label: 'Custom Tune', carOnly: false, carModel: null, boost: 100, throttle: 100, tranny: 100, brakes: 100, dt: 100 },
+    { id: 9, label: 'Custom Tune', carOnly: false, carModel: null, boost: 100, throttle: 100, tranny: 100, brakes: 100, dt: 100 },
+]
+
+export default { PlayerDetails, Contacts, Messages, Calls, Tweets, Adverts, FactoryTunes, Tunes };

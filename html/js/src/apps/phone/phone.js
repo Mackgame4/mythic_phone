@@ -173,8 +173,7 @@ $('[data-section=history').on(
                         .parent()
                         .parent()
                         .fadeOut('normal', function() {
-                            history.splice(data.index, 1);
-                            App.StoreData('history', history);
+                            Data.RemoveData('history', data.index);
                             App.RefreshApp();
                             M.toast({ html: 'Call Record Deleted' });
                         });

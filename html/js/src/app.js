@@ -39,7 +39,9 @@ $(function() {
         { name: 'apps', data: Config.Apps },
         { name: 'muted', data: false },
         { name: 'tweets', data: Test.Tweets },
-        { name: 'adverts', data: Test.Adverts }
+        { name: 'adverts', data: Test.Adverts },
+        { name: 'factory-tunes', data: Test.FactoryTunes },
+        { name: 'custom-tunes', data: Test.Tunes },
     ]);
 
     OpenApp('home', null, true);
@@ -166,7 +168,7 @@ $('.close-button').on('click', function(e) {
 });
 
 $('#remove-sim-card').on('click', function(e) {
-    var modal = M.Modal.getInstance($('#remove-sim-conf'));
+    let modal = M.Modal.getInstance($('#remove-sim-conf'));
     modal.close();
     Utils.NotifyAltSim(false);
     M.toast({ html: 'Sim Removed' });

@@ -164,7 +164,14 @@ function SendNewText(data, cb) {
                     receiver_read: 0
                 });
 
-                Data.StoreData('messages', messages);
+                Data.AddData('messages', {
+                    sender: myNumber,
+                    receiver: textData.receiver,
+                    message: textData.message,
+                    sent_time: textData.sent_time,
+                    sender_read: 0,
+                    receiver_read: 0
+                });
 
                 cb(true);
             } else {

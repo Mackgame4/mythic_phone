@@ -114,12 +114,7 @@ function AddAdvert(advert) {
 }
 
 function AddAdvertData(data) {
-    if (ads == null) {
-        ads = Data.GetData('adverts');
-    }
-
-    ads.push(data);
-    Data.StoreData('adverts', ads);
+    Data.AddData('adverts', data);
 }
 
 function UpdateAdvertData(targetId, newData) {
@@ -129,8 +124,7 @@ function UpdateAdvertData(targetId, newData) {
 
     $.each(ads, function(index, data) {
         if (data.id === targetId) {
-            ads[index] = newData;
-            Data.StoreData('adverts', ads);
+            Data.UpdateData('adverts', index, newData);
             return;
         }
     });
@@ -143,8 +137,7 @@ function DeleteAdvertData(id) {
 
     $.each(ads, function(index, data) {
         if (data.id === id) {
-            ads.splice(index, 1);
-            Data.StoreData('adverts', ads);
+            Data.RemoveData('adverts', index);
             return;
         }
     });

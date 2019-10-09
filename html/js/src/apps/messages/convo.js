@@ -32,12 +32,11 @@ $('#convo-add-contact').on('submit', function(e) {
                     contacts = new Array();
                 }
 
-                contacts.push({
+                Data.AddData('contacts', {
                     name: name,
                     number: number,
                     index: contacts.length
                 });
-                Data.StoreData('contacts', contacts);
 
                 let modal = M.Modal.getInstance($('#convo-add-contact-modal'));
                 modal.close();
@@ -112,7 +111,7 @@ $('#convo-delete-all').on('click', function(e) {
                         m.sender != convoData.number &&
                         m.receiver != convoData.number
                 );
-                App.StoreData('messages', cleanedMsgs);
+                Data.StoreData('messages', cleanedMsgs);
                 M.toast({ html: 'Conversation Deleted' });
                 GoBack();
             } else {
@@ -169,7 +168,7 @@ function ReceiveText(sender, text) {
         myNumber = Data.GetData('myData').phone;
     }
 
-    messages.push({
+    Data.AddData('messages', {
         sender: text.sender,
         receiver: myNumber,
         message: text.message,
@@ -177,7 +176,6 @@ function ReceiveText(sender, text) {
         sender_read: 0,
         receiver_read: 0
     });
-    Data.StoreData('messages', messages);
 }
 
 function OpenApp(data) {
