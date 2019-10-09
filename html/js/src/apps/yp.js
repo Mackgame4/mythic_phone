@@ -2,6 +2,7 @@ import App from '../app';
 import Config from '../config';
 import Utils from '../utils';
 import Data from '../data';
+import Notif from '../notification';
 import Phone from './phone/phone';
 
 var ads = null;
@@ -58,7 +59,7 @@ $('#delete-ad').on('click', function (e) {
     $.post(Config.ROOT_ADDRESS + '/DeleteAd', JSON.stringify({}), function() {
         $('#ads-body').find('.yp-post-owned').fadeOut('normal', function () {
             $('#ads-body').find('.yp-post-owned').remove();
-            M.toast({ html: 'Advertisement Deleted' });
+            Notif.Alert('Advertisement Deleted');
         });
         $('#delete-ad').fadeOut();
     });
@@ -94,7 +95,7 @@ $('#new-advert').on('submit', function (e) {
         $(`#advert-${myData.id}`).addClass('yp-post-owned');
         $('#delete-ad').fadeIn();
 
-        M.toast({ html: 'Advertisement Posted' });
+        Notif.Alert('Advertisement Posted');
     });
 });
 

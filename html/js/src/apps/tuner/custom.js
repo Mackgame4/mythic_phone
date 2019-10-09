@@ -1,6 +1,7 @@
 import App from '../../app';
 import Config from '../../config';
 import Data from '../../data';
+import Notif from '../../notification';
 
 var sliders = {
     boost: document.getElementById('slider-boost'),
@@ -48,11 +49,11 @@ $('#new-tune').on('submit', function(e) {
     }), function(tune) {
         if (tune != null) {
             Data.AddData('custom-tunes', tune);
-            M.toast({ html: 'Tune Saved' });
+            Notif.Alert('Tune Saved');
             let modal = M.Modal.getInstance($('#save-tune-popup'));
             modal.close();
         } else {
-            M.toast({ html: 'Error Saving Tune' });
+            Notif.Alert('Error Saving Tune');
         }
     });
 })
@@ -98,7 +99,7 @@ $('#custom-tunes-popup').on('click', '.quick-tune-button', function(e) {
     sliders.brakes.noUiSlider.set(tune.brakes);
     sliders.dt.noUiSlider.set(tune.dt);
 
-    M.toast({ html: 'Tune Loaded, Press Apply To Apply It' });
+    Notif.Alert('Tune Loaded, Press Apply To Apply It');
 
     let modal = M.Modal.getInstance($('#custom-tunes-popup'));
     modal.close();
@@ -115,7 +116,7 @@ $('#custom-tunes-popup').on('click', '.quick-tune-delete', function(e) {
             $(this).parent().fadeOut('fast', function() {
                 $(this).remove();
             });
-            M.toast({ html: 'Tune Deleted' });
+            Notif.Alert('Tune Deleted');
         } else {
 
         }
@@ -166,9 +167,9 @@ function ApplyTune(tune) {
         dt: dt
     }), function(status) {
         if (status) {
-            M.toast({ html: 'Tune Applied' });
+            Notif.Alert('Tune Applied');
         } else {
-            M.toast({ html: 'Unable To Apply Tune' });
+            Notif.Alert('Unable To Apply Tune');
         }
     });
 }

@@ -2,6 +2,7 @@ import App from '../../app';
 import Config from '../../config';
 import Utils from '../../utils';
 import Data from '../../data';
+import Notif from '../../notification';
 import Call from './call';
 import Contacts from '../contacts';
 
@@ -175,10 +176,10 @@ $('[data-section=history').on(
                         .fadeOut('normal', function() {
                             Data.RemoveData('history', data.index);
                             App.RefreshApp();
-                            M.toast({ html: 'Call Record Deleted' });
+                            Notif.Alert('Call Record Deleted');
                         });
                 } else {
-                    M.toast({ html: 'Error Deleting Call Record' });
+                    Notif.Alert('Error Deleting Call Record');
                 }
             }
         );
@@ -317,11 +318,11 @@ function CreateCall(number, nonStandard, receiver) {
                     receiver: receiver
                 });
             } else if (status == -2) {
-                M.toast({ html: "Can't Call Yourself, Idiot" });
+                Notif.Alert('Can\'t Call Yourself, Idiot');
             } else if (status == -3) {
-                M.toast({ html: 'Number is Busy' });
+                Notif.Alert('Number is Busy');
             } else {
-                M.toast({ html: 'Number Not Currently Active' });
+                Notif.Alert('Number Not Currently Active');
             }
         }
     );

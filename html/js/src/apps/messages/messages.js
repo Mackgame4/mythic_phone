@@ -1,4 +1,5 @@
 import App from '../../app';
+import Notif from '../../notification';
 import Config from '../../config';
 import Utils from '../../utils';
 import Data from '../../data';
@@ -26,7 +27,7 @@ $('#message-new-msg').on('submit', function(e) {
             let modal = M.Modal.getInstance($('#messages-new-modal'));
             modal.close();
 
-            M.toast({ html: 'Message Sent' });
+            Notif.Alert('Message Sent');
 
             App.RefreshApp();
         }
@@ -166,7 +167,7 @@ function SendNewText(data, cb) {
 
                 cb(true);
             } else {
-                M.toast({ html: 'Unable To Send Text' });
+                Notif.Alert('Unable To Send Text');
 
                 cb(false);
             }

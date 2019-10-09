@@ -1,6 +1,7 @@
 import Config from './config';
 import Data from './data';
 import Utils from './utils';
+import Notif from './notification';
 import Home from './apps/home';
 import Contacts from './apps/contacts';
 import Phone from './apps/phone/phone';
@@ -171,7 +172,7 @@ $('#remove-sim-card').on('click', function(e) {
     let modal = M.Modal.getInstance($('#remove-sim-conf'));
     modal.close();
     Utils.NotifyAltSim(false);
-    M.toast({ html: 'Sim Removed' });
+    Notif.Alert('Sim Removed');
 });
 
 $('.mute').on('click', function(e) {

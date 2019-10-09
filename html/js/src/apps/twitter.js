@@ -2,6 +2,7 @@ import App from '../app';
 import Config from '../config';
 import Utils from '../utils';
 import Data from '../data';
+import Notif from '../notification';
 
 var tweets = null;
 var notif = null;
@@ -53,7 +54,7 @@ $('#new-tweet').on('submit', function (e) {
         }),
         function (status) {
             if (!status) {
-                M.toast({ html: 'Failed Sending Tweet' });
+                Notif.Alert('Failed Sending Tweet');
             } else {
                 tweet.author = status.author;
 
@@ -63,7 +64,7 @@ $('#new-tweet').on('submit', function (e) {
                 modal.close();
                 $('#new-tweet-msg').val('');
 
-                M.toast({ html: 'Tweet Sent' });
+                Notif.Alert('Tweet Sent');
             }
         }
     );

@@ -16,12 +16,8 @@ files {
     
     'html/js/build.js',
 
-    'html/libs/all.min.css',
-    'html/libs/jquery.min.js',
-    'html/libs/jquery.mask.min.js',
-    'html/libs/jquery-ui.min.js',
-    'html/libs/materialize.min.js',
-    'html/libs/moment.min.js',
+    'html/libs/*.css',
+    'html/libs/*.js',
 
     'html/webfonts/fa-brands-400.eot',
     'html/webfonts/fa-brands-400.svg',

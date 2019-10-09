@@ -1,6 +1,7 @@
 import App from '../app';
 import Config from '../config';
 import Data from '../data';
+import Notif from '../notification';
 import Phone from './phone/phone';
 
 var contacts = null;
@@ -183,7 +184,7 @@ $('#contacts-add-contact').on('submit', function(e) {
                 $('.contacts-list .contact:last-child')
                     .find('.contact-name')
                     .trigger('click');
-                M.toast({ html: 'Contact Added' });
+                Notif.Alert('Contact Added');
 
                 $('#contact-add-name').val('');
                 $('#contact-add-name')
@@ -194,7 +195,7 @@ $('#contacts-add-contact').on('submit', function(e) {
                     .next()
                     .removeClass('active');
             } else {
-                M.toast({ html: 'Error Adding Contact' });
+                Notif.Alert('Error Adding Contact');
             }
         }
     );
@@ -248,7 +249,7 @@ $('#contacts-edit-contact').on('submit', function(e) {
                 $(editingContact)
                     .find('.contact-name')
                     .trigger('click');
-                M.toast({ html: 'Contact Updated' });
+                Notif.Alert('Contact Updated');
 
                 $('#contact-edit-name').val('');
                 $('#contact-edit-name')
@@ -259,7 +260,7 @@ $('#contacts-edit-contact').on('submit', function(e) {
                     .next()
                     .removeClass('active');
             } else {
-                M.toast({ html: 'Error Updating Contact' });
+                Notif.Alert('Error Updating Contact');
             }
         }
     );
@@ -319,11 +320,11 @@ $('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
                             .remove();
                     });
 
-                M.toast({ html: 'Contact Deleted' });
+                Notif.Alert('Contact Deleted');
 
                 App.RemoveData('contacts', data.index);
             } else {
-                M.toast({ html: 'Error Deleting Contact' });
+                Notif.Alert('Error Deleting Contact');
             }
         }
     );

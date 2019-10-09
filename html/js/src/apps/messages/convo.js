@@ -1,6 +1,7 @@
 import App from '../../app';
 import Config from '../../config';
 import Data from '../../data';
+import Notif from '../../notification';
 import Messages from './messages';
 
 var myNumber = null;
@@ -44,10 +45,10 @@ $('#convo-add-contact').on('submit', function(e) {
                 $('#convo-add-contact-name').val('');
                 $('#convo-add-contact-number').val('555-555-5555');
 
-                M.toast({ html: 'Contact Added' });
+                Notif.Alert('Contact Added');
                 App.RefreshApp();
             } else {
-                M.toast({ html: 'Error Adding Contact' });
+                Notif.Alert('Error Adding Contact');
             }
         }
     );
@@ -77,7 +78,7 @@ $('#convo-new-text').on('submit', function(e) {
                     '</p></div>'
             );
 
-            M.toast({ html: 'Message Sent' });
+            Notif.Alert('Message Sent');
 
             $('#convo-input').val('');
 
@@ -112,10 +113,10 @@ $('#convo-delete-all').on('click', function(e) {
                         m.receiver != convoData.number
                 );
                 Data.StoreData('messages', cleanedMsgs);
-                M.toast({ html: 'Conversation Deleted' });
+                Notif.Alert('Conversation Deleted');
                 GoBack();
             } else {
-                M.toast({ html: 'Error Deleting Conversation' });
+                Notif.Alert('Error Deleting Conversation');
             }
         }
     );
