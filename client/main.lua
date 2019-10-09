@@ -5,8 +5,11 @@ Callbacks = nil
 actionCb = {}
 isPhoneOpen = false
 
+Callbacks = nil
 AddEventHandler('mythic_base:shared:ComponentsReady', function()
-	Citizen.CreateThread(function()
+  Callbacks = exports['mythic_base']:FetchComponent('Callbacks')
+  
+  Citizen.CreateThread(function()
 		while CharData == nil do
 			CharData = exports['mythic_base']:FetchComponent('Character')
 			Citizen.Wait(250)
@@ -209,6 +212,22 @@ function DisableControls()
       end
   end)
 end
+
+RegisterNUICallback( 'RegisterData', function( data, cb )
+  Callbacks:ServerCallback('mythic_phone:server:RegisterData', {
+    key = data.key,
+    data = data.data
+  })
+  cb(true)
+end)
+
+RegisterNUICallback( 'GetData', function( data, cb )
+  Callbacks:ServerCallback('mythic_phone:server:GetData', {
+    key = data.key
+  }, function(data)
+    cb(data)
+  end)
+end)
 
 RegisterNUICallback( "ClosePhone", function( data, cb )
   TogglePhone()
