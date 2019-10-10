@@ -6,38 +6,39 @@ author 'Alzar - https://github.com/Alzar'
 version 'v1.0.0'
 url 'https://github.com/mythicrp/mythic_phone'
 
-ui_page 'html/index.html'
+ui_page 'ui/index.html'
 
 files {
-	'html/index.html',
-	'html/css/*.min.css',
+	'ui/index.html',
+	'ui/css/*.min.css',
+	'ui/html/*.html',
     
-    'html/js/build.js',
+    'ui/js/build.js',
 
-    'html/libs/*.min.css',
-    'html/libs/*.min.js',
+    'ui/libs/*.min.css',
+    'ui/libs/*.min.js',
 
-    'html/webfonts/fa-brands-400.eot',
-    'html/webfonts/fa-brands-400.svg',
-    'html/webfonts/fa-brands-400.ttf',
-    'html/webfonts/fa-brands-400.woff',
-    'html/webfonts/fa-brands-400.woff2',
-    'html/webfonts/fa-regular-400.eot',
-    'html/webfonts/fa-regular-400.svg',
-    'html/webfonts/fa-regular-400.ttf',
-    'html/webfonts/fa-regular-400.woff',
-    'html/webfonts/fa-regular-400.woff2',
-    'html/webfonts/fa-solid-900.eot',
-    'html/webfonts/fa-solid-900.svg',
-    'html/webfonts/fa-solid-900.ttf',
-    'html/webfonts/fa-solid-900.woff',
-    'html/webfonts/fa-solid-900.woff2',
+    'ui/webfonts/fa-brands-400.eot',
+    'ui/webfonts/fa-brands-400.svg',
+    'ui/webfonts/fa-brands-400.ttf',
+    'ui/webfonts/fa-brands-400.woff',
+    'ui/webfonts/fa-brands-400.woff2',
+    'ui/webfonts/fa-regular-400.eot',
+    'ui/webfonts/fa-regular-400.svg',
+    'ui/webfonts/fa-regular-400.ttf',
+    'ui/webfonts/fa-regular-400.woff',
+    'ui/webfonts/fa-regular-400.woff2',
+    'ui/webfonts/fa-solid-900.eot',
+    'ui/webfonts/fa-solid-900.svg',
+    'ui/webfonts/fa-solid-900.ttf',
+    'ui/webfonts/fa-solid-900.woff',
+    'ui/webfonts/fa-solid-900.woff2',
 
-    'html/imgs/back001.png',
-    'html/imgs/back002.png',
-    'html/imgs/back003.png',
-    'html/imgs/iphonex.png',
-    'html/imgs/s8.png',
+    'ui/imgs/back001.png',
+    'ui/imgs/back002.png',
+    'ui/imgs/back003.png',
+    'ui/imgs/iphonex.png',
+    'ui/imgs/s8.png',
 }
 
 client_script {
