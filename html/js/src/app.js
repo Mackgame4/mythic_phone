@@ -177,6 +177,7 @@ $('.mute').on('click', function(e) {
 function ClosePhone() {
     $.post(Config.ROOT_ADDRESS + '/ClosePhone', JSON.stringify({}));
     $('.wrapper').hide('slide', { direction: 'down' }, 500, function() {
+        CloseAppAction(appTrail[appTrail.length - 1].app);
         $('#toast-container').remove();
         $('.material-tooltip').remove();
         $('.app-container').hide();

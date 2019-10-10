@@ -29,25 +29,18 @@ $('#no-chip-quit').on('click', function() {
 });
 
 function ShowError() {
-    console.log('error?');
     $('.no-chip-error').show('scale', function() {
         $('.tuner-nav').data('disabled', true);
     });
 }
 
 function SetupTuner(tunerActive) {
-    print(tunerActive);
-    print(tunerActive == null);
-    if (tunerActive == null) {
-        ShowError();
-    } else {
-        hasScanned = true;
-        if (Data.GetData('currentVeh') == null || Data.GetData('currentVeh').id != tunerActive.id) {
-            Data.StoreData('currentVeh', tunerActive);
-        }
-
-        $('#tuner-home-screen').fadeIn('normal');
+    hasScanned = true;
+    if (Data.GetData('currentVeh') == null || Data.GetData('currentVeh').id != tunerActive.id) {
+        Data.StoreData('currentVeh', tunerActive);
     }
+
+    $('#tuner-home-screen').fadeIn('normal');
 }
 
 function ResetScan() {
@@ -58,8 +51,11 @@ function OpenApp() {
     if (!hasScanned) {
         $.post(Config.ROOT_ADDRESS + '/SetupTuner', JSON.stringify({}), 
         function(status) {
-            ShowError();
-            SetupTuner(status);
+            if (status) {
+                SetupTuner(status);
+            } else {
+                ShowError();
+            }
         });
     } else {
         $.post(Config.ROOT_ADDRESS + '/CheckInVeh', JSON.stringify({
@@ -68,11 +64,17 @@ function OpenApp() {
             if (status != null) {
                 if (status.sameVeh) {
                     SetupTuner(status);
-                } else {
+                } else if(status) {
                     $.post(Config.ROOT_ADDRESS + '/SetupTuner', JSON.stringify({}), 
                     function(status) {
-                        SetupTuner(status);
+                        if (status) {
+                            SetupTuner(status);
+                        } else {
+                            ShowError();
+                        }
                     });
+                } else {
+                    ShowError();
                 }
             } else {
 
@@ -83,8 +85,8 @@ function OpenApp() {
 
 function CloseApp() {
     clearTimeout(timer);
-    $('#tuner-home-screen').hide();
     $('.no-chip-error').hide();
+    $('#tuner-home-screen').hide();
     $('.tuner-nav').removeData('disabled');
 }
 

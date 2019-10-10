@@ -4,4 +4,11 @@ AddEventHandler('mythic_base:shared:ComponentsReady', function()
     end, {
         help = "Toggle Phone Display"
     }, 0)
+
+    exports['mythic_base']:FetchComponent('Chat'):RegisterCommand('testchip', function(source)
+        print('testchip')
+        TriggerClientEvent('mythic_phone:client:TestChip', source)
+    end, {
+        help = "Test Tuner Chip Function"
+    }, 0)
 end)

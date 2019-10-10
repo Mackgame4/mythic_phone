@@ -12,9 +12,17 @@ AddEventHandler('mythic_veh:client:EnteredVehicle', function(currVeh, currSeat, 
     end
 end)
 
+DecorRegister('MYTH_TUNER_CHIP', 2)
+RegisterNetEvent('mythic_phone:client:TestChip')
+AddEventHandler('mythic_phone:client:TestChip', function()
+    local veh = GetVehiclePedIsUsing(PlayerPedId())
+    if veh ~= 0 then
+        DecorSetBool(veh, 'MYTH_TUNER_CHIP', true)
+    end
+end)
+
 RegisterNUICallback( 'SetupTuner', function( data, cb )
     local veh = GetVehiclePedIsUsing(PlayerPedId())
-    print(veh)
     if veh ~= 0 then
         exports['mythic_base']:FetchComponent('Progress'):Progress({
             name = "tuner_action",
@@ -30,7 +38,7 @@ RegisterNUICallback( 'SetupTuner', function( data, cb )
             },
         }, function(status)
             if not status then
-                if GetPedInVehicleSeat(veh, -1) == PlayerPedId() and DecorExistOn(veh, 'MTYH_TUNER_CHIP') then
+                if GetPedInVehicleSeat(veh, -1) == PlayerPedId() and DecorExistOn(veh, 'MYTH_TUNER_CHIP') then
                     local plate = GetVehicleNumberPlateText(veh)
                     local data = {
                         id = NetworkGetNetworkIdFromEntity(veh),
@@ -41,21 +49,21 @@ RegisterNUICallback( 'SetupTuner', function( data, cb )
                     currentVehicle = veh
                     cb(data)
                 else
-                    cb(nil)
+                    cb(false)
                 end
             else
-                cb(nil)
+                cb(false)
             end
         end)
     else
-        cb(nil)
+        cb(false)
     end
 end)
 
 RegisterNUICallback( 'CheckInVeh', function( data, cb )
     local veh = GetVehiclePedIsUsing(PlayerPedId()) 
     if veh ~= 1 then 
-        if GetPedInVehicleSeat(veh, -1) == PlayerPedId() and DecorExistOn(veh, 'MTYH_TUNER_CHIP') then
+        if GetPedInVehicleSeat(veh, -1) == PlayerPedId() and DecorExistOn(veh, 'MYTH_TUNER_CHIP') then
             if currentVehicle ~= veh then
                 local plate = GetVehicleNumberPlateText(veh)
                 local data = {
