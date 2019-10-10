@@ -9,16 +9,17 @@ var myNumber = null;
 var contacts = null;
 var messages = null;
 
-$('.messages-list').on('click', '.message', function(e) {
+$('#screen-content').on('click', '.messages-list .message', function(e) {
+    console.log($(this).data('message'));
     App.OpenApp('message-convo', $(this).data('message'), false, true);
 });
 
-$('#message-new-contact').on('change', function(e) {
+$('#screen-content').on('change', '#message-new-contact', function(e) {
     let data = $(this).val();
     $('#message-new-number').val(data);
 });
 
-$('#message-new-msg').on('submit', function(e) {
+$('#screen-content').on('submit', '#message-new-msg', function(e) {
     e.preventDefault();
     let data = $(this).serializeArray();
 

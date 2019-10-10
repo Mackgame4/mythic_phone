@@ -114,7 +114,7 @@ window.addEventListener('message', function(event) {
     }
 });
 
-$(document).ready(function() {
+function InitShit() {
     $('.modal').modal();
     $('.dropdown-trigger').dropdown({
         constrainWidth: false
@@ -122,7 +122,7 @@ $(document).ready(function() {
     $('.tabs').tabs();
     $('.char-count-input').characterCounter();
     $('.phone-number').mask('000-000-0000', { placeholder: '###-###-####' });
-});
+}
 
 $(function() {
     document.onkeyup = function(data) {
@@ -192,78 +192,124 @@ function ClosePhone() {
 }
 
 function OpenApp(app, data = null, pop = false, disableFade = false) {
-    if ($('#' + app + '-container').length == 0 || appTrail.length == 0) return;
-
-    if (appTrail[appTrail.length - 1].app !== app) {
-        if ($('.active-container').length > 0) {
-            if (disableFade) {
-                $('.active-container').hide();
-                $('.active-container').removeClass('active-container');
-                $('#' + app + '-container').show()
-                $('#' + app + '-container').addClass('active-container');
-
-                CloseAppAction(appTrail[appTrail.length - 1].app);
-                if (pop) {
-                    appTrail.pop();
-                    disableFade = appTrail[appTrail.length - 1].fade;
-                    appTrail.pop();
-                }
-
-                appTrail.push({
-                    app: app,
-                    data: data,
-                    fade: disableFade
-                });
-
-                $('.material-tooltip').remove();
-                OpenAppAction(app, data);
-            } else {
-                $('.active-container').fadeOut('fast', function() {
-                    $('.active-container').removeClass('active-container');
-    
-                    $('#' + app + '-container').fadeIn('fast', function() {
-                        $('.active-container').removeClass('active-container');
-                        $('#' + app + '-container').addClass('active-container');
-    
-                        CloseAppAction(appTrail[appTrail.length - 1].app);
-                        if (pop) {
-                            appTrail.pop();
-                            appTrail.pop();
-                        }
-    
-                        appTrail.push({
-                            app: app,
-                            data: data,
-                            fade: disableFade
-                        });
-                    });
-    
-                    $('.material-tooltip').remove();
-                    OpenAppAction(app, data);
-                });
+    if ($('#screen-content .app-container').length <= 0 || disableFade) {
+        $('#screen-content').html('');
+        $('#screen-content').load(`./html/apps/${app}.html`, function() {
+            InitShit();
+            CloseAppAction(appTrail[appTrail.length - 1].app);
+            if (pop) {
+                appTrail.pop();
+                disableFade = null;
+                appTrail.pop();
             }
-        } else {
-            $('#' + app + '-container').fadeIn('fast', function() {
-                $('.active-container').removeClass('active-container');
-                $('#' + app + '-container').addClass('active-container');
-
-                CloseAppAction(appTrail[appTrail.length - 1].app);
-                if (pop) {
-                    appTrail.pop();
-                    appTrail.pop();
-                }
-
-                appTrail.push({
-                    app: app,
-                    data: data,
-                    fade: disableFade
-                });
+        
+            appTrail.push({
+                app: app,
+                data: data,
+                fade: disableFade
             });
-
+        
             $('.material-tooltip').remove();
             OpenAppAction(app, data);
-        }
+            $('#screen-content').show();
+        });
+    } else {
+        $('#screen-content').fadeOut('fast', function() {
+            $('#screen-content').html('');
+            $('#screen-content').load(`./html/apps/${app}.html`, function() {
+                InitShit();
+                CloseAppAction(appTrail[appTrail.length - 1].app);
+                if (pop) {
+                    appTrail.pop();
+                    disableFade = null;
+                    appTrail.pop();
+                }
+            
+                appTrail.push({
+                    app: app,
+                    data: data,
+                    fade: disableFade
+                });
+            
+                $('.material-tooltip').remove();
+                OpenAppAction(app, data);
+                $('#screen-content').fadeIn('fast');
+            });
+        });
     }
+
+    // if ($('#' + app + '-container').length == 0 || appTrail.length == 0) return;
+
+    // if (appTrail[appTrail.length - 1].app !== app) {
+    //     if ($('.active-container').length > 0) {
+    //         if (disableFade) {
+    //             $('.active-container').hide();
+    //             $('.active-container').removeClass('active-container');
+    //             $('#' + app + '-container').show()
+    //             $('#' + app + '-container').addClass('active-container');
+
+    //             CloseAppAction(appTrail[appTrail.length - 1].app);
+    //             if (pop) {
+    //                 appTrail.pop();
+    //                 disableFade = appTrail[appTrail.length - 1].fade;
+    //                 appTrail.pop();
+    //             }
+
+    //             appTrail.push({
+    //                 app: app,
+    //                 data: data,
+    //                 fade: disableFade
+    //             });
+
+    //             $('.material-tooltip').remove();
+    //             OpenAppAction(app, data);
+    //         } else {
+    //             $('.active-container').fadeOut('fast', function() {
+    //                 $('.active-container').removeClass('active-container');
+    
+    //                 $('#' + app + '-container').fadeIn('fast', function() {
+    //                     $('.active-container').removeClass('active-container');
+    //                     $('#' + app + '-container').addClass('active-container');
+    
+    //                     CloseAppAction(appTrail[appTrail.length - 1].app);
+    //                     if (pop) {
+    //                         appTrail.pop();
+    //                         appTrail.pop();
+    //                     }
+    
+    //                     appTrail.push({
+    //                         app: app,
+    //                         data: data,
+    //                         fade: disableFade
+    //                     });
+    //                 });
+    
+    //                 $('.material-tooltip').remove();
+    //                 OpenAppAction(app, data);
+    //             });
+    //         }
+    //     } else {
+    //         $('#' + app + '-container').fadeIn('fast', function() {
+    //             $('.active-container').removeClass('active-container');
+    //             $('#' + app + '-container').addClass('active-container');
+
+    //             CloseAppAction(appTrail[appTrail.length - 1].app);
+    //             if (pop) {
+    //                 appTrail.pop();
+    //                 appTrail.pop();
+    //             }
+
+    //             appTrail.push({
+    //                 app: app,
+    //                 data: data,
+    //                 fade: disableFade
+    //             });
+    //         });
+
+    //         $('.material-tooltip').remove();
+    //         OpenAppAction(app, data);
+    //     }
+    // }
 }
 
 function RefreshApp() {

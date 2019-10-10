@@ -6,7 +6,7 @@ import Data from '../../data';
 var factoryTunes = null;
 var customTunes = null;
 
-$('#quick-custom-open').on('click', function() {
+$('#screen-content').on('click', '#quick-custom-open', function() {
     App.OpenApp('tuner-custom', null, false, true);
 });
 

@@ -7,7 +7,7 @@ import Phone from './phone/phone';
 
 var ads = null;
 
-$('#ads-search').on('keyup', 'input', function (e) {
+$('#screen-content').on('keyup', '#ads-search input', function (e) {
     e.preventDefault();
 
     let searchVal = $(this).val().toUpperCase();
@@ -48,14 +48,14 @@ $('#ads-search').on('keyup', 'input', function (e) {
     }
 });
 
-$('#ads-body').on('click', '.yp-phone', function (e) {
+$('#screen-content').on('click', '#ads-body .yp-phone', function (e) {
     if ($(this).html() != Data.GetData('myData').phone) {
         App.OpenApp('phone', null, false);
         Phone.CreateCall($(this).html(), false, false);
     }
 });
 
-$('#delete-ad').on('click', function (e) {
+$('#screen-content').on('click', '#delete-ad', function (e) {
     $.post(Config.ROOT_ADDRESS + '/DeleteAd', JSON.stringify({}), function() {
         $('#ads-body').find('.yp-post-owned').fadeOut('normal', function () {
             $('#ads-body').find('.yp-post-owned').remove();
@@ -65,7 +65,7 @@ $('#delete-ad').on('click', function (e) {
     });
 });
 
-$('#new-advert').on('submit', function (e) {
+$('#screen-content').on('submit', '#new-advert', function (e) {
     e.preventDefault();
     let data = $(this).serializeArray();
 

@@ -11,7 +11,7 @@ var sliders = {
     dt: document.getElementById('slider-dt')
 }
 
-$(function() {
+function InitSliders() {
     for (let key in sliders) {
         let slider = sliders[key];
         noUiSlider.create(slider, {
@@ -30,9 +30,9 @@ $(function() {
             }
         });
     }
-});
+}
 
-$('#new-tune').on('submit', function(e) {
+$('#screen-content').on('submit', '#new-tune', function(e) {
     e.preventDefault();
     let data = $(this).serializeArray();
     let tunes = Data.GetData('custom-tunes');
@@ -58,7 +58,7 @@ $('#new-tune').on('submit', function(e) {
     });
 })
 
-$('#tuner-custom-saved').on('click', function() {
+$('#screen-content').on('click', '#tuner-custom-saved', function() {
     //App.OpenApp('tuner-saved', null, false, true);
 
     let tunes = Data.GetData('custom-tunes');
@@ -91,7 +91,7 @@ $('#tuner-custom-saved').on('click', function() {
     modal.open();
 });
 
-$('#custom-tunes-popup').on('click', '.quick-tune-button', function(e) {
+$('#screen-content').on('click', '#custom-tunes-popup .quick-tune-button', function(e) {
     let tune = $(this).data('tune');
     sliders.boost.noUiSlider.set(tune.boost);
     sliders.throttle.noUiSlider.set(tune.throttle);
@@ -105,7 +105,7 @@ $('#custom-tunes-popup').on('click', '.quick-tune-button', function(e) {
     modal.close();
 });
 
-$('#custom-tunes-popup').on('click', '.quick-tune-delete', function(e) {
+$('#screen-content').on('click', '#custom-tunes-popup .quick-tune-delete', function(e) {
     let tune = $(this).parent().find('.quick-tune-button').data('tune');
 
     $.post(Config.ROOT_ADDRESS + '/TunerDelete', JSON.stringify({
@@ -123,11 +123,11 @@ $('#custom-tunes-popup').on('click', '.quick-tune-delete', function(e) {
     })
 });
 
-$('#tuner-custom-quick').on('click', function() {
+$('#screen-content').on('click', '#tuner-custom-quick', function() {
     App.OpenApp('tuner-quick', null, false, true);
 });
 
-$('#tuner-custom-apply').on('click', function() {
+$('#screen-content').on('click', '#tuner-custom-apply', function() {
     ApplyTune();
 });
 
@@ -175,6 +175,16 @@ function ApplyTune(tune) {
 }
 
 function OpenApp(tune) {
+    sliders = {
+        boost: document.getElementById('slider-boost'),
+        throttle: document.getElementById('slider-throttle'),
+        tranny: document.getElementById('slider-tranny'),
+        brakes: document.getElementById('slider-brakes'),
+        dt: document.getElementById('slider-dt')
+    }
+
+    InitSliders();
+
     if (tune != null) {
         console.log('woot');
     }

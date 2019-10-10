@@ -7,7 +7,7 @@ import Notif from '../notification';
 var tweets = null;
 var notif = null;
 
-$('#new-tweet').on('submit', function (e) {
+$('#screen-content').on('submit', '#new-tweet', function (e) {
     e.preventDefault();
 
     let data = $(this).serializeArray();
@@ -70,7 +70,7 @@ $('#new-tweet').on('submit', function (e) {
     );
 });
 
-$('.twitter-body').on('click', '.tweet .mention', function () {
+$('#screen-content').on('click', '.tweet .mention', function () {
     let user = $(this).data('mention');
 
     $('#new-tweet-msg').val('@' + user + ' ');
@@ -79,7 +79,7 @@ $('.twitter-body').on('click', '.tweet .mention', function () {
     modal.open();
 });
 
-$('.twitter-body').on('click', '.author', function () {
+$('#screen-content').on('click', '.twitter-body .author', function () {
     let user = $(this).html();
 
     $('#new-tweet-msg').val('@' + user + ' ');

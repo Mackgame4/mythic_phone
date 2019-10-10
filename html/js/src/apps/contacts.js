@@ -7,7 +7,7 @@ import Phone from './phone/phone';
 var contacts = null;
 var editingContact = null;
 
-$('.contacts-list').on('click', '.contact', function(event) {
+$('#screen-content').on('click', '.contacts-list .contact', function(event) {
     if (
         $(this)
             .find('.contact-actions')
@@ -27,7 +27,7 @@ $('.contacts-list').on('click', '.contact', function(event) {
     }
 });
 
-$('#search-contacts').on('keyup', function(e) {
+$('#scree-content').on('keyup', '#search-contacts', function(e) {
     e.preventDefault();
 
     let searchVal = $(this).val();
@@ -66,7 +66,7 @@ $('#search-contacts').on('keyup', function(e) {
     }
 });
 
-$('#contact-add-number').on('keydown', function(e) {
+$('#screen-content').on('keydown', '#contact-add-number', function(e) {
     switch (e.which) {
         case 8:
         case 48:
@@ -96,7 +96,7 @@ $('#contact-add-number').on('keydown', function(e) {
     }
 });
 
-$('#contact-edit-number').on('keydown', function(e) {
+$('#screen-content').on('keydown', '#contact-edit-number', function(e) {
     switch (e.which) {
         case 8:
         case 48:
@@ -126,7 +126,7 @@ $('#contact-edit-number').on('keydown', function(e) {
     }
 });
 
-$('#contacts-add-contact').on('submit', function(e) {
+$('#screen-content').on('submit', '#contacts-add-contact', function(e) {
     e.preventDefault();
 
     let data = $(this).serializeArray();
@@ -201,7 +201,7 @@ $('#contacts-add-contact').on('submit', function(e) {
     );
 });
 
-$('#contacts-edit-contact').on('submit', function(e) {
+$('#screen-content').on('submit', '#contacts-edit-contact', function(e) {
     e.preventDefault();
 
     let data = $(this).serializeArray();
@@ -266,7 +266,7 @@ $('#contacts-edit-contact').on('submit', function(e) {
     );
 });
 
-$('.contacts-list').on('click', 'contact-actions .action-call', function(e) {
+$('#screen-content').on('click', '.contacts-list .contact-actions .action-call', function(e) {
     let data = $(this)
         .parent()
         .parent()
@@ -274,7 +274,7 @@ $('.contacts-list').on('click', 'contact-actions .action-call', function(e) {
     Phone.CreateCall(data.number, false, false);
 });
 
-$('.contacts-list').on('click', '.contact-actions .action-text', function(e) {
+$('#scree-content').on('click', '.contacts-list .contact-actions .action-text', function(e) {
     let data = $(this)
         .parent()
         .parent()
@@ -282,7 +282,7 @@ $('.contacts-list').on('click', '.contact-actions .action-text', function(e) {
     App.OpenApp('message-convo', { number: data.number });
 });
 
-$('.contacts-list').on('click', '.contact-actions .action-edit', function(e) {
+$('#screen-content').on('click', '.contacts-list .contact-actions .action-edit', function(e) {
     let data = $(this)
         .parent()
         .parent()
@@ -296,7 +296,7 @@ $('.contacts-list').on('click', '.contact-actions .action-edit', function(e) {
     M.updateTextFields();
 });
 
-$('.contacts-list').on('click', '.contact-actions .action-delete', function(e) {
+$('#screen-content').on('click', '.contacts-list .contact-actions .action-delete', function(e) {
     let $elem = $(this);
     let data = $elem
         .parent()

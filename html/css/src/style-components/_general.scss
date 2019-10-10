@@ -152,29 +152,33 @@
                 color: gray;
                 background-image: url(../imgs/back003.png);
 
-                .app-container {
-                    position: absolute;
-                    width: 100%;
+                #screen-content {
                     height: 100%;
-                    overflow-y: auto;
-                    overflow-x: hidden;
-                    display: none;
+                    width: 100%;
 
-                    .inner-app {
+                    .app-container {
                         position: absolute;
-                        top: 24px;
                         width: 100%;
-                        height: 92%;
+                        height: 100%;
                         overflow-y: auto;
                         overflow-x: hidden;
-
-                        .btn-flat {
-                            color: #1e1e1e;
-                        }
-
-                        input {
-                            color: #1e1e1e;
-                            font-weight: bold;
+    
+                        .inner-app {
+                            position: absolute;
+                            top: 24px;
+                            width: 100%;
+                            height: 92%;
+                            overflow-y: auto;
+                            overflow-x: hidden;
+    
+                            .btn-flat {
+                                color: #1e1e1e;
+                            }
+    
+                            input {
+                                color: #1e1e1e;
+                                font-weight: bold;
+                            }
                         }
                     }
                 }

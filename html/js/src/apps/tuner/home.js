@@ -17,14 +17,14 @@ window.addEventListener('message', function(event) {
     }
 });
 
-$('.tuner-nav').on('click', function(e) {
+$('#screen-content').on('click', '.tuner-nav', function(e) {
     if ($(this).data('disabled')) return;
 
     let app = $(this).data('section');
     App.OpenApp(`tuner-${app}`, null, false, true);
 });
 
-$('#no-chip-quit').on('click', function() {
+$('#screen-content').on('click', '#no-chip-quit', function() {
     App.GoBack();
 });
 

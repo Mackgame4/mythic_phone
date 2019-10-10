@@ -9,7 +9,7 @@ var callPending = null;
 var activeCallTimer = null;
 var activeCallDigits = new Object();
 
-$('.call-action-mutesound').on('click', function(e) {
+$('#screen-content').on('click', '.call-action-mutesound', function(e) {
     let muted = $(this).data('active');
     if (muted) {
         $(this).html(
@@ -24,7 +24,7 @@ $('.call-action-mutesound').on('click', function(e) {
     }
 });
 
-$('.call-action-mutemic').on('click', function(e) {
+$('#screen-content').on('click', '.call-action-mutemic', function(e) {
     let muted = $(this).data('active');
     if (muted) {
         $(this).html(
@@ -39,11 +39,11 @@ $('.call-action-mutemic').on('click', function(e) {
     }
 });
 
-$('#end-call').on('click', function(e) {
+$('#screen-content').on('click', '#end-call', function(e) {
     $.post(Config.ROOT_ADDRESS + '/EndCall', JSON.stringify());
 });
 
-$('#answer-call').on('click', function(e) {
+$('#screen-content').on('click', '#answer-call', function(e) {
     $.post(Config.ROOT_ADDRESS + '/AcceptCall', JSON.stringify({}));
 });
 

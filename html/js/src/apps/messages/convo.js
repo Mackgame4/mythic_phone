@@ -8,12 +8,12 @@ var myNumber = null;
 var contacts = null;
 var messages = null;
 
-$('.convo-top-bar').on('click', '.convo-action-addcontact', function(e) {
+$('#screen-content').on('click', '.convo-top-bar .convo-action-addcontact', function(e) {
     let data = $('#message-convo-container').data('data');
     $('#convo-add-contact-number').val(data.number);
 });
 
-$('#convo-add-contact').on('submit', function(e) {
+$('#screen-content').on('submit', '#convo-add-contact', function(e) {
     e.preventDefault();
 
     let data = $(this).serializeArray();
@@ -54,7 +54,7 @@ $('#convo-add-contact').on('submit', function(e) {
     );
 });
 
-$('#convo-new-text').on('submit', function(e) {
+$('#screen-content').on('submit', '#convo-new-text', function(e) {
     e.preventDefault();
     let convoData = $('#message-convo-container').data('data');
     let data = $(this).serializeArray();
@@ -96,7 +96,7 @@ $('#convo-new-text').on('submit', function(e) {
     });
 });
 
-$('#convo-delete-all').on('click', function(e) {
+$('#screen-content').on('click', '#convo-delete-all', function(e) {
     e.preventDefault();
     let convoData = $('#message-convo-container').data('data');
 

@@ -3,17 +3,16 @@ import Data from '../data';
 
 var apps = null;
 
-$('#home-container').on('click', '.app-button', function(event) {
+$('.phone-screen').on('click', '#home-container .app-button', function(event) {
     App.OpenApp($(this).data('container'));
 });
 
 function OpenApp() {
     apps = Data.GetData('apps');
-    $('#home-container .inner-app').html('');
     $.each(apps, function(index, app) {
         if (app.enabled) {
             if (app.unread > 0) {
-                $('#home-container .inner-app').append(
+                $('.inner-app').append(
                     '<div class="app-button" data-tooltip="' +
                         app.name +
                         '"><div class="app-icon" id="' +
@@ -27,7 +26,7 @@ function OpenApp() {
                         '</div></div></div>'
                 );
             } else {
-                $('#home-container .inner-app').append(
+                $('.inner-app').append(
                     '<div class="app-button" data-tooltip="' +
                         app.name +
                         '"><div class="app-icon" id="' +
