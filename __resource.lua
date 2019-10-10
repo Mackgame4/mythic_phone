@@ -10,14 +10,12 @@ ui_page 'html/index.html'
 
 files {
 	'html/index.html',
-	'html/css/materialize.min.css',
-	'html/css/style.min.css',
-    'html/libs/jquery-ui.min.css',
+	'html/css/*.min.css',
     
     'html/js/build.js',
 
-    'html/libs/*.css',
-    'html/libs/*.js',
+    'html/libs/*.min.css',
+    'html/libs/*.min.js',
 
     'html/webfonts/fa-brands-400.eot',
     'html/webfonts/fa-brands-400.svg',
@@ -44,35 +42,22 @@ files {
 
 client_script {
 	'@salty_tokenizer/init.lua',
-    'config/config.lua',
-    'config/apps.lua',
-    'config/contacts.lua',
+    'config/*.lua',
 
     'client/main.lua',
     'client/animation.lua',
     
-	'client/apps/home.lua',
-	'client/apps/contacts.lua',
-	'client/apps/phone.lua',
-	'client/apps/messages.lua',
-	'client/apps/twitter.lua',
-	'client/apps/yp.lua',
+	'client/apps/*.lua',
 }
 
 server_script {
 	'@salty_tokenizer/init.lua',
-    'config/config.lua',
-    'config/apps.lua',
-    'config/contacts.lua',
+    'config/*.lua',
 
     'server/main.lua',
     'server/commands.lua',
     
-	'server/apps/contacts.lua',
-	'server/apps/phone.lua',
-	'server/apps/messages.lua',
-	'server/apps/twitter.lua',
-	'server/apps/yp.lua',
+	'server/apps/*.lua',
 }
 
 dependencies {

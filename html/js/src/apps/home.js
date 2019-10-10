@@ -62,7 +62,7 @@ function ToggleApp(name, status) {
         pApp.enabled = false;
     } else {
         pApp.enabled = true;
-        SetupHome();
+        OpenApp();
     }
 }
 
@@ -79,7 +79,7 @@ function UpdateUnread(name, unread) {
     });
 
     Data.StoreData('apps', apps);
-    SetupHome();
+    OpenApp();
 }
 
 export default { OpenApp, ToggleApp, UpdateUnread };

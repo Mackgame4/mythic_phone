@@ -1,3 +1,5 @@
+Config = Config or {}
+
 Config.DefaultContacts = {
     {
         name = 'Police',

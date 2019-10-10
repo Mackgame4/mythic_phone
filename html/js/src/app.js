@@ -2,13 +2,7 @@ import Config from './config';
 import Data from './data';
 import Utils from './utils';
 import Notif from './notification';
-import Home from './apps/home';
-import Contacts from './apps/contacts';
-import Phone from './apps/phone/phone';
-import Messages from './apps/messages/messages';
-import Twitter from './apps/twitter';
-import Adverts from './apps/yp';
-import Tuner from './apps/tuner/home';
+import Apps from './apps/apps';
 
 import Test from './test';
 
@@ -56,7 +50,7 @@ window.addEventListener('message', function(event) {
         case 'show':
             $('.wrapper').show('slide', { direction: 'down' }, 500);
 
-            if (!Phone.Call.IsCallPending()) {
+            if (!Apps.Phone.Call.IsCallPending()) {
                 OpenApp('home', null, true);
             } else {
                 appTrail = [
@@ -90,10 +84,10 @@ window.addEventListener('message', function(event) {
             Utils.UpdateClock(event.data.time);
             break;
         case 'updateUnread':
-            Home.UpdateUnread(event.data.app, event.data.unread);
+            Apps.Home.UpdateUnread(event.data.app, event.data.unread);
             break;
         case 'receiveText':
-            Messages.Convo.ReceiveText(
+            Apps.Messages.Convo.ReceiveText(
                 event.data.data.sender,
                 event.data.data.text
             );
@@ -106,16 +100,16 @@ window.addEventListener('message', function(event) {
             );
             break;
         case 'acceptCallSender':
-            Phone.Call.CallAnswered();
+            Apps.Phone.Call.CallAnswered();
             break;
         case 'acceptCallReceiver':
-            Phone.Call.CallAnswered();
+            Apps.Phone.Call.CallAnswered();
             break;
         case 'endCall':
-            Phone.Call.CallHungUp();
+            Apps.Phone.Call.CallHungUp();
             break;
         case 'ReceiveNewTweet':
-            Twitter.ReceiveNewTweet(event.data.tweet);
+            Apps.Twitter.ReceiveNewTweet(event.data.tweet);
             break;
     }
 });
@@ -282,41 +276,41 @@ function RefreshApp() {
 function OpenAppAction(app, data) {
     switch (app) {
         case 'home':
-            Home.OpenApp();
+            Apps.Home.OpenApp();
             break;
         case 'contacts':
-            Contacts.OpenApp();
+            Apps.Contacts.OpenApp();
             break;
         case 'message':
-            Messages.OpenApp();
-            Messages.SetupNewMessage();
+            Apps.Messages.OpenApp();
+            Apps.Messages.SetupNewMessage();
             break;
         case 'message-convo':
-            Messages.Convo.OpenApp(data);
+            Apps.Messages.Convo.OpenApp(data);
             break;
         case 'phone':
-            Phone.OpenApp();
+            Apps.Phone.OpenApp();
             break;
         case 'phone-call':
-            Phone.Call.OpenApp(data);
+            Apps.Phone.Call.OpenApp(data);
             break;
         case 'twitter':
-            Twitter.OpenApp();
+            Apps.Twitter.OpenApp();
             break;
         case 'ads':
-            Adverts.OpenApp();
+            Apps.Adverts.OpenApp();
             break;
         case 'tuner':
-            Tuner.OpenApp(true);
+            Apps.Tuner.OpenApp(true);
             break;
         case 'tuner-quick':
-            Tuner.Quick.OpenApp();
+            Apps.Tuner.Quick.OpenApp();
             break;
         case 'tuner-custom':
-            Tuner.Custom.OpenApp();
+            Apps.Tuner.Custom.OpenApp();
             break;
         case 'tuner-legal':
-            Tuner.Legal.OpenApp();
+            Apps.Tuner.Legal.OpenApp();
             break;
     }
 }
@@ -324,22 +318,22 @@ function OpenAppAction(app, data) {
 function CloseAppAction(app) {
     switch (app) {
         case 'message-convo':
-            Messages.Convo.CloseApp();
+            Apps.Messages.Convo.CloseApp();
             break;
         case 'phone-call':
-            Phone.Call.CloseApp();
+            Apps.Phone.Call.CloseApp();
             break;
         case 'tuner':
-            Tuner.CloseApp();
+            Apps.Tuner.CloseApp();
             break;
         case 'tuner-quick':
-            Tuner.Quick.CloseApp();
+            Apps.Tuner.Quick.CloseApp();
             break;
         case 'tuner-custom':
-            Tuner.Custom.CloseApp();
+            Apps.Tuner.Custom.CloseApp();
             break;
         case 'tuner-legal':
-            Tuner.Legal.CloseApp();
+            Apps.Tuner.Legal.CloseApp();
             break;
     }
 }
