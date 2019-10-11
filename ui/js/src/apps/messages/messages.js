@@ -10,7 +10,6 @@ var contacts = null;
 var messages = null;
 
 $('#screen-content').on('click', '.messages-list .message', function(e) {
-    console.log($(this).data('message'));
     App.OpenApp('message-convo', $(this).data('message'), false, true);
 });
 

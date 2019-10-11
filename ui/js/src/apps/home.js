@@ -16,10 +16,10 @@ $('.phone-screen').on('click', '#home-container .app-button', function(event) {
 });
 
 window.addEventListener('home-open-app', function() {
-    OpenApp();
+    SetupApp();
 });
 
-function OpenApp() {
+function SetupApp() {
     apps = Data.GetData('apps');
     $.each(apps, function(index, app) {
         if (app.enabled) {
@@ -73,7 +73,7 @@ function ToggleApp(name, status) {
         pApp.enabled = false;
     } else {
         pApp.enabled = true;
-        OpenApp();
+        SetupApp();
     }
 }
 
@@ -90,7 +90,10 @@ function UpdateUnread(name, unread) {
     });
 
     Data.StoreData('apps', apps);
-    OpenApp();
+
+    if (App.GetCurrentApp() === 'home') {
+        SetupApp();
+    }
 }
 
-export default { OpenApp, ToggleApp, UpdateUnread };
+export default { ToggleApp, UpdateUnread };

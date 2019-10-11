@@ -20,7 +20,6 @@ var Apps = [
     {
         name: 'Messages',
         container: 'message',
-        path: 'messages/messages.html',
         icon: '<i class="fas fa-comment-alt"></i>',
         color: '#311b92',
         unread: 1,
