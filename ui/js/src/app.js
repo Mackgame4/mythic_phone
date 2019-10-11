@@ -191,125 +191,66 @@ function ClosePhone() {
     });
 }
 
+function SetupApp(app, data, pop, disableFade, html) {
+    $('#screen-content').html(html);
+    InitShit();
+
+    CloseAppAction(appTrail[appTrail.length - 1].app);
+    if (pop) {
+        appTrail.pop();
+        disableFade = null;
+        appTrail.pop();
+    }
+
+    appTrail.push({
+        app: app,
+        data: data,
+        fade: disableFade
+    });
+
+    $('.material-tooltip').remove();
+    OpenAppAction(app, data);
+}
+
 function OpenApp(app, data = null, pop = false, disableFade = false) {
     if ($('#screen-content .app-container').length <= 0 || disableFade) {
-        $('#screen-content').html('');
-        $('#screen-content').load(`./html/apps/${app}.html`, function() {
-            InitShit();
-            CloseAppAction(appTrail[appTrail.length - 1].app);
-            if (pop) {
-                appTrail.pop();
-                disableFade = null;
-                appTrail.pop();
+        console.log('what the fuck bro')
+        $.ajax({
+            url: `../../html/apps/${app}.html`,
+            cache: false,
+            dataType: "html",
+            statusCode: {
+                404: function() {
+                    appTrail.push({ app: app, data: null, fade: false });
+                    Notif.Alert('App Doesn\'t Exist', 1000);
+                    GoHome();
+                }
+            },
+            success: function(response) {
+                SetupApp(app, data, pop, disableFade, response);
+                $('#screen-content').show();
             }
-        
-            appTrail.push({
-                app: app,
-                data: data,
-                fade: disableFade
-            });
-        
-            $('.material-tooltip').remove();
-            OpenAppAction(app, data);
-            $('#screen-content').show();
         });
     } else {
         $('#screen-content').fadeOut('fast', function() {
-            $('#screen-content').html('');
-            $('#screen-content').load(`./html/apps/${app}.html`, function() {
-                InitShit();
-                CloseAppAction(appTrail[appTrail.length - 1].app);
-                if (pop) {
-                    appTrail.pop();
-                    disableFade = null;
-                    appTrail.pop();
+            $.ajax({
+                url: `../../html/apps/${app}.html`,
+                cache: false,
+                dataType: "html",
+                statusCode: {
+                    404: function() {
+                        appTrail.push({ app: app, data: null, fade: false });
+                        Notif.Alert('App Doesn\'t Exist', 1000);
+                        GoHome();
+                    }
+                },
+                success: function(response) {
+                    SetupApp(app, data, pop, disableFade, response);
+                    $('#screen-content').fadeIn('fast');
                 }
-            
-                appTrail.push({
-                    app: app,
-                    data: data,
-                    fade: disableFade
-                });
-            
-                $('.material-tooltip').remove();
-                OpenAppAction(app, data);
-                $('#screen-content').fadeIn('fast');
             });
         });
     }
-
-    // if ($('#' + app + '-container').length == 0 || appTrail.length == 0) return;
-
-    // if (appTrail[appTrail.length - 1].app !== app) {
-    //     if ($('.active-container').length > 0) {
-    //         if (disableFade) {
-    //             $('.active-container').hide();
-    //             $('.active-container').removeClass('active-container');
-    //             $('#' + app + '-container').show()
-    //             $('#' + app + '-container').addClass('active-container');
-
-    //             CloseAppAction(appTrail[appTrail.length - 1].app);
-    //             if (pop) {
-    //                 appTrail.pop();
-    //                 disableFade = appTrail[appTrail.length - 1].fade;
-    //                 appTrail.pop();
-    //             }
-
-    //             appTrail.push({
-    //                 app: app,
-    //                 data: data,
-    //                 fade: disableFade
-    //             });
-
-    //             $('.material-tooltip').remove();
-    //             OpenAppAction(app, data);
-    //         } else {
-    //             $('.active-container').fadeOut('fast', function() {
-    //                 $('.active-container').removeClass('active-container');
-    
-    //                 $('#' + app + '-container').fadeIn('fast', function() {
-    //                     $('.active-container').removeClass('active-container');
-    //                     $('#' + app + '-container').addClass('active-container');
-    
-    //                     CloseAppAction(appTrail[appTrail.length - 1].app);
-    //                     if (pop) {
-    //                         appTrail.pop();
-    //                         appTrail.pop();
-    //                     }
-    
-    //                     appTrail.push({
-    //                         app: app,
-    //                         data: data,
-    //                         fade: disableFade
-    //                     });
-    //                 });
-    
-    //                 $('.material-tooltip').remove();
-    //                 OpenAppAction(app, data);
-    //             });
-    //         }
-    //     } else {
-    //         $('#' + app + '-container').fadeIn('fast', function() {
-    //             $('.active-container').removeClass('active-container');
-    //             $('#' + app + '-container').addClass('active-container');
-
-    //             CloseAppAction(appTrail[appTrail.length - 1].app);
-    //             if (pop) {
-    //                 appTrail.pop();
-    //                 appTrail.pop();
-    //             }
-
-    //             appTrail.push({
-    //                 app: app,
-    //                 data: data,
-    //                 fade: disableFade
-    //             });
-    //         });
-
-    //         $('.material-tooltip').remove();
-    //         OpenAppAction(app, data);
-    //     }
-    // }
 }
 
 function RefreshApp() {
@@ -321,75 +262,17 @@ function RefreshApp() {
 }
 
 function OpenAppAction(app, data) {
-    switch (app) {
-        case 'home':
-            Apps.Home.OpenApp();
-            break;
-        case 'contacts':
-            Apps.Contacts.OpenApp();
-            break;
-        case 'message':
-            Apps.Messages.OpenApp();
-            Apps.Messages.SetupNewMessage();
-            break;
-        case 'message-convo':
-            Apps.Messages.Convo.OpenApp(data);
-            break;
-        case 'phone':
-            Apps.Phone.OpenApp();
-            break;
-        case 'phone-call':
-            Apps.Phone.Call.OpenApp(data);
-            break;
-        case 'twitter':
-            Apps.Twitter.OpenApp();
-            break;
-        case 'ads':
-            Apps.Adverts.OpenApp();
-            break;
-        case 'tuner':
-            Apps.Tuner.OpenApp(true);
-            break;
-        case 'tuner-quick':
-            Apps.Tuner.Quick.OpenApp();
-            break;
-        case 'tuner-custom':
-            Apps.Tuner.Custom.OpenApp();
-            break;
-        case 'tuner-legal':
-            Apps.Tuner.Legal.OpenApp();
-            break;
-    }
+    $('#screen-content').trigger(`${app}-open-app`);
 }
 
 function CloseAppAction(app) {
-    switch (app) {
-        case 'message-convo':
-            Apps.Messages.Convo.CloseApp();
-            break;
-        case 'phone-call':
-            Apps.Phone.Call.CloseApp();
-            break;
-        case 'tuner':
-            Apps.Tuner.CloseApp();
-            break;
-        case 'tuner-quick':
-            Apps.Tuner.Quick.CloseApp();
-            break;
-        case 'tuner-custom':
-            Apps.Tuner.Custom.CloseApp();
-            break;
-        case 'tuner-legal':
-            Apps.Tuner.Legal.CloseApp();
-            break;
-    }
+    $('#screen-content').trigger(`${app}-close-app`);
 }
 
 function GoHome() {
-    if (appTrail.length > 1) {
-        if (appTrail[appTrail.length - 1].app !== 'home') {
-            OpenApp('home');
-        }
+    console.log(appTrail[appTrail.length - 1].app)
+    if (appTrail[appTrail.length - 1].app !== 'home') {
+        OpenApp('home');
     }
 }
 

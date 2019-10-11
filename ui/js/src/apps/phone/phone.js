@@ -310,7 +310,7 @@ function CreateCall(number, nonStandard, receiver) {
     );
 }
 
-function OpenApp() {
+$('#screen-content').on('phone-open-app', function(data) {
     myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     history = Data.GetData('history');
@@ -428,7 +428,7 @@ function OpenApp() {
             .get(0)
             .focus();
     }, 1500);
-}
+});
 
 function SetupCallContacts() {
     $('[data-section=contacts')
@@ -456,4 +456,4 @@ function SetupCallContacts() {
     });
 }
 
-export default { OpenApp, CreateCall, Call };
+export default { CreateCall, Call };

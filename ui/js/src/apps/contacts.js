@@ -330,7 +330,7 @@ $('#screen-content').on('click', '.contacts-list .contact-actions .action-delete
     );
 });
 
-function OpenApp() {
+$('#screen-content').on('contacts-open-app', function() {
     contacts = Data.GetData('contacts');
     contacts.sort(SortContacts);
     $('.contacts-list').html('');
@@ -349,7 +349,7 @@ function OpenApp() {
         contact.index = index;
         $('.contacts-list .contact:last-child').data('contact', contact);
     });
-}
+});
 
 function SortContacts(a, b) {
     let nameA = a.name.toUpperCase();
@@ -357,4 +357,4 @@ function SortContacts(a, b) {
     return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
 }
 
-export default { OpenApp, SortContacts };
+export default { SortContacts };

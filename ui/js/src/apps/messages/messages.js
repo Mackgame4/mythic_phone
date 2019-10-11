@@ -35,7 +35,7 @@ $('#screen-content').on('submit', '#message-new-msg', function(e) {
     });
 });
 
-function OpenApp() {
+$('#screen-content').on('message-open-app', function(data) {
     myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     messages = Data.GetData('messages');
@@ -119,9 +119,9 @@ function OpenApp() {
 
         $('.messages-list .message:last-child').data('message', message);
     });
-}
+});
 
-function SetupNewMessage() {
+$('#screen-content').on('message-open-app', function(data) {
     $('#message-new-contact').html('');
     $('#message-new-contact').append(
         '<option value="">Choose Contact</option>'
@@ -142,7 +142,7 @@ function SetupNewMessage() {
     $('#message-new-body').val('');
 
     $('#message-new-contact').formSelect();
-}
+});
 
 function SendNewText(data, cb) {
     $.post(
@@ -176,4 +176,4 @@ function SendNewText(data, cb) {
     );
 }
 
-export default { OpenApp, SetupNewMessage, SendNewText, Convo };
+export default { SendNewText, Convo };

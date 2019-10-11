@@ -110,7 +110,7 @@ function IsCallPending() {
     return callPending != null || activeCallTimer != null;
 }
 
-function OpenApp(data) {
+$('#screen-content').on('phone-call-open-app', function(data) {
     if (activeCallTimer != null || data == null) {
         CallAnswered();
         return;
@@ -182,9 +182,9 @@ function OpenApp(data) {
             $('.call-number .call-timer').html('Incoming ' + dots);
         }, 500);
     }
-}
+});
 
-function CloseApp() {
+$('#screen-content').on('phone-call-close-app', function() {
     if (activeCallTimer != null) {
         $('.phone-header').addClass('in-call');
         $('.phone-header .in-call').fadeIn();
@@ -215,12 +215,6 @@ function CloseApp() {
     $('.call-action-mutesound').html(
         `<i class="fas fa-volume-mute"></i><span>Mute Sound</span>`
     );
-}
+});
 
-export default {
-    OpenApp,
-    CloseApp,
-    IsCallPending,
-    CallAnswered,
-    CallHungUp
-};
+export default { IsCallPending, CallAnswered, CallHungUp };

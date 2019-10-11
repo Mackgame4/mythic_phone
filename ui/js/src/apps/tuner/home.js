@@ -1,9 +1,7 @@
 import App from '../../app';
 import Config from '../../config';
 import Data from '../../data';
-import Quick from './quick';
 import Custom from './custom';
-import Legal from './legal';
 import anime from 'animejs/lib/anime.es.js';
 
 var timer = null;
@@ -47,7 +45,7 @@ function ResetScan() {
     hasScanned = false;
 }
 
-function OpenApp() {
+$('#screen-content').on('tuner-open-app', function() {
     if (!hasScanned) {
         $.post(Config.ROOT_ADDRESS + '/SetupTuner', JSON.stringify({}), 
         function(status) {
@@ -81,13 +79,11 @@ function OpenApp() {
             }
         });
     }
-}
+});
 
-function CloseApp() {
+$('#screen-content').on('tuner-close-app', function() {
     clearTimeout(timer);
     $('.no-chip-error').hide();
     $('#tuner-home-screen').hide();
     $('.tuner-nav').removeData('disabled');
-}
-
-export default { OpenApp, CloseApp, Quick, Custom, Legal }
+});

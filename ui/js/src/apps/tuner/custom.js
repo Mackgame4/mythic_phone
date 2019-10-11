@@ -174,7 +174,7 @@ function ApplyTune(tune) {
     });
 }
 
-function OpenApp(tune) {
+$('#screen-content').on('tuner-custom-open-app', function(tune) {
     sliders = {
         boost: document.getElementById('slider-boost'),
         throttle: document.getElementById('slider-throttle'),
@@ -190,10 +190,8 @@ function OpenApp(tune) {
     }
 
     $('#tuner-custom-container .inner-app').fadeIn();
-}
+});
 
-function CloseApp() {
+$('#screen-content').on('tuner-custom-close-app', function() {
     $('#tuner-custom-container .inner-app').fadeOut();
-}
-
-export default { OpenApp, CloseApp }
+});

@@ -138,7 +138,7 @@ function AddTweet(tweet) {
     $('.twitter-body .tweet:first-child').data('data', tweet);
 }
 
-function OpenApp() {
+$('#screen-content').on('twitter-open-app', function(data) {
     tweets = Data.GetData('tweets');
 
     if (tweets == null) {
@@ -151,7 +151,7 @@ function OpenApp() {
     $.each(tweets, function (index, tweet) {
         AddTweet(tweet)
     });
-}
+});
 
 function ReceiveNewTweet(tweet) {
     if (notif != null) { clearTimeout(notif); }
@@ -184,4 +184,4 @@ function ReceiveNewTweet(tweet) {
     }
 }
 
-export default { OpenApp, ReceiveNewTweet };
+export default { ReceiveNewTweet };

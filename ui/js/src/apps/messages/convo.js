@@ -179,7 +179,7 @@ function ReceiveText(sender, text) {
     });
 }
 
-function OpenApp(data) {
+$('#screen-content').on('convo-open-app', function(data) {
     myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     messages = Data.GetData('messages');
@@ -271,15 +271,15 @@ function OpenApp(data) {
             25
         );
     }
-}
+});
 
-function CloseApp() {
+$('#screen-content').on('convo-close-app', function(data) {
     myNumber = null;
     contacts = null;
     messages = null;
     $('#message-convo-container').removeData('data');
     $('.convo-texts-list').html('');
     $('.convo-top-bar').attr('class', 'convo-top-bar');
-}
+});
 
-export default { OpenApp, CloseApp, ReceiveText };
+export default { ReceiveText };

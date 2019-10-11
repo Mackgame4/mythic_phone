@@ -1,9 +1,8 @@
-function OpenApp() {
+
+$('#screen-content').on('tuner-legal-open-app', function() {
     $('#tuner-legal-container .inner-app').fadeIn();
-}
+});
 
-function CloseApp() {
+$('#screen-content').on('tuner-legal-close-app', function() {
     $('#tuner-legal-container .inner-app').fadeOut();
-}
-
-export default { OpenApp, CloseApp }
+});

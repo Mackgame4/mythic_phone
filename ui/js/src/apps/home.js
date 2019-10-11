@@ -7,6 +7,10 @@ $('.phone-screen').on('click', '#home-container .app-button', function(event) {
     App.OpenApp($(this).data('container'));
 });
 
+$('#screen-content').on('home-open-app', function() {
+    OpenApp();
+});
+
 function OpenApp() {
     apps = Data.GetData('apps');
     $.each(apps, function(index, app) {

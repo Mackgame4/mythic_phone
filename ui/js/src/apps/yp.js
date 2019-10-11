@@ -144,22 +144,6 @@ function DeleteAdvertData(id) {
     });
 }
 
-function OpenApp() {
-    let phone = Data.GetData('myData').phone;
-    ads = Data.GetData('adverts');
-
-    ads.sort(Utils.DateSortOldest);
-
-    $('#yp-body').html('');
-    $.each(ads, function (index, advert) {
-        AddAdvert(advert);
-        if (advert.phone == phone) {
-            $('#yp-body .yp-post:first-child').addClass('yp-post-owned');
-            $('#delete-ad').show();
-        }
-    });
-}
-
 function ReceiveNewAdvert(advert) {
     AddAdvertData(advert);
     if (App.GetCurrentApp() === 'ads') {
@@ -181,4 +165,20 @@ function DeleteAdvert(id) {
     }
 }
 
-export default { OpenApp, ReceiveNewAdvert, DeleteAdvert };
+$('#screen-content').on('yp-open-app', function() {
+    let phone = Data.GetData('myData').phone;
+    ads = Data.GetData('adverts');
+
+    ads.sort(Utils.DateSortOldest);
+
+    $('#yp-body').html('');
+    $.each(ads, function (index, advert) {
+        AddAdvert(advert);
+        if (advert.phone == phone) {
+            $('#yp-body .yp-post:first-child').addClass('yp-post-owned');
+            $('#delete-ad').show();
+        }
+    });
+});
+
+export default { ReceiveNewAdvert, DeleteAdvert };
