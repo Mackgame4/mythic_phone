@@ -44,20 +44,16 @@ files {
 client_script {
 	'@salty_tokenizer/init.lua',
     'config/*.lua',
-
     'client/main.lua',
     'client/animation.lua',
-    
 	'client/apps/*.lua',
 }
 
 server_script {
 	'@salty_tokenizer/init.lua',
     'config/*.lua',
-
     'server/main.lua',
     'server/commands.lua',
-    
 	'server/apps/*.lua',
 }
 

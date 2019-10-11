@@ -8,6 +8,17 @@ var myNumber = null;
 var contacts = null;
 var messages = null;
 
+window.addEventListener('message', function(event) {
+    switch (event.data.action) {
+        case 'receiveText':
+            ReceiveText(
+                event.data.data.sender,
+                event.data.data.text
+            )
+            break;
+    }
+});
+
 $('#screen-content').on('click', '.convo-top-bar .convo-action-addcontact', function(e) {
     let data = $('#message-convo-container').data('data');
     $('#convo-add-contact-number').val(data.number);
@@ -179,7 +190,7 @@ function ReceiveText(sender, text) {
     });
 }
 
-$('#screen-content').on('convo-open-app', function(data) {
+window.addEventListener('convo-open-app', function(data) {
     myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     messages = Data.GetData('messages');
@@ -273,7 +284,7 @@ $('#screen-content').on('convo-open-app', function(data) {
     }
 });
 
-$('#screen-content').on('convo-close-app', function(data) {
+window.addEventListener('convo-close-app', function(data) {
     myNumber = null;
     contacts = null;
     messages = null;

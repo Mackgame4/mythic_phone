@@ -1,5 +1,16 @@
 import Config from './config';
 
+window.addEventListener('message', function(event) {
+    switch (event.data.action) {
+        case 'setup':
+            SetupData(event.data.data);
+            break;
+        case 'logout':
+            ClearData();
+            break;
+    }
+});
+
 function SetupData(data) {
     $.each(data, function(index, item) {
         window.localStorage.setItem(item.name, JSON.stringify(item.data));

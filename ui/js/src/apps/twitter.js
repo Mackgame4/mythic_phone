@@ -7,6 +7,14 @@ import Notif from '../notification';
 var tweets = null;
 var notif = null;
 
+window.addEventListener('message', function(event) {
+    switch (event.data.action) {
+        case 'ReceiveNewTweet':
+            ReceiveNewTweet(event.data.tweet);
+            break;
+    }
+});
+
 $('#screen-content').on('submit', '#new-tweet', function (e) {
     e.preventDefault();
 
@@ -138,7 +146,7 @@ function AddTweet(tweet) {
     $('.twitter-body .tweet:first-child').data('data', tweet);
 }
 
-$('#screen-content').on('twitter-open-app', function(data) {
+window.addEventListener('twitter-open-app', function(data) {
     tweets = Data.GetData('tweets');
 
     if (tweets == null) {

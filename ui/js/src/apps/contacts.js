@@ -330,7 +330,7 @@ $('#screen-content').on('click', '.contacts-list .contact-actions .action-delete
     );
 });
 
-$('#screen-content').on('contacts-open-app', function() {
+window.addEventListener('contacts-open-app', function() {
     contacts = Data.GetData('contacts');
     contacts.sort(SortContacts);
     $('.contacts-list').html('');

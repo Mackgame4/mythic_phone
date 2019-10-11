@@ -35,7 +35,7 @@ $('#screen-content').on('submit', '#message-new-msg', function(e) {
     });
 });
 
-$('#screen-content').on('message-open-app', function(data) {
+window.addEventListener('message-open-app', function(data) {
     myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     messages = Data.GetData('messages');
@@ -121,7 +121,7 @@ $('#screen-content').on('message-open-app', function(data) {
     });
 });
 
-$('#screen-content').on('message-open-app', function(data) {
+window.addEventListener('message-open-app', function(data) {
     $('#message-new-contact').html('');
     $('#message-new-contact').append(
         '<option value="">Choose Contact</option>'

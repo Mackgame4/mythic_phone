@@ -10,7 +10,7 @@ $('#screen-content').on('click', '#quick-custom-open', function() {
     App.OpenApp('tuner-custom', null, false, true);
 });
 
-$('#screen-content').on('tuner-quick-open-app', function() {
+window.addEventListener('tuner-quick-open-app', function() {
     factoryTunes = Data.GetData('factory-tunes');
     customTunes = Data.GetData('custom-tunes');
 
@@ -27,7 +27,7 @@ $('#screen-content').on('tuner-quick-open-app', function() {
     $('#tuner-quick').fadeIn();
 });
 
-$('#screen-content').on('tuner-quick-close-app', function() {
+window.addEventListener('tuner-quick-close-app', function() {
     $('#tuner-quick').fadeOut('normal', function() {
         $('.tuner-quick-section#factory').find('.tuner-quick-buttons').html('');
         $('.tuner-quick-section#custom').find('.tuner-quick-buttons').html('');

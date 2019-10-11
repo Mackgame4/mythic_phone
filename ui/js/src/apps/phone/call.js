@@ -9,6 +9,20 @@ var callPending = null;
 var activeCallTimer = null;
 var activeCallDigits = new Object();
 
+window.addEventListener('message', function(event) {
+    switch (event.data.action) {
+        case 'acceptCallSender':
+            CallAnswered();
+            break;
+        case 'acceptCallReceiver':
+            CallAnswered();
+            break;
+        case 'endCall':
+            CallHungUp();
+            break;
+    }
+});
+
 $('#screen-content').on('click', '.call-action-mutesound', function(e) {
     $.post(Config.ROOT_ADDRESS + '/ToggleHold', JSON.stringify({}), function(status) {
         if (status) {
@@ -110,7 +124,7 @@ function IsCallPending() {
     return callPending != null || activeCallTimer != null;
 }
 
-$('#screen-content').on('phone-call-open-app', function(data) {
+window.addEventListener('phone-call-open-app', function(data) {
     if (activeCallTimer != null || data == null) {
         CallAnswered();
         return;
@@ -184,7 +198,7 @@ $('#screen-content').on('phone-call-open-app', function(data) {
     }
 });
 
-$('#screen-content').on('phone-call-close-app', function() {
+window.addEventListener('phone-call-close-app', function() {
     if (activeCallTimer != null) {
         $('.phone-header').addClass('in-call');
         $('.phone-header .in-call').fadeIn();

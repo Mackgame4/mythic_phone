@@ -45,7 +45,7 @@ function ResetScan() {
     hasScanned = false;
 }
 
-$('#screen-content').on('tuner-open-app', function() {
+window.addEventListener('tuner-open-app', function() {
     if (!hasScanned) {
         $.post(Config.ROOT_ADDRESS + '/SetupTuner', JSON.stringify({}), 
         function(status) {
@@ -81,7 +81,7 @@ $('#screen-content').on('tuner-open-app', function() {
     }
 });
 
-$('#screen-content').on('tuner-close-app', function() {
+window.addEventListener('tuner-close-app', function() {
     clearTimeout(timer);
     $('.no-chip-error').hide();
     $('#tuner-home-screen').hide();

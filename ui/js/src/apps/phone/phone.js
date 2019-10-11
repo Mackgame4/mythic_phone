@@ -310,7 +310,7 @@ function CreateCall(number, nonStandard, receiver) {
     );
 }
 
-$('#screen-content').on('phone-open-app', function(data) {
+window.addEventListener('phone-open-app', function(data) {
     myNumber = Data.GetData('myData').phone;
     contacts = Data.GetData('contacts');
     history = Data.GetData('history');

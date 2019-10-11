@@ -3,11 +3,19 @@ import Data from '../data';
 
 var apps = null;
 
+window.addEventListener('message', function(event) {
+    switch (event.data.action) {
+        case 'updateUnread':
+            UpdateUnread(event.data.app, event.data.unread);
+            break;
+    }
+});
+
 $('.phone-screen').on('click', '#home-container .app-button', function(event) {
     App.OpenApp($(this).data('container'));
 });
 
-$('#screen-content').on('home-open-app', function() {
+window.addEventListener('home-open-app', function() {
     OpenApp();
 });
 

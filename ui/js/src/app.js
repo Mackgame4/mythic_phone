@@ -44,9 +44,6 @@ $(function() {
 
 window.addEventListener('message', function(event) {
     switch (event.data.action) {
-        case 'setup':
-            Data.SetupData(event.data.data);
-            break;
         case 'show':
             $('.wrapper').show('slide', { direction: 'down' }, 500);
 
@@ -69,28 +66,9 @@ window.addEventListener('message', function(event) {
                     false
                 );
             }
-
             break;
         case 'hide':
             ClosePhone();
-            break;
-        case 'logout':
-            Data.ClearData();
-            break;
-        case 'setmute':
-            Utils.SetMute(event.data.muted);
-            break;
-        case 'updateTime':
-            Utils.UpdateClock(event.data.time);
-            break;
-        case 'updateUnread':
-            Apps.Home.UpdateUnread(event.data.app, event.data.unread);
-            break;
-        case 'receiveText':
-            Apps.Messages.Convo.ReceiveText(
-                event.data.data.sender,
-                event.data.data.text
-            );
             break;
         case 'receiveCall':
             OpenApp(
@@ -98,18 +76,6 @@ window.addEventListener('message', function(event) {
                 { number: event.data.number, receiver: true },
                 false
             );
-            break;
-        case 'acceptCallSender':
-            Apps.Phone.Call.CallAnswered();
-            break;
-        case 'acceptCallReceiver':
-            Apps.Phone.Call.CallAnswered();
-            break;
-        case 'endCall':
-            Apps.Phone.Call.CallHungUp();
-            break;
-        case 'ReceiveNewTweet':
-            Apps.Twitter.ReceiveNewTweet(event.data.tweet);
             break;
     }
 });
@@ -176,8 +142,8 @@ $('.mute').on('click', function(e) {
 
 function ClosePhone() {
     $.post(Config.ROOT_ADDRESS + '/ClosePhone', JSON.stringify({}));
-    $('.wrapper').hide('slide', { direction: 'down' }, 500, function() {
-        CloseAppAction(appTrail[appTrail.length - 1].app);
+    $('.wrapper').hide('slide', { direction: 'down' }, 500, function() {  
+        $('#screen-content').trigger(`${appTrail[appTrail.length - 1].app}-close-app`);
         $('#toast-container').remove();
         $('.material-tooltip').remove();
         $('.app-container').hide();
@@ -195,7 +161,7 @@ function SetupApp(app, data, pop, disableFade, html) {
     $('#screen-content').html(html);
     InitShit();
 
-    CloseAppAction(appTrail[appTrail.length - 1].app);
+    window.dispatchEvent(new CustomEvent(`${appTrail[appTrail.length - 1].app}-close-app`));
     if (pop) {
         appTrail.pop();
         disableFade = null;
@@ -209,14 +175,13 @@ function SetupApp(app, data, pop, disableFade, html) {
     });
 
     $('.material-tooltip').remove();
-    OpenAppAction(app, data);
+    window.dispatchEvent(new CustomEvent(`${app}-open-app`, { data: data }));
 }
 
 function OpenApp(app, data = null, pop = false, disableFade = false) {
     if ($('#screen-content .app-container').length <= 0 || disableFade) {
-        console.log('what the fuck bro')
         $.ajax({
-            url: `../../html/apps/${app}.html`,
+            url: `./html/apps/${app}.html`,
             cache: false,
             dataType: "html",
             statusCode: {
@@ -234,7 +199,7 @@ function OpenApp(app, data = null, pop = false, disableFade = false) {
     } else {
         $('#screen-content').fadeOut('fast', function() {
             $.ajax({
-                url: `../../html/apps/${app}.html`,
+                url: `./html/apps/${app}.html`,
                 cache: false,
                 dataType: "html",
                 statusCode: {
@@ -255,22 +220,10 @@ function OpenApp(app, data = null, pop = false, disableFade = false) {
 
 function RefreshApp() {
     $('.material-tooltip').remove();
-    OpenAppAction(
-        appTrail[appTrail.length - 1].app,
-        appTrail[appTrail.length - 1].data
-    );
-}
-
-function OpenAppAction(app, data) {
-    $('#screen-content').trigger(`${app}-open-app`);
-}
-
-function CloseAppAction(app) {
-    $('#screen-content').trigger(`${app}-close-app`);
+    $('#screen-content').trigger(`${appTrail[appTrail.length - 1].app}-open-app`, [ appTrail[appTrail.length - 1].data ]);
 }
 
 function GoHome() {
-    console.log(appTrail[appTrail.length - 1].app)
     if (appTrail[appTrail.length - 1].app !== 'home') {
         OpenApp('home');
     }

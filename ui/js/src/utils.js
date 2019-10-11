@@ -1,5 +1,16 @@
 import Data from './data';
 
+window.addEventListener('message', function(event) {
+    switch (event.data.action) {
+        case 'setmute':
+            SetMute(event.data.muted);
+            break;
+        case 'updateTime':
+            UpdateClock(event.data.time);
+            break;
+    }
+});
+
 function DateSortNewest(a, b) {
     if (a.time != null) {
         return a.time < b.time ? 1 : -1;

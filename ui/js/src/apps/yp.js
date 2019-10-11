@@ -165,7 +165,7 @@ function DeleteAdvert(id) {
     }
 }
 
-$('#screen-content').on('yp-open-app', function() {
+window.addEventListener('yp-open-app', function() {
     let phone = Data.GetData('myData').phone;
     ads = Data.GetData('adverts');
 

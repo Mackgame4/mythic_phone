@@ -174,7 +174,7 @@ function ApplyTune(tune) {
     });
 }
 
-$('#screen-content').on('tuner-custom-open-app', function(tune) {
+window.addEventListener('tuner-custom-open-app', function(tune) {
     sliders = {
         boost: document.getElementById('slider-boost'),
         throttle: document.getElementById('slider-throttle'),
@@ -192,6 +192,6 @@ $('#screen-content').on('tuner-custom-open-app', function(tune) {
     $('#tuner-custom-container .inner-app').fadeIn();
 });
 
-$('#screen-content').on('tuner-custom-close-app', function() {
+window.addEventListener('tuner-custom-close-app', function() {
     $('#tuner-custom-container .inner-app').fadeOut();
 });
