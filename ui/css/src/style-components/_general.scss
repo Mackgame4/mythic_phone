@@ -4,6 +4,10 @@
     display: none;
 }
 
+#fuck-jquery {
+    display: none !important;
+}
+
 .wrapper {
     height: 100vh;
     width: 100vw;
@@ -184,7 +188,8 @@
                 }
 
                 #remove-sim-conf {
-                    top: 0 !important;
+                    position: absolute;
+                    right: 0 !important;
                 }
             }
 
@@ -234,6 +239,7 @@
 .modal {
     position: relative;
     /* top: 0; */
+    left: 0 !important;
     right: 100px;
     z-index: 1050;
     display: none;

@@ -5,9 +5,11 @@ Callbacks = nil
 actionCb = {}
 isPhoneOpen = false
 
+Death = nil
 Callbacks = nil
 AddEventHandler('mythic_base:shared:ComponentsReady', function()
   Callbacks = exports['mythic_base']:FetchComponent('Callbacks')
+  Death = exports['mythic_base']:FetchComponent('Death')
   
   Citizen.CreateThread(function()
 		while CharData == nil do
@@ -108,38 +110,37 @@ AddEventHandler('mythic_base:client:Logout', function()
 end)
 
 AddEventHandler('mythic_base:client:CharacterSpawned', function()
-  
+  isLoggedIn = true
 end)
-isLoggedIn = true
 
-  local counter = 0
-  Citizen.CreateThread(function()
-    while isLoggedIn do
-      if IsDisabledControlJustReleased(1, 170) then
-        TogglePhone()
-      end
-
-      if counter <= 0 then
-        local time = CalculateTimeToDisplay()
-        SendNUIMessage({
-          action = 'updateTime',
-          time = time.hour .. ':' .. time.minute
-        })
-        counter = 100
-      else
-        counter = counter - 1
-      end
-
-      Citizen.Wait(1)
+local counter = 0
+Citizen.CreateThread(function()
+  while true do
+    if IsDisabledControlJustReleased(1, 170) or IsControlJustReleased(1, 170) then
+      print("???")
+      TogglePhone()
     end
-  end)
+
+    if counter <= 0 then
+      local time = CalculateTimeToDisplay()
+      SendNUIMessage({
+        action = 'updateTime',
+        time = time.hour .. ':' .. time.minute
+      })
+      counter = 100
+    else
+      counter = counter - 1
+    end
+
+    Citizen.Wait(1)
+  end
+end)
 
 function TogglePhone()
   if not openingCd or isPhoneOpen then
     isPhoneOpen = not isPhoneOpen
     if isPhoneOpen == true then
       hasPhone(function(hasPhone)
-        print(hasPhone)
         if hasPhone then
           PhonePlayIn()
           SetNuiFocus(true, true)

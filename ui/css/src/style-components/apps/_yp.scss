@@ -1,7 +1,7 @@
-#ads-container {
+#yp-container {
     background: $background;
 
-    #ads-search {
+    #yp-search {
         
         input {
             height: 5%;
@@ -11,7 +11,7 @@
         }
     }
 
-    #ads-body {
+    #yp-body {
         height: 84.5%;
         overflow-y: auto;
         overflow-x: hidden;
@@ -94,7 +94,7 @@
         }
     }
 
-    #ads-controls {
+    #yp-controls {
         padding: 10px;
         text-align: center;
         background: $primary;

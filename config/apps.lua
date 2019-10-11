@@ -29,7 +29,7 @@ Config.Apps = {
         name = 'Bank',
         container = 'bank',
         icon = '<i class="fas fa-university"></i>',
-        color = '#b71c1c',
+        color = '#d7252a',
         unread = 0,
         enabled = true
     },

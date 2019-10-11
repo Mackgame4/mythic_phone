@@ -11,7 +11,7 @@ ui_page 'ui/index.html'
 files {
 	'ui/index.html',
 	'ui/css/*.min.css',
-	'ui/html/*.html',
+	'ui/html/apps/*.html',
     
     'ui/js/build.js',
 

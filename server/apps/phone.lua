@@ -34,6 +34,19 @@ AddEventHandler('mythic_base:server:CharacterSpawned', function()
     end)
 end)
 
+RegisterServerEvent('mythic_phone:server:ToggleHold')
+AddEventHandler('mythic_phone:server:ToggleHold', function(token, call)
+    local src = source
+    if not exports['salty_tokenizer']:secureServerEvent(GetCurrentResourceName(), src, token) then
+		return false
+    end
+
+    local char = exports['mythic_base']:FetchComponent('Fetch'):Source(src):GetData('character')
+    local cData = char:GetData()
+    local tPlayer = exports['mythic_base']:FetchComponent('Fetch'):Phone(Calls[call.number].number)
+    TriggerClientEvent('mythic_phone:client:OtherToggleHold', tPlayer:GetData('source'))
+end)
+
 RegisterServerEvent('mythic_phone:server:DeleteCallRecord')
 AddEventHandler('mythic_phone:server:DeleteCallRecord', function(token, identifier, id)
     local src = source

@@ -30,7 +30,7 @@ var Apps = [
         name: 'Bank',
         container: 'bank',
         icon: '<i class="fas fa-university"></i>',
-        color: '#b71c1c',
+        color: '#d7252a',
         unread: 0,
         enabled: true
     },
@@ -44,7 +44,7 @@ var Apps = [
     },
     {
         name: 'Yellow Pages',
-        container: 'ads',
+        container: 'yp',
         icon: '<i class="fas fa-ad"></i>',
         color: '#f9a825',
         unread: 0,

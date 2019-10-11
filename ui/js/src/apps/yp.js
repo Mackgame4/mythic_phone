@@ -7,7 +7,7 @@ import Phone from './phone/phone';
 
 var ads = null;
 
-$('#screen-content').on('keyup', '#ads-search input', function (e) {
+$('#screen-content').on('keyup', '#yp-search input', function (e) {
     e.preventDefault();
 
     let searchVal = $(this).val().toUpperCase();
@@ -17,7 +17,7 @@ $('#screen-content').on('keyup', '#ads-search input', function (e) {
             $(this)
                 .parent()
                 .parent()
-                .find('#ads-body')
+                .find('#yp-body')
                 .find('.yp-post'),
             function (index, advert) {
                 let data = $(advert).data('advert');
@@ -39,7 +39,7 @@ $('#screen-content').on('keyup', '#ads-search input', function (e) {
             $(this)
                 .parent()
                 .parent()
-                .find('#ads-body')
+                .find('#yp-body')
                 .children(),
             function (index, advert) {
                 $(advert).fadeIn();
@@ -48,7 +48,7 @@ $('#screen-content').on('keyup', '#ads-search input', function (e) {
     }
 });
 
-$('#screen-content').on('click', '#ads-body .yp-phone', function (e) {
+$('#screen-content').on('click', '#yp-body .yp-phone', function (e) {
     if ($(this).html() != Data.GetData('myData').phone) {
         App.OpenApp('phone', null, false);
         Phone.CreateCall($(this).html(), false, false);
@@ -57,8 +57,8 @@ $('#screen-content').on('click', '#ads-body .yp-phone', function (e) {
 
 $('#screen-content').on('click', '#delete-ad', function (e) {
     $.post(Config.ROOT_ADDRESS + '/DeleteAd', JSON.stringify({}), function() {
-        $('#ads-body').find('.yp-post-owned').fadeOut('normal', function () {
-            $('#ads-body').find('.yp-post-owned').remove();
+        $('#yp-body').find('.yp-post-owned').fadeOut('normal', function () {
+            $('#yp-body').find('.yp-post-owned').remove();
             Notif.Alert('Advertisement Deleted');
         });
         $('#delete-ad').fadeOut();
@@ -101,8 +101,8 @@ $('#screen-content').on('submit', '#new-advert', function (e) {
 
 function AddAdvert(advert) {
     if ($(`#advert-${advert.id}`).length < 1) {
-        $('#ads-body').prepend(`<div class="yp-post" id="advert-${advert.id}"><div class="yp-post-header"><span class="yp-author">${advert.author}</span><span class="yp-phone">${advert.phone}</span></div><div class="yp-post-body"><div class="yp-post-title">${advert.title}</div><div class="yp-post-message">${advert.message}</div></div><div class="yp-post-timestamp">${moment(advert.date).fromNowOrNow()}</div></div>`);
-        $('#ads-body .yp-post:first-child').data('advert', advert);
+        $('#yp-body').prepend(`<div class="yp-post" id="advert-${advert.id}"><div class="yp-post-header"><span class="yp-author">${advert.author}</span><span class="yp-phone">${advert.phone}</span></div><div class="yp-post-body"><div class="yp-post-title">${advert.title}</div><div class="yp-post-message">${advert.message}</div></div><div class="yp-post-timestamp">${moment(advert.date).fromNowOrNow()}</div></div>`);
+        $('#yp-body .yp-post:first-child').data('advert', advert);
         AddAdvertData(advert);
     } else {
         $(`#advert-${advert.id}`).find('.yp-post-title').html(advert.title);
@@ -150,11 +150,11 @@ function OpenApp() {
 
     ads.sort(Utils.DateSortOldest);
 
-    $('#ads-body').html('');
+    $('#yp-body').html('');
     $.each(ads, function (index, advert) {
         AddAdvert(advert);
         if (advert.phone == phone) {
-            $('#ads-body .yp-post:first-child').addClass('yp-post-owned');
+            $('#yp-body .yp-post:first-child').addClass('yp-post-owned');
             $('#delete-ad').show();
         }
     });

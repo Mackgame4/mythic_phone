@@ -10,33 +10,13 @@ var activeCallTimer = null;
 var activeCallDigits = new Object();
 
 $('#screen-content').on('click', '.call-action-mutesound', function(e) {
-    let muted = $(this).data('active');
-    if (muted) {
-        $(this).html(
-            `<i class="fas fa-volume-mute"></i><span>Mute Sound</span>`
-        );
-        $(this).data('active', false);
-    } else {
-        $(this).html(
-            `<i class="fas fa-volume-up"></i><span>Unmute Sound</span>`
-        );
-        $(this).data('active', true);
-    }
-});
-
-$('#screen-content').on('click', '.call-action-mutemic', function(e) {
-    let muted = $(this).data('active');
-    if (muted) {
-        $(this).html(
-            `<i class="fas fa-microphone-slash"></i><span>Mute Mic</span>`
-        );
-        $(this).data('active', false);
-    } else {
-        $(this).html(
-            `<i class="fas fa-microphone"></i><span>Unmute Mic</span>`
-        );
-        $(this).data('active', true);
-    }
+    $.post(Config.ROOT_ADDRESS + '/ToggleHold', JSON.stringify({}), function(status) {
+        if (status) {
+            $('.call-action-mutesound').html(`<i class="fas fa-volume-up"></i><span>Unmute</span>`);
+        } else {
+            $('.call-action-mutesound').html(`<i class="fas fa-volume-mute"></i><span>Mute</span>`);
+        }
+    });
 });
 
 $('#screen-content').on('click', '#end-call', function(e) {

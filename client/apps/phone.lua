@@ -134,6 +134,15 @@ AddEventHandler('mythic_phone:client:ReceiveCall', function(number)
     end)
 end)
 
+RegisterNetEvent('mythic_phone:client:OtherToggleHold')
+AddEventHandler('mythic_phone:client:OtherToggleHold', function(number)
+    print('received')
+    if Call.number ~= nil and Call.status ~= 0 then
+        print('changing')
+        Call.OtherHold = not Call.OtherHold
+    end
+end)
+
 RegisterNUICallback( 'CreateCall', function( data, cb )
     print(data.number)
     actionCb['CreateCall'] = cb
@@ -146,6 +155,26 @@ end)
 
 RegisterNUICallback( 'EndCall', function( data, cb )
     TriggerServerEvent('mythic_phone:server:EndCall', securityToken, Call)
+end)
+
+RegisterNUICallback( 'ToggleHold', function( data, cb )
+    if Call.number ~= nil and Call.number ~= 0 then
+        Call.Hold = not Call.Hold
+        TriggerServerEvent('mythic_phone:server:ToggleHold', securityToken, Call)
+        if Call.Hold then
+            exports['tokovoip_script']:removePlayerFromRadio(Call.channel)
+            if isPhoneOpen then
+                PhoneCallToText()
+            else
+                PhonePlayOut()
+            end
+        else
+            exports['tokovoip_script']:addPlayerToRadio(Call.channel, false)
+            PhonePlayCall(false)
+        end
+
+        cb(Call.Hold)
+    end
 end)
 
 RegisterNUICallback( 'DeleteCallRecord', function( data, cb )
@@ -163,7 +192,39 @@ AddEventHandler('mythic_base:client:CharacterSpawned', function()
 
     Citizen.CreateThread(function()
         while isLoggedIn do
-            if IsInCall() then
+            if IsInCall() and Call ~= nil and Call.status ~= 0 then
+                if IsControlJustReleased(1, 51) then
+                    Call.Hold = not Call.Hold
+                    TriggerServerEvent('mythic_phone:server:ToggleHold', securityToken, Call)
+                    if Call.Hold then
+                        exports['tokovoip_script']:removePlayerFromRadio(Call.channel)
+                        if isPhoneOpen then
+                            PhoneCallToText()
+                        else
+                            PhonePlayOut()
+                        end
+                    else
+                        exports['tokovoip_script']:addPlayerToRadio(Call.channel, false)
+                        PhonePlayCall(false)
+                    end
+                elseif IsControlJustReleased(1, 47) and not Call.Hold then
+                    TriggerServerEvent('mythic_phone:server:EndCall', securityToken, Call)
+                end
+    
+                if Death:IsDead() then
+                    TriggerServerEvent('mythic_phone:server:EndCall', securityToken, Call)
+                end
+    
+                Citizen.Wait(1)
+            else
+                Citizen.Wait(1000)
+            end
+        end
+    end)
+    
+    Citizen.CreateThread(function()
+        while isLoggedIn do
+            if IsInCall() and Call ~= nil and Call.status ~= 0 then
                 if not Call.OtherHold then
                     if not Call.Hold then
                         DrawUIText("~r~[E] ~s~Hold ~r~| [G] ~s~Hangup", 4, 1, 0.5, 0.85, 0.5, 255, 255, 255, 255)
@@ -177,20 +238,9 @@ AddEventHandler('mythic_base:client:CharacterSpawned', function()
                         DrawUIText("~r~[E] ~s~Resume ~r~| [G] ~s~Hangup ~r~| ~s~On Hold", 4, 1, 0.5, 0.85, 0.5, 255, 255, 255, 255)
                     end
                 end
-
-                if IsControlJustReleased(1, 51) then
-                    Call.Hold = not Call.Hold
-                elseif IsControlJustReleased(1, 47) then
-                    TriggerServerEvent('mythic_phone:server:EndCall', securityToken, Call)
-                end
-
-                if IsEntityDead(PlayerPedId()) then
-                    TriggerServerEvent('mythic_phone:server:EndCall', securityToken, Call)
-                end
-
                 Citizen.Wait(1)
             else
-                Citizen.Wait(250)
+                Citizen.Wait(1000)
             end
         end
     end)
